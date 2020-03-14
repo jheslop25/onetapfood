@@ -22,3 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/callAPI', 'instacartController@login');
+
+Route::post('/searchInstacart', 'instacartController@search');
+
+Route::post('/addAllToCart', 'instacartController@AddAllToCart');
