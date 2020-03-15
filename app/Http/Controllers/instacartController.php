@@ -10,6 +10,8 @@ class instacartController extends Controller
         $this->iCartEmail = $request->instacartEmail;
         $this->iCartPass = $request->instacartPassword;
         // import guzzle and create http request to instacart
+        var_dump($this->iCartEmail);
+        var_dump($this->iCartPass);
     }
 
     public function search(Request $request){
