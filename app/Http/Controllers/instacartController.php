@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 class instacartController extends Controller
 {
     public function login(Request $request){
-        $this->iCartEmail = $request->email;
-        $this->iCartPass = $request->password;
+        $this->iCartEmail = $request->instacartEmail;
+        $this->iCartPass = $request->instacartPassword;
         // import guzzle and create http request to instacart
     }
 
