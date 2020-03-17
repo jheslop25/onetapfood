@@ -8,19 +8,25 @@ use GuzzleHttp\Client;
 
 class instacartController extends Controller
 {
-    protected $baseURL = 'https://www.instacart.ca';
+    protected $baseURL = 'https://cat-fact.herokuapp.com';
 
     protected $cookieSessionName = "_instacart_session";
 
 
-    public function login(Request $request, $baseURL){
+    public function login(Request $request){
         $this->iCartEmail = $request->instacartEmail;
         $this->iCartPass = $request->instacartPassword;
 
         $client = new Client([
-            'base_uri' => $baseURL,
+            'base_uri' => $this->baseURL,
             'timeout' => 2.0
         ]);
+
+        $response = $client->request('GET', '/facts');
+
+        $body = $response->getBody();
+
+        echo $body;
 
         // import guzzle and create http request to instacart
         return view('development.interface');
