@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+//use GuzzleHttp\RequestOptions;
 
 
 class instacartController extends Controller
@@ -11,8 +12,11 @@ class instacartController extends Controller
 
     public function __construct()
     {
-        $this->baseURL = 'https://cat-fact.herokuapp.com';
+        $this->baseURL = 'https://www.instacart.ca';
         $this->cookieSessionName = "_instacart_session";
+        $this->iCartEmail = '';
+        $this->iCartPass = '';
+        $this->default_store = 'Real Canadian Super Store';
         $this->client = new Client([
             'base_uri' => $this->baseURL,
             'timeout' => 2.0
@@ -24,14 +28,12 @@ class instacartController extends Controller
         $this->iCartEmail = $request->instacartEmail;
         $this->iCartPass = $request->instacartPassword;
 
-        $response = $this->client->request('GET', '/facts');
+        $response = $this->client->request('GET', '/');
 
         $body = $response->getBody();
 
-        echo $body;
-
         // import guzzle and create http request to instacart
-        return view('development.interface');
+        return view('development.interface',['body' => $body]);
     }
 
     public function search(Request $request){

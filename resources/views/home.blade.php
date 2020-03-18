@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    <a href="/instacart">go to instacart login</a>
                     You are logged in!
                 </div>
             </div>
