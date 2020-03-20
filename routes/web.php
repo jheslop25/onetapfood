@@ -42,3 +42,5 @@ Route::post('/ingredients/search', 'ingredientsController@searchIngredients');
 Route::post('/ingredients/update', 'ingredientsController@updateIngredient');
 
 Route::post('/ingredients/destroy', 'ingredientsController@destroyIngredient');
+
+//Meal plan controller
