@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//instacart controller
+
 Route::get('/instacart', function () {
     return view('development.instacart');
 });
@@ -30,3 +32,13 @@ Route::post('/callAPI', 'instacartController@login');
 Route::post('/searchInstacart', 'instacartController@search');
 
 Route::post('/addAllToCart', 'instacartController@AddAllToCart');
+
+//ingredients controller
+
+Route::post('/ingredients/all', 'ingredientsController@getAllIngredients');
+
+Route::post('/ingredients/search', 'ingredientsController@searchIngredients');
+
+Route::post('/ingredients/update', 'ingredientsController@updateIngredient');
+
+Route::post('/ingredients/destroy', 'ingredientsController@destroyIngredient');
