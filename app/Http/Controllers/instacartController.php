@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 //use GuzzleHttp\RequestOptions;
 
 
@@ -12,15 +12,12 @@ class instacartController extends Controller
 
     public function __construct()
     {
-        $this->baseURL = 'https://www.instacart.ca';
+        $this->baseURL = 'https://www.instacart.com';
         $this->cookieSessionName = "_instacart_session";
         $this->iCartEmail = '';
         $this->iCartPass = '';
         $this->default_store = 'Real Canadian Super Store';
-        $this->client = new Client([
-            'base_uri' => $this->baseURL,
-            'timeout' => 2.0
-        ]);
+
     }
 
 
@@ -28,12 +25,17 @@ class instacartController extends Controller
         $this->iCartEmail = $request->instacartEmail;
         $this->iCartPass = $request->instacartPassword;
 
-        $response = $this->client->request('GET', '/');
+        $client = Http::post($this->baseURL . '/accounts/login', [
+            'user' => [
+                'email' => $this->iCartEmail,
+                'password' => $this->iCartPass
+            ]
+        ]);
 
-        $body = $response->getBody();
+        //$body = $response->getBody();
 
         // import guzzle and create http request to instacart
-        return view('development.interface',['body' => $body]);
+        return view('development.interface',['body' => $client->status()]);
     }
 
     public function search(Request $request){
