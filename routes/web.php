@@ -50,3 +50,12 @@ Route::get('/meal-plan', 'mealPlanController@getAllMeals');
 Route::post('/meal-plan/make', 'mealPlanController@storeMealPlan');
 
 Route::post('/meal-plan/update', 'mealPlanController@updateMealPlan');
+
+
+// family controller
+
+Route::post('/family/create', 'familyController@createFamily');
+
+Route::post('/family/update', 'familyController@updateFamily');
+
+Route::post('/family/destroy', 'familyController@destroyFamily');
