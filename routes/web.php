@@ -33,6 +33,10 @@ Route::post('/searchInstacart', 'instacartController@search');
 
 Route::post('/addAllToCart', 'instacartController@AddAllToCart');
 
+Route::post('/instacart/address', 'instacartController@setAddress');
+
+Route::post('/instacart/checkout', 'instacartController@checkout');
+
 //ingredients controller
 
 Route::post('/ingredients/all', 'ingredientsController@getAllIngredients');

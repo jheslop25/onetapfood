@@ -45,5 +45,13 @@ class instacartController extends Controller
     public function AddAllToCart(Request $request){
         //add all ingredients to cart
     }
+
+    public function setAddress(){
+        // a function to set delivery address
+    }
+
+    public function checkout(){
+        // a function to process order
+    }
 }
 
