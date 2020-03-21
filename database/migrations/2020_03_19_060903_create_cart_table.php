@@ -14,7 +14,10 @@ class CreateCartTable extends Migration
     public function up()
     {
         Schema::create('cart', function (Blueprint $table) {
-            $table->id();
+            $table->id()->unique();
+            $table->string('ingredient_name');
+            $table->integer('quantity');
+            $table->string('unit');
             $table->timestamps();
         });
     }

@@ -15,6 +15,10 @@ class CreateFamilyTable extends Migration
     {
         Schema::create('family', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
+            $table->string('member_age_group');
+            $table->string('member_diet');
+            $table->string('member_pref');
             $table->timestamps();
         });
     }
