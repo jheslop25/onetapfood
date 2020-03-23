@@ -27,14 +27,13 @@ class instacartController extends Controller
 
         $client = Http::post($this->baseURL . '/accounts/login', [
             'user' => [
-                'email' => $this->iCartEmail,
-                'password' => $this->iCartPass
+                'email' => $request->instacartEmail,
+                'password' => $request->instacartPassword
             ]
         ]);
-
-        //$body = $response->getBody();
-
-        // import guzzle and create http request to instacart
+        var_dump($request->instacartPassword);
+        var_dump($request->instacartEmail);
+        var_dump($client->headers());
         return view('development.interface',['body' => $client->status()]);
     }
 
