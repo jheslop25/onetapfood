@@ -15,6 +15,7 @@ class CreateStoreOrdersTable extends Migration
     {
         Schema::create('store_orders', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
             $table->timestamps();
         });
     }
