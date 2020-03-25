@@ -41,6 +41,8 @@ Route::post('/instacart/checkout', 'instacartController@checkout');
 
 Route::post('/ingredients/all', 'ingredientsController@getAllIngredients');
 
+Route::post('/ingredients/create', 'ingredientsController@createIngredient');
+
 Route::post('/ingredients/search', 'ingredientsController@searchIngredients');
 
 Route::post('/ingredients/update', 'ingredientsController@updateIngredient');
