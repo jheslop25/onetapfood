@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Meal extends Model
 {
+    protected $table = 'meals';
+
     public function User(){
         return $this->belongsTo('App\User');
     }
