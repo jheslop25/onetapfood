@@ -15,6 +15,7 @@ class CreateIngredientsTable extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
             $table->string('ingredient_name');
             $table->string('unit');
             $table->integer('quantity');
