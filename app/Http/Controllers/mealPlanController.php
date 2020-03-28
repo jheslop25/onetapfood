@@ -11,7 +11,7 @@ class mealPlanController extends Controller
         // a function that returns the whole meal plan stored in the DB
         // if no current record then return a json object that prompts the client to create one
         if (Auth::check()) {
-            $params = json_decode($request);
+            $params = $request->post;
             $mealObj = new \App\Meal();
             $date = 'todays date fix later';
             $meals = $mealObj->where('user_id', Auth::user()->id)->where('created_at', $date)->get();
@@ -27,7 +27,7 @@ class mealPlanController extends Controller
     {
         // a function that stores a meal plan in the DB. we'll build the meal plan with js on client.
         if (Auth::check()) {
-            $mealPlan = json_decode($request);
+            $mealPlan = $request->post;
             foreach ($mealPlan as $meal) {
                 $record = new \App\Meal();
                 $record->user_id = Auth::user()->id;
@@ -47,7 +47,7 @@ class mealPlanController extends Controller
     {
         // a function that updates a meal plan record typically to add or remove a meal.
         if (Auth::check()) {
-            $params = json_decode($request);
+            $params = $request->post;
             $meal = \App\Meal::find($params['id']);
             $meal->user_id = Auth::user()->id;
             $meal->title = $meal['title'];

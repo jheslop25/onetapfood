@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 
 class ingredientsController extends Controller
 {
-    public function getAllIngredients()
+    public function getAllIngredients(Request $request)
     {
         // a function that returns a list of all ingredients in storage for the logged in user
         if (Auth::check()) {
+            $params = $request->post;
             $ingredients = new \App\Ingredient();
             $storage = $ingredients->where('user_id', Auth::user()->id)->get();
             return response()->json($storage);
@@ -19,7 +20,7 @@ class ingredientsController extends Controller
     public function createIngredient(Request $request)
     {
         if (Auth::check()) {
-            $params = json_decode($request);
+            $params = $request->post;
             $ingredient = new \App\Ingredient();
             //insert variables into ingredient model here
             $ingredient->user_id = Auth::user()->id;
@@ -37,7 +38,7 @@ class ingredientsController extends Controller
     {
         // a function that taks in a query and finds an ingredient record from the DB
         if(Auth::check()){
-            $id = $request->id; // may need to change this to json_decode()
+            $id = $request->post['id']; // may need to change this to json_decode()
             $ingredient = \App\Ingredient::find($id);
             return response()->json(['ingredient' => $ingredient]);
         }
@@ -47,7 +48,7 @@ class ingredientsController extends Controller
     {
         // a function to update an ingredient record meant for updating storage amounts etc
         if(Auth::check()){
-            $params = json_decode($request);
+            $params = $request->post;
             $id = $params['id'];
             $ingredient = \App\Ingredient::find($id);
             //update values
@@ -66,7 +67,7 @@ class ingredientsController extends Controller
     {
         //remove an ingredient from the storage records
         if(Auth::check()){
-            $id = $request->id;
+            $id = $request->post['id'];
             $ingredient = \App\Ingredient::find($id);
             $ingredient->delete();
             $msg = 200;
