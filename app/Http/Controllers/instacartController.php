@@ -8,7 +8,7 @@ use GuzzleHttp\Cookie\SetCookie as CookieParser;
 //use GuzzleHttp\RequestOptions;
 
 function parse_cookies($header) {
-
+// source https://gist.github.com/pokeb/10590
 	$cookies = array();
 
 	$cookie = new cookie();
@@ -41,6 +41,7 @@ function parse_cookies($header) {
 }
 
 class cookie {
+    // source https://gist.github.com/pokeb/10590
 	public $name = "";
 	public $value = "";
 	public $expires = "";
