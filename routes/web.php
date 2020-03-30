@@ -65,3 +65,20 @@ Route::post('/family/create', 'familyController@createFamily');
 Route::post('/family/update', 'familyController@updateFamily');
 
 Route::post('/family/destroy', 'familyController@destroyFamily');
+
+// cart controller
+
+Route::post('/cart/add', 'cartController@addList');
+
+Route::post('/cart/get', 'cartController@getCart');
+
+Route::post('/cart/empty', 'cartController@emptyCart');
+
+// family controller
+
+Route::post('/family/create', 'familyController@create');
+
+Route::post('/family/update', 'familyController@update');
+
+Route::post('/family/destroy', 'familyController@destroy');
+
