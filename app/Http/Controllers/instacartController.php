@@ -100,22 +100,27 @@ class instacartController extends Controller
         $cookies = parse_cookies($client->header('set-cookie'));
         var_dump($cookies[4]->value);
         $instaSession = $cookies;
-        return view('development.interface',['body' => '$instaSession']);
+        return response()->json(['cookie' => $cookies[4]->value]);
     }
 
     public function search(Request $request){
-        //search API based on request
+        $cookie = $request->cookie;
+        $client = Http::put($this->baseURL . 'insert path here', [
+            //insert query terms here
+        ]);
+        $result = $client->body();
+        return response()->json();
     }
 
     public function AddAllToCart(Request $request){
         //add all ingredients to cart
     }
 
-    public function setAddress(){
+    public function setAddress(Request $request){
         // a function to set delivery address
     }
 
-    public function checkout(){
+    public function checkout(Request $request){
         // a function to process order
     }
 }
