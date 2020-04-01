@@ -1961,6 +1961,8 @@ __webpack_require__.r(__webpack_exports__);
           1: this.inputOne,
           2: this.inputTwo
         }
+      }).then(function (result) {
+        console.log(result.data);
       });
     }
   }
