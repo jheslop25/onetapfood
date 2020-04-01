@@ -18,7 +18,7 @@ const store = new Vuex.Store({
 });
 
 
-Vue.component('app', require('./components/ExampleComponent.vue').default);
+Vue.component('app', require('./components/App.vue').default);
 
 
 

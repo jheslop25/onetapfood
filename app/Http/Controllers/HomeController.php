@@ -26,12 +26,10 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function login(){
-        // return login view
-    }
-
     public function mainApp(){
         //return the main vue app
     }
-
+    public function devInt(){
+        return view('development.interface');
+    }
 }
