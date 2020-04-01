@@ -37,4 +37,8 @@ class HomeController extends Controller
         $msg = 'this test worked';
         return response()->json(['message'=>$msg]);
     }
+
+    public function post(Request $request){
+        return response()->json(['input' => $request->input]);
+    }
 }

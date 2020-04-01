@@ -21,6 +21,8 @@ Route::get('/dev', 'HomeController@devInt');
 
 Route::get('/test', 'HomeController@test');
 
+Route::post('/test/post', 'HomeController@post');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
