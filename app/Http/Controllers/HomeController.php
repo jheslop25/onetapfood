@@ -32,4 +32,9 @@ class HomeController extends Controller
     public function devInt(){
         return view('development.interface');
     }
+
+    public function test(){
+        $msg = 'this test worked';
+        return response()->json(['message'=>$msg]);
+    }
 }

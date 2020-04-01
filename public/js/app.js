@@ -1935,8 +1935,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -1944,6 +1942,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     sendTest: function sendTest() {
       console.log('you clicked the test button');
+      axios.get('/test').then(function (result) {
+        console.log(result.data);
+      })["catch"](function (err) {});
     }
   }
 });
@@ -39702,11 +39703,9 @@ var render = function() {
       _c(
         "v-content",
         [
-          _c("v-spacer"),
-          _vm._v(" "),
           _c(
             "v-card",
-            { attrs: { dark: "", "max-width": "500" } },
+            { attrs: { dark: "", "max-width": "400" } },
             [
               _c("v-card-title", [_vm._v("Welcome to OneTapFood.ca")]),
               _vm._v(" "),
@@ -39727,9 +39726,7 @@ var render = function() {
               )
             ],
             1
-          ),
-          _vm._v(" "),
-          _c("v-spacer")
+          )
         ],
         1
       ),

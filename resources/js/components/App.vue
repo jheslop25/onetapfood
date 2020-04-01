@@ -7,8 +7,7 @@
         </v-app-bar>
         <v-content>
             <!-- content of the app here -->
-            <v-spacer/>
-            <v-card dark max-width="500">
+            <v-card dark max-width="400">
                 <v-card-title>Welcome to OneTapFood.ca</v-card-title>
                 <v-card-text>
                    this is a test interface so that we can test all api end points
@@ -17,7 +16,6 @@
                 <v-text-field>some other text</v-text-field>
                 <v-btn @click="sendTest" color="primary">Test Feature</v-btn>
             </v-card>
-            <v-spacer/>
         </v-content>
         <v-footer color="primary" app>
             <!-- footer here -->
@@ -35,6 +33,11 @@
         methods: {
             sendTest: function(){
                 console.log('you clicked the test button');
+                axios.get('/test').then((result) => {
+                    console.log(result.data);
+                }).catch((err) => {
+
+                });
             }
         }
     }
