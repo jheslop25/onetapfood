@@ -98,8 +98,6 @@ class instacartController extends Controller
             ]
         ]);
         $cookies = parse_cookies($client->header('set-cookie'));
-        var_dump($cookies[4]->value);
-        $instaSession = $cookies;
         return response()->json(['cookie' => $cookies[4]->value]);
     }
 

@@ -1968,9 +1968,9 @@ __webpack_require__.r(__webpack_exports__);
       console.log("you are about to send a post. good luck");
       axios.post(this.inputSeven, {
         input: {
-          ageGroup: this.inputOne,
-          diet: this.inputTwo,
-          pref: this.inputThree,
+          email: this.inputOne,
+          password: this.inputTwo,
+          query: this.inputThree,
           photo: this.inputFour,
           type: this.inputFive,
           date: this.inputSix,
@@ -39755,7 +39755,7 @@ var render = function() {
                 "v-form",
                 [
                   _c("v-text-field", {
-                    attrs: { label: "age group" },
+                    attrs: { label: "email" },
                     model: {
                       value: _vm.inputOne,
                       callback: function($$v) {
@@ -39766,7 +39766,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("v-text-field", {
-                    attrs: { label: "diet" },
+                    attrs: { label: "password" },
                     model: {
                       value: _vm.inputTwo,
                       callback: function($$v) {
@@ -39777,7 +39777,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("v-text-field", {
-                    attrs: { label: "pref" },
+                    attrs: { label: "query" },
                     model: {
                       value: _vm.inputThree,
                       callback: function($$v) {

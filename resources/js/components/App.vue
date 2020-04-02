@@ -11,9 +11,9 @@
         <v-card-title>Welcome to OneTapFood.ca</v-card-title>
         <v-card-text>this is a test interface so that we can test all api end points</v-card-text>
         <v-form>
-          <v-text-field v-model="inputOne" label="age group"></v-text-field>
-          <v-text-field v-model="inputTwo" label="diet"></v-text-field>
-          <v-text-field v-model="inputThree" label="pref"></v-text-field>
+          <v-text-field v-model="inputOne" label="email"></v-text-field>
+          <v-text-field v-model="inputTwo" label="password"></v-text-field>
+          <v-text-field v-model="inputThree" label="query"></v-text-field>
           <v-text-field v-model="inputFour" label="photo"></v-text-field>
           <v-text-field v-model="inputFive" label="type"></v-text-field>
           <v-text-field v-model="inputSix" label="date"></v-text-field>
@@ -63,9 +63,9 @@ export default {
       axios
         .post(this.inputSeven, {
           input: {
-            ageGroup: this.inputOne,
-            diet: this.inputTwo,
-            pref: this.inputThree,
+            email: this.inputOne,
+            password: this.inputTwo,
+            query: this.inputThree,
             photo: this.inputFour,
             type: this.inputFive,
             date: this.inputSix,
