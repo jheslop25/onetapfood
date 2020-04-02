@@ -9,26 +9,22 @@ class ingredientsController extends Controller
     public function getAllIngredients(Request $request)
     {
         // a function that returns a list of all ingredients in storage for the logged in user
-            //$params = $request->input;
             $storage = \App\Ingredient::where('user_id', $request->user()->id)->get();
             return response()->json($storage);
     }
 
     public function createIngredient(Request $request)
     {
-        if (Auth::check()) {
-            $params = $request->post;
+            $params = $request->input;
             $ingredient = new \App\Ingredient();
             //insert variables into ingredient model here
-            $ingredient->user_id = Auth::user()->id;
+            $ingredient->user_id = $request->user()->id;
             $ingredient->ingredient_name = $params['name'];
             $ingredient->unit = $params['unit'];
             $ingredient->quantity = $params['quantity'];
             $ingredient->photo_URL = $params['photo'];
             $ingredient->save();
-            $msg = 200;
-            return response()->json(['status' => $msg]);
-        }
+            return response()->json(['status' => $params], 200);
     }
 
     public function searchIngredients(Request $request)
