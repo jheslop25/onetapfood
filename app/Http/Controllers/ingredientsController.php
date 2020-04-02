@@ -44,20 +44,20 @@ class ingredientsController extends Controller
     public function updateIngredient(Request $request)
     {
         // a function to update an ingredient record meant for updating storage amounts etc
-        if(Auth::check()){
-            $params = $request->post;
+        // if(Auth::check()){
+            $params = $request->input;
             $id = $params['id'];
             $ingredient = \App\Ingredient::find($id);
             //update values
-            $ingredient->user_id = Auth::user()->id;
+            $ingredient->user_id = $request->user()->id;
             $ingredient->ingredient_name = $params['name'];
             $ingredient->unit = $params['unit'];
             $ingredient->quantity = $params['quantity'];
             $ingredient->photo_URL = $params['photo'];
             $ingredient->save();
             $msg = 200;
-            return response()->json(['status' => $msg]);
-        }
+            return response()->json(['status' => $params], 200);
+        // }
     }
 
     public function destroyIngredient(Request $request)
