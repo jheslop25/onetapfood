@@ -59,7 +59,7 @@ Route::post('/ingredients/destroy', 'ingredientsController@destroyIngredient');
 
 //Meal plan controller
 
-Route::get('/meal-plan', 'mealPlanController@getAllMeals');
+Route::post('/meal-plan', 'mealPlanController@getAllMeals');
 
 Route::post('/meal-plan/make', 'mealPlanController@storeMealPlan');
 
