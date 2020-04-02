@@ -33,6 +33,8 @@ class familyController extends Controller
 
     public function destroy(Request $request){
         // a sinister function to destroy a family record
+        Family::find($request->input['id'])->delete();
+        return response()->json(['msg'=> 'member destroyed'], 200);
     }
 
     public function get(Request $request){
