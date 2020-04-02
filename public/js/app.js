@@ -1940,6 +1940,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log("Component mounted.");
@@ -1952,7 +1953,8 @@ __webpack_require__.r(__webpack_exports__);
       inputFour: "",
       inputFive: "",
       inputSix: "",
-      inputSeven: ""
+      inputSeven: "",
+      inputEight: ''
     };
   },
   methods: {
@@ -1971,7 +1973,8 @@ __webpack_require__.r(__webpack_exports__);
           instructions: this.inputThree,
           photo: this.inputFour,
           type: this.inputFive,
-          date: this.inputSix
+          date: this.inputSix,
+          id: this.inputEight
         }
       }).then(function (result) {
         console.log(result.data);
@@ -39825,6 +39828,17 @@ var render = function() {
                         _vm.inputSeven = $$v
                       },
                       expression: "inputSeven"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: { label: "id" },
+                    model: {
+                      value: _vm.inputEight,
+                      callback: function($$v) {
+                        _vm.inputEight = $$v
+                      },
+                      expression: "inputEight"
                     }
                   }),
                   _vm._v(" "),

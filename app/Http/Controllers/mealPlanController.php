@@ -38,18 +38,18 @@ class mealPlanController extends Controller
     public function updateMealPlan(Request $request)
     {
         // a function that updates a meal plan record typically to add or remove a meal.
-        if (Auth::check()) {
-            $params = $request->post;
+
+            $params = $request->input;
             $meal = \App\Meal::find($params['id']);
-            $meal->user_id = Auth::user()->id;
-            $meal->title = $meal['title'];
-            $meal->ingredients_array = $meal['ingredients'];
-            $meal->instructions = $meal['instructions'];
-            $meal->photo_URL = $meal['photo'];
-            $meal->type = $meal['type'];
-            $meal->sched_date = $meal['date'];
+            $meal->user_id = $request->user()->id;
+            $meal->title = $params['title'];
+            $meal->ingredients_array = $params['ingredients'];
+            $meal->instructions = $params['instructions'];
+            $meal->photo_URL = $params['photo'];
+            $meal->type = $params['type'];
+            $meal->sched_date = $params['date'];
             $meal->save();
-            return response()->json(['status' => '200']);
-        }
+            return response()->json(['msg' => $params], 200);
+
     }
 }

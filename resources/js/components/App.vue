@@ -18,6 +18,7 @@
           <v-text-field v-model="inputFive" label="type"></v-text-field>
           <v-text-field v-model="inputSix" label="date"></v-text-field>
           <v-text-field v-model="inputSeven" label="endpoint"></v-text-field>
+          <v-text-field v-model="inputEight" label="id"></v-text-field>
           <v-btn @click="sendTestPost" color="primary">Test Feature</v-btn>
         </v-form>
       </v-card>
@@ -43,7 +44,8 @@ export default {
       inputFour: "",
       inputFive: "",
       inputSix: "",
-      inputSeven: ""
+      inputSeven: "",
+      inputEight: ''
     };
   },
   methods: {
@@ -66,7 +68,8 @@ export default {
             instructions: this.inputThree,
             photo: this.inputFour,
             type: this.inputFive,
-            date: this.inputSix
+            date: this.inputSix,
+            id: this.inputEight
           }
         })
         .then(result => {
