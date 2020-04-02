@@ -1940,37 +1940,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log('Component mounted.');
+    console.log("Component mounted.");
   },
   data: function data() {
     return {
-      inputOne: '',
-      inputTwo: '',
-      inputThree: '',
-      inputFour: '',
-      inputFive: '',
-      inputSix: ''
+      inputOne: "",
+      inputTwo: "",
+      inputThree: "",
+      inputFour: "",
+      inputFive: "",
+      inputSix: "",
+      inputSeven: ""
     };
   },
   methods: {
     sendTest: function sendTest() {
-      console.log('you clicked the test button');
-      axios.get('/test').then(function (result) {
+      console.log("you clicked the test button");
+      axios.get("/test").then(function (result) {
         console.log(result.data);
       })["catch"](function (err) {});
     },
     sendTestPost: function sendTestPost() {
-      console.log('you are about to send a post. good luck');
-      axios.post(this.inputSix, {
+      console.log("you are about to send a post. good luck");
+      axios.post(this.inputSeven, {
         input: {
-          name: this.inputOne,
-          unit: this.inputTwo,
-          quantity: this.inputThree,
+          title: this.inputOne,
+          ingredients: this.inputTwo,
+          instructions: this.inputThree,
           photo: this.inputFour,
-          id: this.inputFive
+          type: this.inputFive,
+          date: this.inputSix
         }
       }).then(function (result) {
         console.log(result.data);
@@ -39743,7 +39744,7 @@ var render = function() {
               _vm._v(" "),
               _c("v-card-text", [
                 _vm._v(
-                  "\n               this is a test interface so that we can test all api end points\n            "
+                  "this is a test interface so that we can test all api end points"
                 )
               ]),
               _vm._v(" "),
@@ -39751,7 +39752,7 @@ var render = function() {
                 "v-form",
                 [
                   _c("v-text-field", {
-                    attrs: { label: "name" },
+                    attrs: { label: "title" },
                     model: {
                       value: _vm.inputOne,
                       callback: function($$v) {
@@ -39762,7 +39763,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("v-text-field", {
-                    attrs: { label: "unit" },
+                    attrs: { label: "ingred" },
                     model: {
                       value: _vm.inputTwo,
                       callback: function($$v) {
@@ -39773,7 +39774,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("v-text-field", {
-                    attrs: { label: "quant" },
+                    attrs: { label: "instruct" },
                     model: {
                       value: _vm.inputThree,
                       callback: function($$v) {
@@ -39795,7 +39796,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("v-text-field", {
-                    attrs: { label: "id" },
+                    attrs: { label: "type" },
                     model: {
                       value: _vm.inputFive,
                       callback: function($$v) {
@@ -39806,13 +39807,24 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("v-text-field", {
-                    attrs: { label: "endpoint" },
+                    attrs: { label: "date" },
                     model: {
                       value: _vm.inputSix,
                       callback: function($$v) {
                         _vm.inputSix = $$v
                       },
                       expression: "inputSix"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: { label: "endpoint" },
+                    model: {
+                      value: _vm.inputSeven,
+                      callback: function($$v) {
+                        _vm.inputSeven = $$v
+                      },
+                      expression: "inputSeven"
                     }
                   }),
                   _vm._v(" "),
