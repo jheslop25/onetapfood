@@ -63,12 +63,11 @@ class ingredientsController extends Controller
     public function destroyIngredient(Request $request)
     {
         //remove an ingredient from the storage records
-        if(Auth::check()){
-            $id = $request->post['id'];
+        //if(Auth::check()){
+            $id = $request->input['id'];
             $ingredient = \App\Ingredient::find($id);
             $ingredient->delete();
-            $msg = 200;
-            return response()->json(['status' => $msg]);
-        }
+            return response()->json(['status' => 'deletion worked'], 200);
+        //}
     }
 }
