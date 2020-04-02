@@ -1937,6 +1937,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -1944,7 +1948,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       inputOne: '',
-      inputTwo: ''
+      inputTwo: '',
+      inputThree: '',
+      inputFour: '',
+      inputFive: '',
+      inputSix: ''
     };
   },
   methods: {
@@ -1956,10 +1964,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     sendTestPost: function sendTestPost() {
       console.log('you are about to send a post. good luck');
-      axios.post('/test/post', {
+      axios.post(this.inputSix, {
         input: {
-          1: this.inputOne,
-          2: this.inputTwo
+          name: this.inputOne,
+          unit: this.inputTwo,
+          quantity: this.inputThree,
+          photo: this.inputFour
         }
       }).then(function (result) {
         console.log(result.data);
@@ -39756,6 +39766,50 @@ var render = function() {
                         _vm.inputTwo = $$v
                       },
                       expression: "inputTwo"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: { label: "inputOne" },
+                    model: {
+                      value: _vm.inputThree,
+                      callback: function($$v) {
+                        _vm.inputThree = $$v
+                      },
+                      expression: "inputThree"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: { label: "inputTwo" },
+                    model: {
+                      value: _vm.inputFour,
+                      callback: function($$v) {
+                        _vm.inputFour = $$v
+                      },
+                      expression: "inputFour"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: { label: "inputOne" },
+                    model: {
+                      value: _vm.inputFive,
+                      callback: function($$v) {
+                        _vm.inputFive = $$v
+                      },
+                      expression: "inputFive"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: { label: "inputTwo" },
+                    model: {
+                      value: _vm.inputSix,
+                      callback: function($$v) {
+                        _vm.inputSix = $$v
+                      },
+                      expression: "inputSix"
                     }
                   }),
                   _vm._v(" "),
@@ -93830,8 +93884,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /projects/onetapfood/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /projects/onetapfood/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /projects/OTF/onetapfood/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /projects/OTF/onetapfood/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

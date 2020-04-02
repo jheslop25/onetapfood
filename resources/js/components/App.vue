@@ -15,6 +15,10 @@
                 <v-form>
                     <v-text-field v-model="inputOne" label="inputOne"></v-text-field>
                     <v-text-field v-model="inputTwo" label="inputTwo"></v-text-field>
+                    <v-text-field v-model="inputThree" label="inputOne"></v-text-field>
+                    <v-text-field v-model="inputFour" label="inputTwo"></v-text-field>
+                    <v-text-field v-model="inputFive" label="inputOne"></v-text-field>
+                    <v-text-field v-model="inputSix" label="inputTwo"></v-text-field>
                     <v-btn @click="sendTestPost" color="primary">Test Feature</v-btn>
                 </v-form>
             </v-card>
@@ -35,7 +39,11 @@
         data(){
             return {
                 inputOne: '',
-                inputTwo: ''
+                inputTwo: '',
+                inputThree: '',
+                inputFour: '',
+                inputFive: '',
+                inputSix: ''
             }
         },
         methods: {
@@ -49,11 +57,12 @@
             },
             sendTestPost: function(){
                 console.log('you are about to send a post. good luck');
-                axios.post('/test/post', {
+                axios.post( this.inputSix, {
                     input: {
-                        1: this.inputOne,
-                        2: this.inputTwo
-
+                        name: this.inputOne,
+                        unit: this.inputTwo,
+                        quantity: this.inputThree,
+                        photo: this.inputFour
                     }
                 }).then((result) =>{
                     console.log(result.data);
