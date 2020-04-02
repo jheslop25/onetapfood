@@ -1969,7 +1969,8 @@ __webpack_require__.r(__webpack_exports__);
           name: this.inputOne,
           unit: this.inputTwo,
           quantity: this.inputThree,
-          photo: this.inputFour
+          photo: this.inputFour,
+          id: this.inputFive
         }
       }).then(function (result) {
         console.log(result.data);
@@ -39750,7 +39751,7 @@ var render = function() {
                 "v-form",
                 [
                   _c("v-text-field", {
-                    attrs: { label: "inputOne" },
+                    attrs: { label: "name" },
                     model: {
                       value: _vm.inputOne,
                       callback: function($$v) {
@@ -39761,7 +39762,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("v-text-field", {
-                    attrs: { label: "inputTwo" },
+                    attrs: { label: "unit" },
                     model: {
                       value: _vm.inputTwo,
                       callback: function($$v) {
@@ -39772,7 +39773,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("v-text-field", {
-                    attrs: { label: "inputOne" },
+                    attrs: { label: "quant" },
                     model: {
                       value: _vm.inputThree,
                       callback: function($$v) {
@@ -39783,7 +39784,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("v-text-field", {
-                    attrs: { label: "inputTwo" },
+                    attrs: { label: "photo" },
                     model: {
                       value: _vm.inputFour,
                       callback: function($$v) {
@@ -39794,7 +39795,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("v-text-field", {
-                    attrs: { label: "inputOne" },
+                    attrs: { label: "id" },
                     model: {
                       value: _vm.inputFive,
                       callback: function($$v) {
@@ -39805,7 +39806,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("v-text-field", {
-                    attrs: { label: "inputTwo" },
+                    attrs: { label: "endpoint" },
                     model: {
                       value: _vm.inputSix,
                       callback: function($$v) {

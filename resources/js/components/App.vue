@@ -13,12 +13,12 @@
                    this is a test interface so that we can test all api end points
                 </v-card-text>
                 <v-form>
-                    <v-text-field v-model="inputOne" label="inputOne"></v-text-field>
-                    <v-text-field v-model="inputTwo" label="inputTwo"></v-text-field>
-                    <v-text-field v-model="inputThree" label="inputOne"></v-text-field>
-                    <v-text-field v-model="inputFour" label="inputTwo"></v-text-field>
-                    <v-text-field v-model="inputFive" label="inputOne"></v-text-field>
-                    <v-text-field v-model="inputSix" label="inputTwo"></v-text-field>
+                    <v-text-field v-model="inputOne" label="name"></v-text-field>
+                    <v-text-field v-model="inputTwo" label="unit"></v-text-field>
+                    <v-text-field v-model="inputThree" label="quant"></v-text-field>
+                    <v-text-field v-model="inputFour" label="photo"></v-text-field>
+                    <v-text-field v-model="inputFive" label="id"></v-text-field>
+                    <v-text-field v-model="inputSix" label="endpoint"></v-text-field>
                     <v-btn @click="sendTestPost" color="primary">Test Feature</v-btn>
                 </v-form>
             </v-card>
@@ -62,7 +62,8 @@
                         name: this.inputOne,
                         unit: this.inputTwo,
                         quantity: this.inputThree,
-                        photo: this.inputFour
+                        photo: this.inputFour,
+                        id: this.inputFive
                     }
                 }).then((result) =>{
                     console.log(result.data);

@@ -27,14 +27,18 @@ class ingredientsController extends Controller
             return response()->json(['status' => $params], 200);
     }
 
-    public function searchIngredients(Request $request)
+    public function searchId(Request $request)
     {
         // a function that taks in a query and finds an ingredient record from the DB
-        if(Auth::check()){
-            $id = $request->post['id']; // may need to change this to json_decode()
+
+            $id = $request->input['id']; // may need to change this to json_decode()
             $ingredient = \App\Ingredient::find($id);
-            return response()->json(['ingredient' => $ingredient]);
-        }
+            return response()->json(['ingredient' => $ingredient], 200);
+    }
+
+    public function searchName(Request $request){
+        $ingredient = \App\Ingredient::where('ingredient_name', $request->input['name'])->get();
+        return response()->json(['results'=> $ingredient], 200);
     }
 
     public function updateIngredient(Request $request)
