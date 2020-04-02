@@ -1973,6 +1973,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (result) {
         console.log(result.data);
+      })["catch"](function (e) {
+        console.log(e);
       });
     }
   }

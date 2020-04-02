@@ -9,12 +9,9 @@ class ingredientsController extends Controller
     public function getAllIngredients(Request $request)
     {
         // a function that returns a list of all ingredients in storage for the logged in user
-        if (Auth::check()) {
-            $params = $request->post;
-            $ingredients = new \App\Ingredient();
-            $storage = $ingredients->where('user_id', Auth::user()->id)->get();
+            //$params = $request->input;
+            $storage = \App\Ingredient::where('user_id', $request->user()->id)->get();
             return response()->json($storage);
-        }
     }
 
     public function createIngredient(Request $request)
