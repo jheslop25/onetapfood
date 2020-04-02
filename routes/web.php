@@ -68,11 +68,13 @@ Route::post('/meal-plan/update', 'mealPlanController@updateMealPlan');
 
 // family controller
 
-Route::post('/family/create', 'familyController@createFamily');
+Route::post('/family/create', 'familyController@create');
 
-Route::post('/family/update', 'familyController@updateFamily');
+Route::post('/family/update', 'familyController@update');
 
-Route::post('/family/destroy', 'familyController@destroyFamily');
+Route::post('/family/destroy', 'familyController@destroy');
+
+Route::post('/family/get', 'familyController@get');
 
 // cart controller
 
