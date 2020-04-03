@@ -24,13 +24,19 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+        //this is where we will build the marketing/home page
+    }
+
+    public function onboarding(){
+        //this will return the onboarding sequence
     }
 
     public function mainApp(){
-        //return the main vue app
+        //return the main vue app. this will return the dashboard. this may or may not include the ordering process
     }
-    public function devInt(){
-        return view('development.interface');
+
+    public function CookingApp(){
+        // this will return the cooking view
     }
 
     public function test(){

@@ -17,6 +17,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/onboard', 'HomeController@onboarding');
+
+Route::get('/app', 'HomeController@mainApp');
+
+Route::get('/cook', 'HomeController@cookingApp');
+
+
+//dev routes
+
 Route::get('/dev', 'HomeController@devInt');
 
 Route::get('/test', 'HomeController@test');
@@ -24,8 +36,6 @@ Route::get('/test', 'HomeController@test');
 Route::post('/test/post', 'HomeController@post');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 //instacart controller
 
