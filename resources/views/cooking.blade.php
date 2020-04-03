@@ -2,6 +2,6 @@
 
 @section('content')
     <div id="app">
-        <Home/>
+        <Cooking/>
     </div>
 @endsection

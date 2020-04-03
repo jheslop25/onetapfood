@@ -19,6 +19,10 @@ const store = new Vuex.Store({
 
 
 Vue.component('app', require('./components/App.vue').default);
+Vue.component('Dashboard', require('./components/MainApp.vue').default);
+Vue.component('Onboard', require('./components/Onboard.vue').default);
+Vue.component('Cooking', require('./components/Cooking.vue').default);
+Vue.component('Home', require('./components/Home.vue').default);
 
 
 

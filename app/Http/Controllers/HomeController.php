@@ -29,14 +29,17 @@ class HomeController extends Controller
 
     public function onboarding(){
         //this will return the onboarding sequence
+        return view('onboard');
     }
 
     public function mainApp(){
         //return the main vue app. this will return the dashboard. this may or may not include the ordering process
+        return view('main');
     }
 
     public function CookingApp(){
         // this will return the cooking view
+        return view('cooking');
     }
 
     public function test(){
