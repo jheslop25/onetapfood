@@ -50,4 +50,8 @@ class HomeController extends Controller
     public function post(Request $request){
         return response()->json(['input' => $request->input]);
     }
+
+    public function devInt(){
+        return view('development.interface');
+    }
 }
