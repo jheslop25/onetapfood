@@ -104,3 +104,24 @@ Route::post('/family/update', 'familyController@update');
 
 Route::post('/family/destroy', 'familyController@destroy');
 
+// store API controller
+
+Route::post('/store/api/v1/get/orders', 'storeApiController@getOrders');
+
+Route::post('/store/api/v1/confirm', 'storeApiController@confirmOrder');
+
+Route::post('/store/api/v1/cancel', 'storeApiController@cancelOrder');
+
+Route::post('/store/api/v1/modify', 'storeApiController@modifyOrder');
+
+Route::post('/store/api/v1/fill', 'storeApiController@fillOrder');
+
+Route::post('/store/api/v1/status', 'storeApiController@setStatus');
+
+//Order controller
+
+Route::post('/order/create', 'orderController@createOrder');
+
+Route::post('/order/cancel', 'orderController@cancelOrder');
+
+Route::post('/order/update', 'orderController@updateOrder');
