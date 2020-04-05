@@ -42,6 +42,10 @@ class HomeController extends Controller
         return view('cooking');
     }
 
+    public function store(){
+        return view('store');
+    }
+
     public function test(){
         $msg = 'this test worked';
         return response()->json(['message'=>$msg]);
