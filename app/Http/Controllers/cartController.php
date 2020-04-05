@@ -8,30 +8,28 @@ class cartController extends Controller
 {
     public function addList(Request $request){
         //add an array of items to cart
-        if (Auth::check()){
-            $items = $request->items;
-            foreach($items as $item){
+            $item = $request->input;
+            //foreach($items as $item){
                 $cart = new \App\Cart();
-                $cart->user_id = Auth::user()->id;
-                $cart->ingredient_name = $item->name;
-                $cart->quantity = $item->quant;
-                $cart->unit = $item->unit;
+                $cart->user_id = $request->user()->id;
+                $cart->ingredient_name = $item['name'];
+                $cart->quantity = $item['quant'];
+                $cart->unit = $item['unit'];
                 $cart->save();
-            }
-
-        }
+            //}
+            return response()->json(['req' => $item], 200);
     }
 
     public function getCart(Request $request){
         //get user's cart
-        if (Auth::check()){
-            $cart = \App\Cart::find(Auth::user()->id);
+            $cart = \App\Cart::where('user_id', $request->user()->id)->get();
 
             return response()->json(['cart' => $cart]);
-        }
     }
 
-    public function emptyCart(){
+    public function emptyCart(Request $request){
         //empty the user's cart
+        \App\Cart::where('user_id', $request->user()->id)->delete();
+        return response()->json(['msg'=>'cart empty'], 200);
     }
 }
