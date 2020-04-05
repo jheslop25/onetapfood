@@ -8,16 +8,16 @@ class cartController extends Controller
 {
     public function addList(Request $request){
         //add an array of items to cart
-            $item = $request->input;
-            //foreach($items as $item){
+            $items = $request->input;
+            foreach($items as $item){
                 $cart = new \App\Cart();
                 $cart->user_id = $request->user()->id;
                 $cart->ingredient_name = $item['name'];
                 $cart->quantity = $item['quant'];
                 $cart->unit = $item['unit'];
                 $cart->save();
-            //}
-            return response()->json(['req' => $item], 200);
+            }
+            return response()->json(['req' => $items], 200);
     }
 
     public function getCart(Request $request){
