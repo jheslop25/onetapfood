@@ -28,6 +28,7 @@ Route::get('/cook', 'HomeController@cookingApp');
 
 Route::get('/store', 'HomeController@store');
 
+Route::get('/service', 'HomeController@service');
 
 //dev routes
 

@@ -23,7 +23,7 @@ Vue.component('Dashboard', require('./components/MainApp.vue').default);
 Vue.component('Onboard', require('./components/Onboard.vue').default);
 Vue.component('Cooking', require('./components/Cooking.vue').default);
 Vue.component('Home', require('./components/Home.vue').default);
-
+Vue.component('Service', require('./components/Service.vue').default);
 
 
 const app = new Vue({
