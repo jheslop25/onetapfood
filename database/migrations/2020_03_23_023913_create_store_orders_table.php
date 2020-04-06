@@ -20,6 +20,7 @@ class CreateStoreOrdersTable extends Migration
             $table->smallInteger('vendor_id');
             $table->string('status');
             $table->mediumText('content');
+            $table->mediumText('updates')->nullable();
             $table->timestamps();
         });
     }
