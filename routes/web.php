@@ -130,3 +130,17 @@ Route::post('/order/update', 'orderController@updateOrder');
 Route::post('/order/get/user', 'orderController@getById');
 
 Route::post('/order/get/', 'orderController@getByStatus');
+
+//service controller
+
+Route::post('/service/make', 'serviceController@makeComplaint');
+
+Route::post('/service/cancel', 'serviceController@cancelComplaint');
+
+Route::post('/service/get/id', 'serviceController@getComplaint');
+
+Route::post('/service/resolve', 'serviceController@resolve');
+
+Route::post('/service/update', 'serviceController@update');
+
+Route::post('/service/list', 'serviceController@getList');
