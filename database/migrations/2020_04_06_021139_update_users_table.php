@@ -16,6 +16,7 @@ class UpdateUsersTable extends Migration
         Schema::table('users', function (Blueprint $table){
             $table->string('user_type')->nullable();
             $table->string('status')->nullable();
+            $table->string('location')->nullable();
         });
     }
 

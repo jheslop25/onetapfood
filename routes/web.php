@@ -126,3 +126,7 @@ Route::post('/order/create', 'orderController@createOrder');
 Route::post('/order/cancel', 'orderController@cancelOrder');
 
 Route::post('/order/update', 'orderController@updateOrder');
+
+Route::post('/order/get/user', 'orderController@getById');
+
+Route::post('/order/get/', 'orderController@getByStatus');
