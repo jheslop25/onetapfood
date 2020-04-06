@@ -17,6 +17,8 @@ class CreateStoreOrdersTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->bigInteger('cart_id');
+            $table->smallInteger('vendor_id');
+            $table->string('status');
             $table->mediumText('content');
             $table->timestamps();
         });

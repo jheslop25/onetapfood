@@ -40,4 +40,9 @@ class orderController extends Controller
         $order = \App\Order::find($request->user()->id);
         return response()->json(['order'=> $order], 200);
     }
+
+    public function getByStatus(Request $request){
+        $order = \App\Order::where('user_id', $request->user()->id)->where('status', $request->input['status'])->get();
+        return response()->json(['order'=> $order], 200);
+    }
 }
