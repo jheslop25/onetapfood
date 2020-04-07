@@ -24,7 +24,7 @@ Vue.component('Onboard', require('./components/Onboard.vue').default);
 Vue.component('Cooking', require('./components/Cooking.vue').default);
 Vue.component('Home', require('./components/Home.vue').default);
 Vue.component('Service', require('./components/Service.vue').default);
-
+Vue.component('Vendor', require('./components/Vendor.vue').default);
 
 const app = new Vue({
     el: '#app',
