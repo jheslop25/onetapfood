@@ -41,11 +41,11 @@ Route::get('/instacart', function () {
     return view('development.instacart');
 });
 
-Route::post('/callAPI', 'instacartController@login');
+Route::post('/instacart/login', 'instacartController@login');
 
-Route::post('/searchInstacart', 'instacartController@search');
+Route::post('/instacart/search', 'instacartController@search');
 
-Route::post('/addAllToCart', 'instacartController@AddAllToCart');
+Route::post('/instacart/cart/add', 'instacartController@AddAllToCart');
 
 Route::post('/instacart/address', 'instacartController@setAddress');
 
