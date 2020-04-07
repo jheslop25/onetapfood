@@ -15,6 +15,7 @@ class orderController extends Controller
             $order->user_id = $request->user()->id;
             $order->cart_id = $request->input['cart'];
             $order->content = $request->input['content']; //send valid json string
+            $order->vendor_id = $request->input['vend'];
             $order->status = 'new';
             $order->save();
 

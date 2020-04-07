@@ -19,8 +19,9 @@ class CreateStoreOrdersTable extends Migration
             $table->bigInteger('cart_id');
             $table->smallInteger('vendor_id');
             $table->string('status');
-            $table->mediumText('content');
+            $table->json('content');
             $table->mediumText('updates')->nullable();
+            $table->smallInteger('total_price');
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ class CreateCartTable extends Migration
             $table->string('ingredient_name');
             $table->integer('quantity');
             $table->string('unit');
+            $table->string('unit_price');
             $table->timestamps();
         });
     }

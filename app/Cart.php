@@ -11,4 +11,8 @@ class Cart extends Model
     public function ingredients(){
         return $this->hasMany('\App\Ingredient');
     }
+
+    public function order(){
+        return $this->hasOne('\App\Order');
+    }
 }
