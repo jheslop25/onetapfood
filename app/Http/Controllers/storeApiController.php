@@ -9,7 +9,7 @@ class storeApiController extends Controller
 {
     public function getOrders(Request $request){
         // a function to check for new orders
-        if($request->user()->type == 'vend'){
+        if(Auth::check() && $request->user()->type == 'vend'){
             $orders = \App\Order::where('vendor_id', $request->user()->id);
 
             return response()->json(['orders'=> $orders], 200);
@@ -20,7 +20,7 @@ class storeApiController extends Controller
 
     public function confirmOrder(Request $request){
         // a function to confirm an order
-        if($request->user()->type == 'vend'){
+        if(Auth::check() && $request->user()->type == 'vend'){
             $order = \App\Order::find($request->input['order_id']);
             $order->status = 'confirmed';
             $order->save();
@@ -32,7 +32,7 @@ class storeApiController extends Controller
 
     public function cancelOrder(Request $request){
         //a function to cancel an order
-        if($request->user()->type == 'vend'){
+        if(Auth::check() && $request->user()->type == 'vend'){
             $order = \App\Order::find($request->input['order_id']);
             $order->status = 'canceled - vendor';
             $order->save();
@@ -44,7 +44,7 @@ class storeApiController extends Controller
 
     public function modifyOrder(Request $request){
         //a function to modify an order
-        if($request->user()->type == 'vend'){
+        if(Auth::check() && $request->user()->type == 'vend'){
             $order = \App\Order::find($request->input['order_id']);
             $order->status = 'modified';
             $order->updates = $request->input['updates'];
@@ -57,7 +57,7 @@ class storeApiController extends Controller
 
     public function fillOrder(Request $request){
         // a function to fill an order
-        if($request->user()->type == 'vend'){
+        if(Auth::check() && $request->user()->type == 'vend'){
             $order = \App\Order::find($request->input['order_id']);
             $order->status = 'filled';
             $order->save();
@@ -69,7 +69,7 @@ class storeApiController extends Controller
 
     public function setStatus(Request $request){
         //a function to set store status
-        if($request->user()->type == 'vend'){
+        if(Auth::check() && $request->user()->type == 'vend'){
             //set user status
         } else {
             return response()->json(['msg'=>'unauthorized user'], 401);
