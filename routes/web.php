@@ -141,3 +141,9 @@ Route::post('/service/resolve', 'serviceController@resolve');
 Route::post('/service/update', 'serviceController@update');
 
 Route::post('/service/list', 'serviceController@getList');
+
+// vendor controller
+
+Route::post('/vendor/new/update', 'vendorController@newOrUpdate');
+
+Route::post('/vendor/delete', 'vendorController@delete');
