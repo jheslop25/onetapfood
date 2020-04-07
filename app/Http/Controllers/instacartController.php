@@ -81,10 +81,8 @@ class instacartController extends Controller
 
     public function __construct()
     {
-        $this->baseURL = 'https://www.instacart.com';
+        $this->baseURL = 'https://www.instacart.ca';
         $this->cookieSessionName = "_instacart_session";
-        $this->iCartEmail = '';
-        $this->iCartPass = '';
         $this->default_store = 'Real Canadian Super Store';
     }
 
@@ -99,7 +97,7 @@ class instacartController extends Controller
                 ]
             ]);
             $cookies = parse_cookies($client->header('set-cookie'));
-            return response()->json(['cookie' => $cookies[4]->value]);
+            return response()->json(['_instacart_session' => $cookies[4]->value]);
         } else {
             return response()->json(['msg' => 'please login'], 200);
         }
@@ -108,10 +106,12 @@ class instacartController extends Controller
     public function search(Request $request)
     {
         if (Auth::check()) {
-            $cookie = $request->cookie;
-            $client = Http::put($this->baseURL . 'insert path here', [
-                //insert query terms here
-            ]);
+            $cookie = $request->input['instacart'];
+            $client = Http::withHeaders([
+                'Cookie' => '_instacart_session' . $cookie,
+                'X-Requested-With' => 'XMLHttpRequest',
+                'Content-Type' => 'application/json'
+            ])->get($this->baseURL . '/v3/containers/real-canadian-superstore/search_v3/' . $request->input['query']);
             $result = $client->body();
             return response()->json(['res' => $result], 200);
         } else {
@@ -123,6 +123,7 @@ class instacartController extends Controller
     {
         //add all ingredients to cart
         if (Auth::check()) {
+
         } else {
             return response()->json(['msg' => 'please login'], 200);
         }
