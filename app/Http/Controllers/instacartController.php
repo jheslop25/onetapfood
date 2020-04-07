@@ -123,7 +123,25 @@ class instacartController extends Controller
     {
         //add all ingredients to cart
         if (Auth::check()) {
-
+            $cookie = $request->input['instacart'];
+            foreach($request->input['list'] as $item){
+                $response = Http::withHeaders()->put($this->baseURL.'/v3/carts/54133112/update_items?source=web',[
+                    // data here
+                    'items' => [
+                        [
+                            "item_id" => $item['item_id'],
+                            "quantity" => $item['quant'],
+                            "source_type" => 'search',
+                            "source_value" => $item['item_name']
+                        ]
+                    ]
+                ]);
+                if($response->ok()){
+                    return response()->json(['msg' => 'all items added to cart'], 200);
+                } else {
+                    return response()->json(['msg' => 'something went wrong'], $response->status());
+                }
+            }
         } else {
             return response()->json(['msg' => 'please login'], 200);
         }
