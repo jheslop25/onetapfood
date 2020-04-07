@@ -74,10 +74,7 @@ class cookie
     }
 }
 
-if (Auth::check()) {
-} else {
-    return response()->json(['msg' => 'please login'], 200);
-}
+
 
 class instacartController extends Controller
 {

@@ -10,15 +10,19 @@ class mealPlanController extends Controller
     {
         // a function that returns the whole meal plan stored in the DB
         // if no current record then return a json object that prompts the client to create one
+        if (Auth::check()) {
             $params = $request->input;
             $meals = \App\Meal::where('user_id', $request->user()->id)->orderBy('created_at', 'desc')->get();
             return response()->json(['meals'=> $meals], 200);
-
+        } else {
+            return response()->json(['msg' => 'please login'], 200);
+        }
     }
 
     public function storeMealPlan(Request $request)
     {
         // a function that stores a meal plan in the DB. we'll build the meal plan with js on client.
+        if (Auth::check()) {
             $mealPlan = $request->input;
             foreach ($mealPlan as $meal) {
                 $record = new \App\Meal();
@@ -32,13 +36,15 @@ class mealPlanController extends Controller
                 $record->save();
             }
             return response()->json(['msg' => $meal['title']], 200);
-
+        } else {
+            return response()->json(['msg' => 'please login'], 200);
+        }
     }
 
     public function updateMealPlan(Request $request)
     {
         // a function that updates a meal plan record typically to add or remove a meal.
-
+        if (Auth::check()) {
             $params = $request->input;
             $meal = \App\Meal::find($params['id']);
             $meal->user_id = $request->user()->id;
@@ -50,6 +56,8 @@ class mealPlanController extends Controller
             $meal->sched_date = $params['date'];
             $meal->save();
             return response()->json(['msg' => $params], 200);
-
+        } else {
+            return response()->json(['msg' => 'please login'], 200);
+        }
     }
 }
