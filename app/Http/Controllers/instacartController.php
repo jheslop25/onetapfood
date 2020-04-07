@@ -107,7 +107,7 @@ class instacartController extends Controller
             //insert query terms here
         ]);
         $result = $client->body();
-        return response()->json();
+        return response()->json(['res'=> $result], 200);
     }
 
     public function AddAllToCart(Request $request){
@@ -120,6 +120,10 @@ class instacartController extends Controller
 
     public function checkout(Request $request){
         // a function to process order
+    }
+
+    public function price(){
+        // a function for a daily price comparison between our vendors and instacart
     }
 }
 
