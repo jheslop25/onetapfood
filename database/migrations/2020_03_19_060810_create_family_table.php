@@ -19,6 +19,7 @@ class CreateFamilyTable extends Migration
             $table->string('member_age_group');
             $table->string('member_diet');
             $table->string('member_pref');
+            $table->boolean('is_user');
             $table->timestamps();
         });
     }
