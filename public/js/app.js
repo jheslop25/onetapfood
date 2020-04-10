@@ -1930,6 +1930,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App"
 });
@@ -39786,31 +39797,71 @@ var render = function() {
         "v-app-bar",
         { attrs: { color: "primary", app: "" } },
         [
-          _c("router-link", { attrs: { to: { name: "home" } } }, [
-            _vm._v("Home")
-          ]),
+          _c(
+            "v-btn",
+            { attrs: { color: "secondary" } },
+            [
+              _c("router-link", { attrs: { to: { name: "main" } } }, [
+                _vm._v("Main")
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: { name: "main" } } }, [
-            _vm._v("Main")
-          ]),
+          _c(
+            "v-btn",
+            { attrs: { color: "secondary" } },
+            [
+              _c("router-link", { attrs: { to: { name: "cooking" } } }, [
+                _vm._v("Cook")
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: { name: "cooking" } } }, [
-            _vm._v("Cook")
-          ]),
+          _c(
+            "v-btn",
+            { attrs: { color: "secondary" } },
+            [
+              _c("router-link", { attrs: { to: { name: "onboard" } } }, [
+                _vm._v("Onboard")
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: { name: "onboard" } } }, [
-            _vm._v("Onboard")
-          ]),
+          _c(
+            "v-btn",
+            { attrs: { color: "secondary" } },
+            [
+              _c("router-link", { attrs: { to: { name: "service" } } }, [
+                _vm._v("Service")
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: { name: "service" } } }, [
-            _vm._v("Service")
-          ]),
+          _c(
+            "v-btn",
+            { attrs: { color: "secondary" } },
+            [
+              _c("router-link", { attrs: { to: { name: "vendor" } } }, [
+                _vm._v("Vendor")
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: { name: "vendor" } } }, [
-            _vm._v("Vendor")
-          ]),
-          _vm._v(" "),
-          _c("v-btn", { attrs: { color: "secondary" } }, [_vm._v("hello")])
+          _c(
+            "v-btn",
+            { attrs: { color: "secondary" } },
+            [
+              _c("router-link", { attrs: { to: { name: "home" } } }, [
+                _vm._v("Home")
+              ])
+            ],
+            1
+          )
         ],
         1
       ),
