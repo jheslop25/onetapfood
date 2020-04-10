@@ -8,142 +8,117 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@mainApp');
 
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/onboard', 'HomeController@onboarding');
-
-Route::get('/app', 'HomeController@mainApp');
-
-Route::get('/cook', 'HomeController@cookingApp');
-
-Route::get('/store', 'HomeController@store');
-
-Route::get('/service', 'HomeController@service');
-
-//dev routes
-
-Route::get('/dev', 'HomeController@devInt');
-
-Route::get('/test', 'HomeController@test');
-
-Route::post('/test/post', 'HomeController@post');
 
 Auth::routes();
 
-//instacart controller
-
-Route::get('/instacart', function () {
-    return view('development.instacart');
-});
-
-Route::post('/instacart/login', 'instacartController@login');
-
-Route::post('/instacart/search', 'instacartController@search');
-
-Route::post('/instacart/cart/add', 'instacartController@AddAllToCart');
-
-Route::post('/instacart/address', 'instacartController@setAddress');
-
-Route::post('/instacart/checkout', 'instacartController@checkout');
-
-Route::post('/price/check', 'instacartController@price');
-
-//ingredients controller
-
-Route::post('/ingredients/all', 'ingredientsController@getAllIngredients');
-
-Route::post('/ingredients/create', 'ingredientsController@createIngredient');
-
-Route::post('/ingredients/search/id', 'ingredientsController@searchId');
-
-Route::post('/ingredients/search/name', 'ingredientsController@searchName');
-
-Route::post('/ingredients/update', 'ingredientsController@updateIngredient');
-
-Route::post('/ingredients/destroy', 'ingredientsController@destroyIngredient');
-
-//Meal plan controller
-
-Route::post('/meal-plan', 'mealPlanController@getAllMeals');
-
-Route::post('/meal-plan/make', 'mealPlanController@storeMealPlan');
-
-Route::post('/meal-plan/update', 'mealPlanController@updateMealPlan');
+// //instacart controller
 
 
-// family controller
+// Route::post('/instacart/login', 'instacartController@login');
 
-Route::post('/family/create', 'familyController@create');
+// Route::post('/instacart/search', 'instacartController@search');
 
-Route::post('/family/update', 'familyController@update');
+// Route::post('/instacart/cart/add', 'instacartController@AddAllToCart');
 
-Route::post('/family/destroy', 'familyController@destroy');
+// Route::post('/instacart/address', 'instacartController@setAddress');
 
-Route::post('/family/get', 'familyController@get');
+// Route::post('/instacart/checkout', 'instacartController@checkout');
 
-// cart controller
+// Route::post('/price/check', 'instacartController@price');
 
-Route::post('/cart/add', 'cartController@addList');
+// //ingredients controller
 
-Route::post('/cart/get', 'cartController@getCart');
+// Route::post('/ingredients/all', 'ingredientsController@getAllIngredients');
 
-Route::post('/cart/empty', 'cartController@emptyCart');
+// Route::post('/ingredients/create', 'ingredientsController@createIngredient');
 
-// family controller
+// Route::post('/ingredients/search/id', 'ingredientsController@searchId');
 
-Route::post('/family/create', 'familyController@create');
+// Route::post('/ingredients/search/name', 'ingredientsController@searchName');
 
-Route::post('/family/update', 'familyController@update');
+// Route::post('/ingredients/update', 'ingredientsController@updateIngredient');
 
-Route::post('/family/destroy', 'familyController@destroy');
+// Route::post('/ingredients/destroy', 'ingredientsController@destroyIngredient');
 
-// store API controller
+// //Meal plan controller
 
-Route::post('/store/api/v1/get/orders', 'storeApiController@getOrders');
+// Route::post('/meal-plan', 'mealPlanController@getAllMeals');
 
-Route::post('/store/api/v1/confirm', 'storeApiController@confirmOrder');
+// Route::post('/meal-plan/make', 'mealPlanController@storeMealPlan');
 
-Route::post('/store/api/v1/cancel', 'storeApiController@cancelOrder');
+// Route::post('/meal-plan/update', 'mealPlanController@updateMealPlan');
 
-Route::post('/store/api/v1/modify', 'storeApiController@modifyOrder');
 
-Route::post('/store/api/v1/fill', 'storeApiController@fillOrder');
+// // family controller
 
-Route::post('/store/api/v1/status', 'storeApiController@setStatus');
+// Route::post('/family/create', 'familyController@create');
 
-//Order controller
+// Route::post('/family/update', 'familyController@update');
 
-Route::post('/order/create', 'orderController@createOrder');
+// Route::post('/family/destroy', 'familyController@destroy');
 
-Route::post('/order/cancel', 'orderController@cancelOrder');
+// Route::post('/family/get', 'familyController@get');
 
-Route::post('/order/update', 'orderController@updateOrder');
+// // cart controller
 
-Route::post('/order/get/user', 'orderController@getById');
+// Route::post('/cart/add', 'cartController@addList');
 
-Route::post('/order/get/', 'orderController@getByStatus');
+// Route::post('/cart/get', 'cartController@getCart');
 
-//service controller
+// Route::post('/cart/empty', 'cartController@emptyCart');
 
-Route::post('/service/make', 'serviceController@makeComplaint');
+// // family controller
 
-Route::post('/service/cancel', 'serviceController@cancelComplaint');
+// Route::post('/family/create', 'familyController@create');
 
-Route::post('/service/get/id', 'serviceController@getComplaint');
+// Route::post('/family/update', 'familyController@update');
 
-Route::post('/service/resolve', 'serviceController@resolve');
+// Route::post('/family/destroy', 'familyController@destroy');
 
-Route::post('/service/update', 'serviceController@update');
+// // store API controller
 
-Route::post('/service/list', 'serviceController@getList');
+// Route::post('/store/api/v1/get/orders', 'storeApiController@getOrders');
 
-// vendor controller
+// Route::post('/store/api/v1/confirm', 'storeApiController@confirmOrder');
 
-Route::post('/vendor/new/update', 'vendorController@newOrUpdate');
+// Route::post('/store/api/v1/cancel', 'storeApiController@cancelOrder');
 
-Route::post('/vendor/delete', 'vendorController@delete');
+// Route::post('/store/api/v1/modify', 'storeApiController@modifyOrder');
+
+// Route::post('/store/api/v1/fill', 'storeApiController@fillOrder');
+
+// Route::post('/store/api/v1/status', 'storeApiController@setStatus');
+
+// //Order controller
+
+// Route::post('/order/create', 'orderController@createOrder');
+
+// Route::post('/order/cancel', 'orderController@cancelOrder');
+
+// Route::post('/order/update', 'orderController@updateOrder');
+
+// Route::post('/order/get/user', 'orderController@getById');
+
+// Route::post('/order/get/', 'orderController@getByStatus');
+
+// //service controller
+
+// Route::post('/service/make', 'serviceController@makeComplaint');
+
+// Route::post('/service/cancel', 'serviceController@cancelComplaint');
+
+// Route::post('/service/get/id', 'serviceController@getComplaint');
+
+// Route::post('/service/resolve', 'serviceController@resolve');
+
+// Route::post('/service/update', 'serviceController@update');
+
+// Route::post('/service/list', 'serviceController@getList');
+
+// // vendor controller
+
+// Route::post('/vendor/new/update', 'vendorController@newOrUpdate');
+
+// Route::post('/vendor/delete', 'vendorController@delete');
