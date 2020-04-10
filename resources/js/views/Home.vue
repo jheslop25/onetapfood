@@ -1,7 +1,5 @@
 <template>
-    <v-app-bar>
-
-    </v-app-bar>
+    <p>hello home</p>
 </template>
 
 <script>

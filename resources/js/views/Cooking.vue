@@ -1,7 +1,5 @@
 <template>
-    <v-app>
-        <v-btn color="primary">hello world</v-btn>
-    </v-app>
+    <p>hello cooking</p>
 </template>
 
 <script>

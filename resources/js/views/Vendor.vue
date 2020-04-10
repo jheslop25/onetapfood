@@ -1,12 +1,10 @@
 <template>
-    <v-app-bar>
-
-    </v-app-bar>
+    <p>hello vendor</p>
 </template>
 
 <script>
     export default {
-
+        name: 'Vendor'
     }
 </script>
 
