@@ -18,6 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+
+Route::prefix('/user')->group( function() {
+    Route::post('/login', 'Api\V1\loginController@login');
+    Route::middleware('auth:api')->get('/all', 'Api\V1\loginController@users');
+});
+
+
+
 //instacart controller
 
 

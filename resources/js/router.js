@@ -6,6 +6,7 @@ import Cooking from './views/Cooking.vue';
 import Onboard from './views/Onboard.vue';
 import Service from './views/Service.vue';
 import Vendor from './views/Vendor.vue';
+import Login from './views/Login.vue';
 
 Vue.use(VueRouter);
 
@@ -41,6 +42,11 @@ export default new VueRouter({
             name: 'vendor',
             component: Vendor
 
+      },
+      {
+          path: '/login',
+          name: 'login',
+          component: Login
       }
     ]
 })
