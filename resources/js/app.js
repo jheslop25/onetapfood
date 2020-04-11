@@ -4,28 +4,38 @@ require('./bootstrap');
 
 import Vue from 'vue';
 
-import Vuex from 'vuex';
 import Vuetify from 'vuetify/lib';
 import router from './router.js';
+import Vuex from 'vuex';
+import App from './MainApp/views/App.vue';
 
-Vue.use(Vuex);
 Vue.use(Vuetify);
-
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
-    state: {},
+    state: {
+        user: {},
+    },
     mutations: {},
-    actions: {},
+    actions: {
+        login: function(context, data){
+            axios.post('/api/user/login', {
+                email: data.email,
+                password: data.password
+            }).then((result) => {
+                console.log(result.data);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+    },
     getters: {}
-});
-
-
-
-import App from './MainApp/views/App.vue';
+})
 
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
     components: { App },
-    router
+    router,
+    store
 });

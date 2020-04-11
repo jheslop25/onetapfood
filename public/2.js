@@ -26,14 +26,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     login: function login() {
-      axios.post('/api/user/login', {
+      var params = {
         email: this.email,
         password: this.password
-      }).then(function (result) {
-        console.log(result.data);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      };
+      this.$store.dispatch('login', params);
     }
   }
 });
@@ -57,7 +54,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-form",
-    { ref: "form", staticClass: "card" },
+    { ref: "form", staticClass: "card m-5 p-3" },
     [
       _c("v-text-field", {
         attrs: { label: "email" },
