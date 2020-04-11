@@ -1,12 +1,17 @@
 <template>
-    <v-app>
-        <v-btn color="primary">hello world</v-btn>
-    </v-app>
+        <v-app-bar>
+            <TheNav/>
+        </v-app-bar>
 </template>
 
 <script>
-    export default {
+    import TheNav from '../../components/TheNavigation.vue';
 
+    export default {
+        name: 'Main',
+        components: {
+            TheNav
+        }
     }
 </script>
 

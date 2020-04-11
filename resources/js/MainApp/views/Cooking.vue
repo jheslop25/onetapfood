@@ -1,13 +1,19 @@
 <template>
-    <p>hello cooking</p>
+  <v-app-bar>
+    <TheNav />
+  </v-app-bar>
 </template>
 
 <script>
-    export default {
+import TheNav from "../../components/TheNavigation.vue";
 
-    }
+export default {
+  name: "Cook",
+  components: {
+    TheNav
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-
 </style>
