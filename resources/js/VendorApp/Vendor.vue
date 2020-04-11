@@ -1,10 +1,12 @@
 <template>
-    <p>hello service</p>
+   <v-app>
+        <p>hello vendor</p>
+   </v-app>
 </template>
 
 <script>
     export default {
-        name: 'Service'
+        name: 'Vendor'
     }
 </script>
 

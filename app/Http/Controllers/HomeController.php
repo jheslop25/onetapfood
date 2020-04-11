@@ -27,6 +27,12 @@ class HomeController extends Controller
         //this is where we will build the marketing/home page
     }
 
+    public function vendorCreate(){
+        return view('vendorSignup');
+    }
+
+
+    // SPA delivery
     public function mainApp(){
         //return the main vue app. this will return the dashboard. this may or may not include the ordering process
         return view('main');

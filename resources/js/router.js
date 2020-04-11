@@ -1,12 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from './views/Home';
-import Main from './views/MainApp.vue';
-import Cooking from './views/Cooking.vue';
-import Onboard from './views/Onboard.vue';
-import Service from './views/Service.vue';
-import Vendor from './views/Vendor.vue';
-import Login from './views/Login.vue';
+import Home from './MainApp/views/Home';
+import Main from './MainApp/views/MainApp.vue';
+import Cooking from './MainApp/views/Cooking.vue';
+import Onboard from './MainApp/views/Onboard.vue';
 
 Vue.use(VueRouter);
 
@@ -31,22 +28,6 @@ export default new VueRouter({
             path: '/onboard',
             name: 'onboard',
             component: Onboard
-        },
-        {
-            path: '/service',
-            name: 'service',
-            component: Service
-        },
-        {
-            path: '/vendor',
-            name: 'vendor',
-            component: Vendor
-
-      },
-      {
-          path: '/login',
-          name: 'login',
-          component: Login
-      }
+        }
     ]
 })
