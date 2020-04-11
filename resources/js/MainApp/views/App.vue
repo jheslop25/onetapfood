@@ -11,10 +11,10 @@
         <router-link :to="{ name: 'onboard'}">Onboard</router-link>
       </v-btn>
       <v-btn color="secondary">
-        <router-link :to="{ name: 'service'}">Service</router-link>
+        <router-link :to="{ name: 'login'}">Login</router-link>
       </v-btn>
       <v-btn color="secondary">
-        <router-link :to="{ name: 'vendor'}">Vendor</router-link>
+        <router-link :to="{ name: 'register'}">Register</router-link>
       </v-btn>
       <v-btn color="secondary">
         <router-link :to="{ name: 'home'}">Home</router-link>

@@ -4,6 +4,8 @@ import Home from './MainApp/views/Home';
 import Main from './MainApp/views/MainApp.vue';
 import Cooking from './MainApp/views/Cooking.vue';
 import Onboard from './MainApp/views/Onboard.vue';
+import Login from './MainApp/views/Login.vue';
+import Register from './MainApp/views/Register.vue';
 
 Vue.use(VueRouter);
 
@@ -28,6 +30,17 @@ export default new VueRouter({
             path: '/onboard',
             name: 'onboard',
             component: Onboard
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: Register
         }
+
     ]
 })

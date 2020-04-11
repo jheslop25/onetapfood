@@ -20,13 +20,7 @@ const store = new Vuex.Store({
 });
 
 
-// Vue.component('App', require('./views/App.vue').default);
-// Vue.component('Dashboard', require('./views/MainApp.vue').default);
-// Vue.component('Onboard', require('./views/Onboard.vue').default);
-// Vue.component('Cooking', require('./views/Cooking.vue').default);
-// Vue.component('Home', require('./views/Home.vue').default);
-Vue.component('Service', require('./ServiceApp/Service.vue').default);
-Vue.component('Vendor', require('./VendorApp/Vendor.vue').default);
+
 import App from './MainApp/views/App.vue';
 
 const app = new Vue({
