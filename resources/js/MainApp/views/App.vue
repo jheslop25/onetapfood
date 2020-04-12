@@ -1,13 +1,15 @@
 <template>
   <v-app>
     <v-app-bar color="primary" app>
-      <v-btn color="secondary">
+        <go-back/>
+        <v-spacer></v-spacer>
+      <v-btn class="mx-2" color="secondary">
         <router-link :to="{ name: 'login'}">Login</router-link>
       </v-btn>
-      <v-btn color="secondary">
+      <v-btn class="mx-2" color="secondary">
         <router-link :to="{ name: 'register'}">Register</router-link>
       </v-btn>
-      <v-btn color="secondary">
+      <v-btn class="mx-2" color="secondary">
         <router-link :to="{ name: 'home'}">Home</router-link>
       </v-btn>
     </v-app-bar>
@@ -23,8 +25,13 @@
 </template>
 
 <script>
+
+import GoBack from '../../components/GoBack.vue';
 export default {
-  name: "App"
+  name: "App",
+  components: {
+      GoBack
+  }
 };
 </script>
 
