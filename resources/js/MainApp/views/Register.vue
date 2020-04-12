@@ -5,7 +5,7 @@
     <v-text-field v-model="password" label="password"></v-text-field>
     <v-text-field v-model="location" label="location"></v-text-field>
 
-    <v-btn color="sucesss" @click="register">Login</v-btn>
+    <v-btn color="sucesss" @click="register">Register</v-btn>
   </v-form>
 </template>
 
@@ -31,7 +31,12 @@ export default {
               type: 'user'
 
           }).then((result) => {
-              console.log(result.data);
+              let data = {
+                  email: result.data.user.email,
+                  password: this.password
+              }
+              console.log(data);
+              this.$store.dispatch('login', data);
           }).catch((err) => {
               console.log(err);
           });

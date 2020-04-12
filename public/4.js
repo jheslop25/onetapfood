@@ -32,6 +32,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     register: function register() {
+      var _this = this;
+
       axios.post('/api/user/register', {
         email: this.email,
         password: this.password,
@@ -40,7 +42,13 @@ __webpack_require__.r(__webpack_exports__);
         status: 'active',
         type: 'user'
       }).then(function (result) {
-        console.log(result.data);
+        var data = {
+          email: result.data.user.email,
+          password: _this.password
+        };
+        console.log(data);
+
+        _this.$store.dispatch('login', data);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -116,7 +124,7 @@ var render = function() {
       _c(
         "v-btn",
         { attrs: { color: "sucesss" }, on: { click: _vm.register } },
-        [_vm._v("Login")]
+        [_vm._v("Register")]
       )
     ],
     1

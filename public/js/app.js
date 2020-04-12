@@ -96846,16 +96846,27 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify_lib__WEBPACK_IMPORTED_MOD
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_3__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_3__["default"].Store({
   state: {
-    user: {}
+    user: null,
+    token: null
   },
-  mutations: {},
+  mutations: {
+    storeUser: function storeUser(state, data) {
+      state.user = data;
+      console.log(state.user);
+    },
+    storeToken: function storeToken(state, data) {
+      state.token = data;
+      console.log(state.token);
+    }
+  },
   actions: {
     login: function login(context, data) {
       axios.post('/api/user/login', {
         email: data.email,
         password: data.password
       }).then(function (result) {
-        console.log(result.data);
+        context.commit('storeUser', result.data.user);
+        context.commit('storeToken', result.data.access_token);
       })["catch"](function (err) {
         console.log(err);
       });

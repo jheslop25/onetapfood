@@ -14,16 +14,27 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        user: {},
+        user: null,
+        token: null
     },
-    mutations: {},
+    mutations: {
+        storeUser: function(state, data){
+            state.user = data;
+            console.log(state.user);
+        },
+        storeToken: function(state, data){
+            state.token = data;
+            console.log(state.token);
+        }
+    },
     actions: {
         login: function(context, data){
             axios.post('/api/user/login', {
                 email: data.email,
                 password: data.password
             }).then((result) => {
-                console.log(result.data);
+                context.commit('storeUser', result.data.user);
+                context.commit('storeToken', result.data.access_token);
             }).catch((err) => {
                 console.log(err);
             });
