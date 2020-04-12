@@ -49,8 +49,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "TheNavigation"
+  name: "TheNavigation",
+  methods: {
+    logout: function logout() {
+      var _this = this;
+
+      axios.post('api/user/logout', {
+        userID: this.$store.state.user.id
+      }).then(function (result) {
+        console.log(result.data.msg);
+        _this.$store.user = null;
+        _this.$store.token = null;
+
+        _this.$router.push('/');
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -128,7 +146,9 @@ var render = function() {
           ])
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("v-btn", { on: { click: _vm.logout } }, [_vm._v("Logout")])
     ],
     1
   )

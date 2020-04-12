@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from './MainApp/views/Home';
+import store from './store.js'
 // import Main from './MainApp/views/MainApp.vue';
 // import Cooking from './MainApp/views/Cooking.vue';
 // import Onboard from './MainApp/views/Onboard.vue';
@@ -10,6 +11,17 @@ import Home from './MainApp/views/Home';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
+    // scrollBehaviour(to, from, savedPosition){
+    //     if(savedPosition) {
+    //         return savedPosition;
+    //     } else {
+    //         const position = {};
+    //         if (to.hash) {
+    //             position.selector = to.hash;
+    //             return false;
+    //         }
+    //     }
+    // },
     routes: [
         {
             path: '/',
@@ -19,7 +31,8 @@ const router = new VueRouter({
         {
             path: '/main',
             name: 'main',
-            component: () => import('./MainApp/views/MainApp.vue')
+            component: () => import('./MainApp/views/MainApp.vue'),
+            meta: {reqAuth: true}
         },
         {
             path: '/cooking',
@@ -45,7 +58,17 @@ const router = new VueRouter({
     ]
 });
 
-//router.beforeEach((to, from, next) => {});
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.reqAuth)){
+        if(!store.state.token){
+            next({name: 'login'});
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
 
 export default router;
 

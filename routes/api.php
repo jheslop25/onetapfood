@@ -23,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('/user')->group( function() {
     Route::post('/login', 'Api\V1\loginController@login');
     Route::post('/register', 'Api\V1\registerController@create');
+    Route::post('/logout', 'Api\V1\loginController@logout');
     Route::middleware('auth:api')->get('/all', 'Api\V1\loginController@users');
 });
 
