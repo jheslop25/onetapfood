@@ -97166,16 +97166,12 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   },
   actions: {
     login: function login(context, data) {
-      var _this = this;
-
       axios.post('/api/user/login', {
         email: data.email,
         password: data.password
       }).then(function (result) {
         context.commit('storeUser', result.data.user);
         context.commit('storeToken', result.data.access_token);
-
-        _this.$router.push('/main');
       })["catch"](function (err) {
         console.log(err);
       });

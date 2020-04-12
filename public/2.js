@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password
       };
-      this.$store.dispatch('login', params);
+      this.$store.dispatch('login', params).then(this.$router.push('/main'));
     }
   }
 });

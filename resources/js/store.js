@@ -25,7 +25,6 @@ const store = new Vuex.Store({
             }).then((result) => {
                 context.commit('storeUser', result.data.user);
                 context.commit('storeToken', result.data.access_token);
-                this.$router.push('/main');
             }).catch((err) => {
                 console.log(err);
             });
