@@ -16,11 +16,17 @@ export default {
   },
   methods: {
       login: function () {
-          let params = {
-              email: this.email,
+          let context = this;
+           axios.post('/api/user/login', {
+                email: this.email,
                 password: this.password
-          }
-          this.$store.dispatch('login', params);
+            }).then((result) => {
+                context.$store.commit('storeUser', result.data.user);
+                context.$store.commit('storeToken', result.data.access_token);
+                context.$router.push('/main');
+            }).catch((err) => {
+                console.log(err);
+            });
       }
   }
 };

@@ -48,7 +48,20 @@ __webpack_require__.r(__webpack_exports__);
         };
         console.log(data);
 
-        _this.$store.dispatch('login', data);
+        _this.login();
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    login: function login() {
+      var context = this;
+      axios.post('/api/user/login', {
+        email: this.email,
+        password: this.password
+      }).then(function (result) {
+        context.$store.commit('storeUser', result.data.user);
+        context.$store.commit('storeToken', result.data.access_token);
+        context.$router.push('/main');
       })["catch"](function (err) {
         console.log(err);
       });

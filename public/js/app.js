@@ -97057,25 +97057,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // import Main from './MainApp/views/MainApp.vue';
-// import Cooking from './MainApp/views/Cooking.vue';
-// import Onboard from './MainApp/views/Onboard.vue';
-// import Login from './MainApp/views/Login.vue';
-// import Register from './MainApp/views/Register.vue';
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
-  // scrollBehaviour(to, from, savedPosition){
-  //     if(savedPosition) {
-  //         return savedPosition;
-  //     } else {
-  //         const position = {};
-  //         if (to.hash) {
-  //             position.selector = to.hash;
-  //             return false;
-  //         }
-  //     }
-  // },
   routes: [{
     path: '/',
     name: 'home',
@@ -97094,6 +97078,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'cooking',
     component: function component() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./MainApp/views/Cooking.vue */ "./resources/js/MainApp/views/Cooking.vue"));
+    },
+    meta: {
+      reqAuth: true
     }
   }, {
     path: '/onboard',
@@ -97119,12 +97106,12 @@ router.beforeEach(function (to, from, next) {
   if (to.matched.some(function (record) {
     return record.meta.reqAuth;
   })) {
-    if (!_store_js__WEBPACK_IMPORTED_MODULE_3__["default"].state.token) {
+    if (_store_js__WEBPACK_IMPORTED_MODULE_3__["default"].state.token) {
+      next();
+    } else {
       next({
         name: 'login'
       });
-    } else {
-      next();
     }
   } else {
     next();
@@ -97164,19 +97151,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       console.log(state.token);
     }
   },
-  actions: {
-    login: function login(context, data) {
-      axios.post('/api/user/login', {
-        email: data.email,
-        password: data.password
-      }).then(function (result) {
-        context.commit('storeUser', result.data.user);
-        context.commit('storeToken', result.data.access_token);
-      })["catch"](function (err) {
-        console.log(err);
-      });
-    }
-  },
+  actions: {},
   getters: {}
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);

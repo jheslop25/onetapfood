@@ -18,19 +18,11 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        login: function(context, data){
-            axios.post('/api/user/login', {
-                email: data.email,
-                password: data.password
-            }).then((result) => {
-                context.commit('storeUser', result.data.user);
-                context.commit('storeToken', result.data.access_token);
-            }).catch((err) => {
-                console.log(err);
-            });
-        }
+
     },
-    getters: {}
+    getters: {
+
+    }
 });
 
 export default store;

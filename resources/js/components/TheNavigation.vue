@@ -18,16 +18,23 @@ export default {
   name: "TheNavigation",
   methods: {
       logout: function(){
+          let context = this;
           axios.post('api/user/logout', {
               userID: this.$store.state.user.id
           }).then((result) => {
               console.log(result.data.msg);
-              this.$store.user = null;
-              this.$store.token = null;
-              this.$router.push('/');
+              console.log(context.$store.token);
+              context.$store.user = null;
+              context.$store.token = null;
+              console.log(context.$store.token);
+              context.$router.push('/');
+              context.reloadWindow();
           }).catch((err) => {
               console.log(err);
           });
+      },
+      reloadWindow: function(){
+          window.location.reload();
       }
   }
 };

@@ -54,19 +54,23 @@ __webpack_require__.r(__webpack_exports__);
   name: "TheNavigation",
   methods: {
     logout: function logout() {
-      var _this = this;
-
+      var context = this;
       axios.post('api/user/logout', {
         userID: this.$store.state.user.id
       }).then(function (result) {
         console.log(result.data.msg);
-        _this.$store.user = null;
-        _this.$store.token = null;
-
-        _this.$router.push('/');
+        console.log(context.$store.token);
+        context.$store.user = null;
+        context.$store.token = null;
+        console.log(context.$store.token);
+        context.$router.push('/');
+        context.reloadWindow();
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+    reloadWindow: function reloadWindow() {
+      window.location.reload();
     }
   }
 });

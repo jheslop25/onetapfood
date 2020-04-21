@@ -36,10 +36,23 @@ export default {
                   password: this.password
               }
               console.log(data);
-              this.$store.dispatch('login', data);
+              this.login();
           }).catch((err) => {
               console.log(err);
           });
+      },
+      login: function () {
+          let context = this;
+           axios.post('/api/user/login', {
+                email: this.email,
+                password: this.password
+            }).then((result) => {
+                context.$store.commit('storeUser', result.data.user);
+                context.$store.commit('storeToken', result.data.access_token);
+                context.$router.push('/main');
+            }).catch((err) => {
+                console.log(err);
+            });
       }
   }
 };
