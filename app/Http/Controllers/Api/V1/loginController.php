@@ -16,11 +16,11 @@ class loginController extends Controller
         ]);
 
         if (!Auth::attempt($login)){
-            return response(['msg' => 'invalid cred']);
-        } 
-        
+            return response(['msg' => 'invalid cred'], 401);
+        }
+
         $accessToken = Auth::user()->createToken('authToken');
-        
+
         return response(['user' => Auth::user(), 'access_token' => $accessToken]);
     }
 

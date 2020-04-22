@@ -56,15 +56,12 @@ __webpack_require__.r(__webpack_exports__);
     logout: function logout() {
       var context = this;
       axios.post('api/user/logout', {
-        userID: this.$store.state.user.id
+        userID: localStorage['user-id']
       }).then(function (result) {
         console.log(result.data.msg);
-        console.log(context.$store.token);
-        context.$store.user = null;
-        context.$store.token = null;
-        console.log(context.$store.token);
         context.$router.push('/');
-        context.reloadWindow();
+        localStorage.removeItem('user-token');
+        localStorage.removeItem('user-id');
       })["catch"](function (err) {
         console.log(err);
       });

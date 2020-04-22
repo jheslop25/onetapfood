@@ -16,12 +16,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Login",
   data: function data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      error: ''
     };
   },
   methods: {
@@ -31,11 +33,12 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password
       }).then(function (result) {
-        context.$store.commit('storeUser', result.data.user);
-        context.$store.commit('storeToken', result.data.access_token);
+        localStorage.setItem('user-token', result.data.access_token.accessToken);
+        localStorage.setItem('user-id', result.data.user.id);
         context.$router.push('/main');
       })["catch"](function (err) {
         console.log(err);
+        context.error = "Sorry, something went wrong. We couldn't log you in.";
       });
     }
   }
@@ -62,6 +65,8 @@ var render = function() {
     "v-form",
     { ref: "form", staticClass: "card m-5 p-3" },
     [
+      _c("p", { staticClass: "h6 red--text" }, [_vm._v(_vm._s(_vm.error))]),
+      _vm._v(" "),
       _c("v-text-field", {
         attrs: { label: "email" },
         model: {

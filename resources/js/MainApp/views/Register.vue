@@ -47,8 +47,8 @@ export default {
                 email: this.email,
                 password: this.password
             }).then((result) => {
-                context.$store.commit('storeUser', result.data.user);
-                context.$store.commit('storeToken', result.data.access_token);
+                localStorage.setItem('user-token', result.data.access_token.accessToken);
+                localStorage.setItem('user-id', result.data.user.id);
                 context.$router.push('/main');
             }).catch((err) => {
                 console.log(err);
