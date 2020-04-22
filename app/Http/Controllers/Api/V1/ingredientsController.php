@@ -5,18 +5,20 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class ingredientsController extends Controller
 {
     public function getAllIngredients(Request $request)
     {
-        // a function that returns a list of all ingredients in storage for the logged in user
-        if (Auth::check()) {
-            $storage = \App\Ingredient::where('user_id', $request->user()->id)->get();
-            return response()->json($storage);
-        } else {
-            return response()->json(['msg' => 'please login'], 200);
-        }
+        return response()->json(['msg' => 'the auth works'], 200);
+        // // a function that returns a list of all ingredients in storage for the logged in user
+        // if (Auth::check()) {
+        //     $storage = \App\Ingredient::where('user_id', $request->user()->id)->get();
+        //     return response()->json($storage);
+        // } else {
+        //     return response()->json(['msg' => 'please login'], 200);
+        // }
     }
 
     public function createIngredient(Request $request)

@@ -59,8 +59,8 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password
       }).then(function (result) {
-        context.$store.commit('storeUser', result.data.user);
-        context.$store.commit('storeToken', result.data.access_token);
+        localStorage.setItem('user-token', result.data.access_token.accessToken);
+        localStorage.setItem('user-id', result.data.user.id);
         context.$router.push('/main');
       })["catch"](function (err) {
         console.log(err);

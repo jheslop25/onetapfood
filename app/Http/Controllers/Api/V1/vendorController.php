@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class vendorController extends Controller
 {

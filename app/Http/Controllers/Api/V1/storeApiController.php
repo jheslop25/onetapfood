@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 
 class storeApiController extends Controller
 {

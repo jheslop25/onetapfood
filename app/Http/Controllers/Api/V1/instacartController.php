@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Cookie\SetCookie as CookieParser;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 function parse_cookies($header)
 {
@@ -89,19 +90,19 @@ class instacartController extends Controller
 
     public function login(Request $request)
     {
-        return response()->json(['msg' => 'the auth works'], 200);
-        // if (Auth::check()) {
-        //     $client = Http::post($this->baseURL . '/v3/dynamic_data/authenticate/login?source=mobile_web&cache_key=undefined', [
-        //         'scope' => [
-        //             'email' => $request->input['email'],
-        //             'password' => $request->input['password']
-        //         ]
-        //     ]);
-        //     $cookies = parse_cookies($client->header('set-cookie'));
-        //     return response()->json(['_instacart_session' => $cookies[4]->value]);
-        // } else {
-        //     return response()->json(['msg' => 'please login'], 200);
-        // }
+        //return response()->json(['msg' => 'the auth works'], 200);
+        if (Auth::check()) {
+            $client = Http::post($this->baseURL . '/v3/dynamic_data/authenticate/login?source=mobile_web&cache_key=undefined', [
+                'scope' => [
+                    'email' => $request->input['email'],
+                    'password' => $request->input['password']
+                ]
+            ]);
+            $cookies = parse_cookies($client->header('set-cookie'));
+            return response()->json(['_instacart_session' => $cookies[4]->value]);
+        } else {
+            return response()->json(['msg' => 'please login'], 200);
+        }
     }
 
     public function search(Request $request)
