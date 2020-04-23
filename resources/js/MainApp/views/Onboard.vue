@@ -1,10 +1,14 @@
 <template>
   <div>
-    <v-btn color="primary">hello world</v-btn>
+    <the-nav />
+    <div id="onboard-container">
+
+    </div>
   </div>
 </template>
 
 <script>
+import TheNav from '../../components/TheNavigation.vue';
 export default {};
 </script>
 
