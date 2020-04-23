@@ -1,7 +1,9 @@
 <template>
-  <v-app-bar>
-    <TheNav />
-  </v-app-bar>
+  <div>
+    <v-app-bar>
+      <TheNav />
+    </v-app-bar>
+  </div>
 </template>
 
 <script>

@@ -27,6 +27,12 @@ const router = new VueRouter({
             meta: {reqAuth: true}
         },
         {
+            path: '/profile',
+            name: 'profile',
+            component: () => import('./MainApp/views/Profile.vue'),
+            meta: {reqAuth: true}
+        },
+        {
             path: '/onboard',
             name: 'onboard',
             component: () => import('./MainApp/views/Onboard.vue')
