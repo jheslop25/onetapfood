@@ -97073,7 +97073,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/main',
     name: 'main',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./MainApp/views/MainApp.vue */ "./resources/js/MainApp/views/MainApp.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./MainApp/views/MainApp.vue */ "./resources/js/MainApp/views/MainApp.vue"));
     },
     meta: {
       reqAuth: true
@@ -97082,7 +97082,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/cooking',
     name: 'cooking',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./MainApp/views/Cooking.vue */ "./resources/js/MainApp/views/Cooking.vue"));
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./MainApp/views/Cooking.vue */ "./resources/js/MainApp/views/Cooking.vue"));
     },
     meta: {
       reqAuth: true
@@ -97091,7 +97091,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/profile',
     name: 'profile',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./MainApp/views/Profile.vue */ "./resources/js/MainApp/views/Profile.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./MainApp/views/Profile.vue */ "./resources/js/MainApp/views/Profile.vue"));
     },
     meta: {
       reqAuth: true
@@ -97100,13 +97100,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/onboard',
     name: 'onboard',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./MainApp/views/Onboard.vue */ "./resources/js/MainApp/views/Onboard.vue"));
+      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./MainApp/views/Onboard.vue */ "./resources/js/MainApp/views/Onboard.vue"));
     }
   }, {
     path: '/login',
     name: 'login',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./MainApp/views/Login.vue */ "./resources/js/MainApp/views/Login.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./MainApp/views/Login.vue */ "./resources/js/MainApp/views/Login.vue"));
     }
   }, {
     path: '/register',
