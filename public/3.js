@@ -39,11 +39,26 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     showUser: function showUser() {
-      this.showOne = true;
+      if (this.showOne == true) {
+        this.showOne = false;
+      } else {
+        this.showOne = true;
+      }
     },
     showFamily: function showFamily() {
-      this.showTwo = true;
+      if (this.showTwo == true) {
+        this.showTwo = false;
+      } else {
+        this.showTwo = true;
+      }
     }
+  },
+  mounted: function mounted() {
+    axios.post('/api/v1/family/profile').then(function (result) {
+      console.log(result.data);
+    })["catch"](function (err) {
+      console.log(err);
+    });
   }
 });
 

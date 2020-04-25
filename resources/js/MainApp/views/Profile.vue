@@ -28,11 +28,27 @@ import TheNav from '../../components/TheNavigation.vue';
         },
         methods: {
             showUser: function(){
-                this.showOne = true;
+                if(this.showOne == true){
+                    this.showOne = false;
+                } else {
+                    this.showOne = true;
+                }
             },
             showFamily: function(){
-                this.showTwo = true;
+                 if(this.showTwo == true){
+                    this.showTwo = false;
+                } else {
+                    this.showTwo = true;
+                }
             }
+        },
+        mounted(){
+            axios.post('/api/v1/family/profile')
+            .then((result) => {
+                console.log(result.data);
+            }).catch((err) => {
+                console.log(err);
+            });
         }
     }
 </script>
