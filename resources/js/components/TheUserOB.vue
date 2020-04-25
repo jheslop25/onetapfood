@@ -40,7 +40,22 @@
         name: 'UserOB',
         methods: {
             nextStep: function(){
-                this.$root.$emit('user-next');
+                this.submit();
+                //this.$root.$emit('user-next');
+            },
+            submit: function(){
+                axios.post('/api/v1/family/create', {
+                    input : {
+                        'ageGroup' : this.age,
+                        'diet' : this.diet,
+                        'pref' : this.pref,
+                        'isUser' : true
+                    }
+                }).then((result) => {
+                    console.log(result.data.msg);
+                }).catch((err) => {
+                    console.log(err);
+                });
             }
         },
         data(){

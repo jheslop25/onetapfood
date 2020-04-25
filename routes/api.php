@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Auth::routes();
 
 Route::prefix('/user')->group( function() {
     Route::post('/login', 'Api\V1\loginController@login');
@@ -85,14 +85,6 @@ Route::post('/cart/add', 'Api\V1\cartController@addList');
 Route::post('/cart/get', 'Api\V1\cartController@getCart');
 
 Route::post('/cart/empty', 'Api\V1\cartController@emptyCart');
-
-// family controller
-
-Route::post('/family/create', 'Api\V1\amilyController@create');
-
-Route::post('/family/update', 'Api\V1\familyController@update');
-
-Route::post('/family/destroy', 'Api\V1\familyController@destroy');
 
 // store API controller
 

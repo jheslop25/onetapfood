@@ -272,7 +272,21 @@ __webpack_require__.r(__webpack_exports__);
   name: 'UserOB',
   methods: {
     nextStep: function nextStep() {
-      this.$root.$emit('user-next');
+      this.submit(); //this.$root.$emit('user-next');
+    },
+    submit: function submit() {
+      axios.post('/api/v1/family/create', {
+        input: {
+          'ageGroup': this.age,
+          'diet': this.diet,
+          'pref': this.pref,
+          'isUser': true
+        }
+      }).then(function (result) {
+        console.log(result.data.msg);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   },
   data: function data() {

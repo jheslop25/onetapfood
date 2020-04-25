@@ -12,34 +12,36 @@ class familyController extends Controller
     public function create(Request $request)
     {
         // a function to store user's information about the user's family in the DB
-        if (Auth::check()) {
+        //if (Auth::check()) {
             $member = new Family();
             $member->user_id = $request->user()->id;
             $member->member_age_group = $request->input['ageGroup'];
             $member->member_diet = $request->input['diet'];
             $member->member_pref = $request->input['pref'];
+            $member->is_user = $request->input['isUser'];
             $member->save();
             return response()->json(['msg' => 'member stored'], 200);
-        } else {
-            return response()->json(['msg' => 'please login'], 200);
-        }
+        // } else {
+        //     return response()->json(['msg' => 'please login'], 200);
+        // }
     }
 
     public function update(Request $request)
     {
         // a function to update family members or their preferences
-        if (Auth::check()) {
+        //if (Auth::check()) {
             $member = \App\Family::find($request->input['id']);
             $member->user_id = $request->user()->id;
             $member->member_age_group = $request->input['ageGroup'];
             $member->member_diet = $request->input['diet'];
             $member->member_pref = $request->input['pref'];
+            $member->is_user = $request->input['isUser'];
             $member->save();
 
             return response()->json(['msg' => 'member updated'], 200);
-        } else {
-            return response()->json(['msg' => 'please login'], 200);
-        }
+        // } else {
+        //     return response()->json(['msg' => 'please login'], 200);
+        // }
     }
 
     public function destroy(Request $request)
