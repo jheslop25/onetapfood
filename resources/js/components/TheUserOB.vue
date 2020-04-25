@@ -41,7 +41,7 @@
         methods: {
             nextStep: function(){
                 this.submit();
-                //this.$root.$emit('user-next');
+                this.$root.$emit('user-next');
             },
             submit: function(){
                 axios.post('/api/v1/family/create', {

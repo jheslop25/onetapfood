@@ -272,7 +272,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'UserOB',
   methods: {
     nextStep: function nextStep() {
-      this.submit(); //this.$root.$emit('user-next');
+      this.submit();
+      this.$root.$emit('user-next');
     },
     submit: function submit() {
       axios.post('/api/v1/family/create', {

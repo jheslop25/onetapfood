@@ -12,7 +12,7 @@ class familyController extends Controller
     public function create(Request $request)
     {
         // a function to store user's information about the user's family in the DB
-        //if (Auth::check()) {
+        if (Auth::check()) {
             $member = new Family();
             $member->user_id = $request->user()->id;
             $member->member_age_group = $request->input['ageGroup'];
@@ -21,9 +21,9 @@ class familyController extends Controller
             $member->is_user = $request->input['isUser'];
             $member->save();
             return response()->json(['msg' => 'member stored'], 200);
-        // } else {
-        //     return response()->json(['msg' => 'please login'], 200);
-        // }
+        } else {
+            return response()->json(['msg' => 'please login'], 200);
+        }
     }
 
     public function update(Request $request)
