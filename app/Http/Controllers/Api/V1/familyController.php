@@ -64,4 +64,20 @@ class familyController extends Controller
             return response()->json(['msg' => 'please login'], 200);
         }
     }
+
+    public function profile(Request $request){
+        // a function that returns an entire profile with data from various tables. 
+        //This is to avoid making 5 requests (or more) when a user visits their profile page.
+        $profile = []; //init an empty array. data will be pushed to this array.
+        array_push($profile, $user = Auth::user()); //add user info to profile
+        array_push($profile, $family = Family::where('user_id', Auth::user()->id)->get()); // add family members to profile
+        
+        //will add user orders etc to profile later
+
+        if(sizeof($profile) > 1){
+            return response()->json(['profile' => $profile],200);
+        } else {
+            return response()->json(['msg' => 'please create a profile'],400);
+        }
+    }
 }
