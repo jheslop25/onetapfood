@@ -34,6 +34,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Profile',
@@ -204,7 +207,30 @@ var render = function() {
               _c("v-card-title", [_vm._v("Family Info")]),
               _vm._v(" "),
               _vm._l(_vm.family, function(member) {
-                return _c("div", { key: member.id }, [_c("v-card-subtitle")], 1)
+                return _c(
+                  "div",
+                  { key: member.id },
+                  [
+                    _c("v-card-subtitle", [
+                      _vm._v("Name: " + _vm._s(member.id) + " ")
+                    ]),
+                    _vm._v(" "),
+                    _c("v-card-subtitle", [
+                      _vm._v(
+                        "Age Group: " + _vm._s(member.member_age_group) + " "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("v-card-subtitle", [
+                      _vm._v("Diet: " + _vm._s(member.member_diet))
+                    ]),
+                    _vm._v(" "),
+                    _c("v-card-subtitle", [
+                      _vm._v("I can't have: " + _vm._s(member.member_pref))
+                    ])
+                  ],
+                  1
+                )
               })
             ],
             2

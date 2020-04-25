@@ -16,7 +16,10 @@
         <v-card class="my-3" v-if="showTwo">
             <v-card-title>Family Info</v-card-title>
             <div v-for="member in family" v-bind:key="member.id">
-                <v-card-subtitle></v-card-subtitle>
+                <v-card-subtitle>Name: {{member.id}} </v-card-subtitle>
+                <v-card-subtitle>Age Group: {{member.member_age_group}} </v-card-subtitle>
+                <v-card-subtitle>Diet: {{member.member_diet}}</v-card-subtitle>
+                <v-card-subtitle>I can't have: {{member.member_pref}}</v-card-subtitle>
             </div>
         </v-card>
     </div>
