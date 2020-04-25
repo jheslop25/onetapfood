@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="show">
         <v-form>
                 <v-card-title>Family Member {{num}}</v-card-title>
                 <v-card-subtitle>Select an age group</v-card-subtitle>
@@ -59,6 +59,18 @@
             },
             submit: function(){
                 console.log('this is the submit function');
+                axios.post('/api/v1/family/create', {
+                    input : {
+                        'ageGroup' : this.age,
+                        'diet' : this.diet,
+                        'pref' : this.pref,
+                        'isUser' : false
+                    }
+                }).then((result) => {
+                    console.log(result.data.msg);
+                }).catch((err) => {
+                    console.log(err);
+                });
             },
             goToMain: function(){
                 this.submit();

@@ -118,6 +118,18 @@ __webpack_require__.r(__webpack_exports__);
     },
     submit: function submit() {
       console.log('this is the submit function');
+      axios.post('/api/v1/family/create', {
+        input: {
+          'ageGroup': this.age,
+          'diet': this.diet,
+          'pref': this.pref,
+          'isUser': false
+        }
+      }).then(function (result) {
+        console.log(result.data.msg);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     },
     goToMain: function goToMain() {
       this.submit();
@@ -360,91 +372,95 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "v-form",
+  return _vm.show
+    ? _c(
+        "div",
         [
-          _c("v-card-title", [_vm._v("Family Member " + _vm._s(_vm.num))]),
-          _vm._v(" "),
-          _c("v-card-subtitle", [_vm._v("Select an age group")]),
-          _vm._v(" "),
-          _c("v-select", {
-            staticClass: "mx-3",
-            attrs: {
-              label: "Age group",
-              items: _vm.ageGroups,
-              outlined: "",
-              "append-icon": "menu-down"
-            },
-            model: {
-              value: _vm.age,
-              callback: function($$v) {
-                _vm.age = $$v
-              },
-              expression: "age"
-            }
-          }),
-          _vm._v(" "),
-          _c("v-card-subtitle", [_vm._v("Select a diet...")]),
-          _vm._v(" "),
-          _c("v-select", {
-            staticClass: "mx-3",
-            attrs: {
-              label: "Diet",
-              items: _vm.dietNames,
-              outlined: "",
-              "append-icon": "menu-down"
-            },
-            model: {
-              value: _vm.diet,
-              callback: function($$v) {
-                _vm.diet = $$v
-              },
-              expression: "diet"
-            }
-          }),
-          _vm._v(" "),
-          _c("v-card-subtitle", [_vm._v("Are there any foods you can't eat?")]),
-          _vm._v(" "),
-          _c("v-textarea", {
-            staticClass: "mx-3",
-            attrs: { label: "Preferences", outlined: "" },
-            model: {
-              value: _vm.pref,
-              callback: function($$v) {
-                _vm.pref = $$v
-              },
-              expression: "pref"
-            }
-          }),
-          _vm._v(" "),
-          _vm.show
-            ? _c(
-                "v-btn",
-                {
-                  staticClass: "mx-3 mb-3",
-                  attrs: { color: "primary" },
-                  on: { click: _vm.goToMain }
+          _c(
+            "v-form",
+            [
+              _c("v-card-title", [_vm._v("Family Member " + _vm._s(_vm.num))]),
+              _vm._v(" "),
+              _c("v-card-subtitle", [_vm._v("Select an age group")]),
+              _vm._v(" "),
+              _c("v-select", {
+                staticClass: "mx-3",
+                attrs: {
+                  label: "Age group",
+                  items: _vm.ageGroups,
+                  outlined: "",
+                  "append-icon": "menu-down"
                 },
-                [_vm._v("Finish")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.show
-            ? _c(
-                "v-btn",
-                { staticClass: "mx-3 mb-3", on: { click: _vm.addMOAR } },
-                [_vm._v("Add Family Member")]
-              )
-            : _vm._e()
+                model: {
+                  value: _vm.age,
+                  callback: function($$v) {
+                    _vm.age = $$v
+                  },
+                  expression: "age"
+                }
+              }),
+              _vm._v(" "),
+              _c("v-card-subtitle", [_vm._v("Select a diet...")]),
+              _vm._v(" "),
+              _c("v-select", {
+                staticClass: "mx-3",
+                attrs: {
+                  label: "Diet",
+                  items: _vm.dietNames,
+                  outlined: "",
+                  "append-icon": "menu-down"
+                },
+                model: {
+                  value: _vm.diet,
+                  callback: function($$v) {
+                    _vm.diet = $$v
+                  },
+                  expression: "diet"
+                }
+              }),
+              _vm._v(" "),
+              _c("v-card-subtitle", [
+                _vm._v("Are there any foods you can't eat?")
+              ]),
+              _vm._v(" "),
+              _c("v-textarea", {
+                staticClass: "mx-3",
+                attrs: { label: "Preferences", outlined: "" },
+                model: {
+                  value: _vm.pref,
+                  callback: function($$v) {
+                    _vm.pref = $$v
+                  },
+                  expression: "pref"
+                }
+              }),
+              _vm._v(" "),
+              _vm.show
+                ? _c(
+                    "v-btn",
+                    {
+                      staticClass: "mx-3 mb-3",
+                      attrs: { color: "primary" },
+                      on: { click: _vm.goToMain }
+                    },
+                    [_vm._v("Finish")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.show
+                ? _c(
+                    "v-btn",
+                    { staticClass: "mx-3 mb-3", on: { click: _vm.addMOAR } },
+                    [_vm._v("Add Family Member")]
+                  )
+                : _vm._e()
+            ],
+            1
+          )
         ],
         1
       )
-    ],
-    1
-  )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
