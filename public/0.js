@@ -31,6 +31,19 @@ __webpack_require__.r(__webpack_exports__);
     TheNav: _components_TheNavigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     UserOB: _components_TheUserOB_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     FamilyOB: _components_TheFamilyOB_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      show: false
+    };
+  },
+  methods: {
+    showNext: function showNext() {
+      this.show = true;
+    }
+  },
+  mounted: function mounted() {
+    this.$root.$on('user-next', this.showNext);
   }
 });
 
@@ -79,6 +92,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'FamSubForm',
   data: function data() {
@@ -88,8 +102,27 @@ __webpack_require__.r(__webpack_exports__);
       pref: null,
       isUser: false,
       ageGroups: ['Please Select...', '14-18', '19-30', '31-45', '46-65', '66+'],
-      dietNames: ['Please Select...', 'Whole-30', 'Gluten-free', 'Ketogenic', 'Pescetarian', 'Vegetarian', 'Ovo-vegetarian', 'Lacto-vegetarian', 'vegan', 'paleo']
+      dietNames: ['Please Select...', 'Whole-30', 'Gluten-free', 'Ketogenic', 'Pescetarian', 'Vegetarian', 'Ovo-vegetarian', 'Lacto-vegetarian', 'vegan', 'paleo'],
+      show: true
     };
+  },
+  props: {
+    num: Number
+  },
+  methods: {
+    addMOAR: function addMOAR() {
+      console.log('this is addMOAR');
+      this.show = false;
+      this.$root.$emit('addMOAR');
+      this.submit();
+    },
+    submit: function submit() {
+      console.log('this is the submit function');
+    },
+    goToMain: function goToMain() {
+      this.submit();
+      this.$router.push('/main');
+    }
   }
 });
 
@@ -116,35 +149,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'FamilyOB',
   data: function data() {
     return {
-      famOptions: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      show: true,
       count: 0
     };
   },
-  computed: {
-    famCount: {
-      get: function get() {
-        return this.count;
-      },
-      set: function set(val) {
-        this.count = val;
-      }
-    }
-  },
   components: {
     FamForm: _TheFamSubForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    addFam: function addFam() {
+      this.count++;
+      this.show = false;
+    }
+  },
+  mounted: function mounted() {
+    this.$root.$on('addMOAR', this.addFam);
   }
 });
 
@@ -248,7 +272,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'UserOB',
   methods: {
     nextStep: function nextStep() {
-      console.log('you clicked next');
+      this.$root.$emit('user-next');
     }
   },
   data: function data() {
@@ -288,7 +312,11 @@ var render = function() {
       _c(
         "div",
         { attrs: { id: "onboard-container" } },
-        [_c("user-o-b"), _vm._v(" "), _c("family-o-b")],
+        [
+          !_vm.show ? _c("user-o-b") : _vm._e(),
+          _vm._v(" "),
+          _vm.show ? _c("family-o-b") : _vm._e()
+        ],
         1
       )
     ],
@@ -323,7 +351,7 @@ var render = function() {
       _c(
         "v-form",
         [
-          _c("v-card-title", [_vm._v("Family Member")]),
+          _c("v-card-title", [_vm._v("Family Member " + _vm._s(_vm.num))]),
           _vm._v(" "),
           _c("v-card-subtitle", [_vm._v("Select an age group")]),
           _vm._v(" "),
@@ -377,11 +405,25 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c(
-            "v-btn",
-            { staticClass: "mx-3 mb-3", attrs: { color: "primary" } },
-            [_vm._v("Next")]
-          )
+          _vm.show
+            ? _c(
+                "v-btn",
+                {
+                  staticClass: "mx-3 mb-3",
+                  attrs: { color: "primary" },
+                  on: { click: _vm.goToMain }
+                },
+                [_vm._v("Finish")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.show
+            ? _c(
+                "v-btn",
+                { staticClass: "mx-3 mb-3", on: { click: _vm.addMOAR } },
+                [_vm._v("Add Family Member")]
+              )
+            : _vm._e()
         ],
         1
       )
@@ -413,6 +455,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { attrs: { id: "fam-container" } },
     [
       _c(
         "v-card",
@@ -426,31 +469,15 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c(
-            "v-form",
-            [
-              _c("v-select", {
-                staticClass: "mx-3",
-                attrs: {
-                  label: "Number of Family members",
-                  items: _vm.famOptions,
-                  outlined: ""
-                },
-                model: {
-                  value: _vm.famCount,
-                  callback: function($$v) {
-                    _vm.famCount = $$v
-                  },
-                  expression: "famCount"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
           _vm._l(this.count, function(n) {
-            return _c("fam-form", { key: n })
-          })
+            return _c("fam-form", { key: n, attrs: { num: n } })
+          }),
+          _vm._v(" "),
+          _vm.show
+            ? _c("v-btn", { on: { click: _vm.addFam } }, [
+                _vm._v("Add Family Member")
+              ])
+            : _vm._e()
         ],
         2
       )
@@ -811,9 +838,8 @@ __webpack_require__.r(__webpack_exports__);
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
-/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
-/* harmony import */ var vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VSelect */ "./node_modules/vuetify/lib/components/VSelect/index.js");
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 
 
 
@@ -838,8 +864,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_5__["VForm"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_6__["VSelect"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"]})
 
 
 /* hot reload */

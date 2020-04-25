@@ -2,8 +2,8 @@
   <div>
     <the-nav />
     <div id="onboard-container">
-        <user-o-b />
-        <family-o-b />
+        <user-o-b v-if="!show" />
+        <family-o-b v-if="show"/>
     </div>
   </div>
 </template>
@@ -18,6 +18,19 @@ export default {
         TheNav,
         UserOB,
         FamilyOB
+    },
+    data() {
+        return {
+            show: false
+        }
+    },
+    methods: {
+        showNext: function(){
+            this.show = true;
+        }
+    },
+    mounted(){
+        this.$root.$on('user-next', this.showNext)
     }
 };
 </script>

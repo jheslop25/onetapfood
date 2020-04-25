@@ -28,8 +28,8 @@ Route::prefix('/user')->group( function() {
 });
 
 Route::prefix('/v1')->middleware('auth:api')->group( function(){
-    //instacart controller
 
+//instacart controller
 
 Route::post('/instacart/login', 'Api\V1\instacartController@login');
 
@@ -75,6 +75,8 @@ Route::post('/family/update', 'Api\V1\familyController@update');
 Route::post('/family/destroy', 'Api\V1\familyController@destroy');
 
 Route::post('/family/get', 'Api\V1\familyController@get');
+
+Route::post('/family/profile', 'Api\V1\familyController@profile');
 
 // cart controller
 

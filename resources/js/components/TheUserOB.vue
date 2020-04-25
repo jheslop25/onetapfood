@@ -40,7 +40,7 @@
         name: 'UserOB',
         methods: {
             nextStep: function(){
-                console.log('you clicked next');
+                this.$root.$emit('user-next');
             }
         },
         data(){
