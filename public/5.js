@@ -61,7 +61,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         localStorage.setItem('user-token', result.data.access_token.accessToken);
         localStorage.setItem('user-id', result.data.user.id);
-        context.$router.push('/main');
+        context.$router.push('/onboard');
       })["catch"](function (err) {
         console.log(err);
       });

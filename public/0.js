@@ -119,12 +119,10 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       console.log('this is the submit function');
       axios.post('/api/v1/family/create', {
-        input: {
-          'ageGroup': this.age,
-          'diet': this.diet,
-          'pref': this.pref,
-          'isUser': false
-        }
+        'ageGroup': this.age,
+        'diet': this.diet,
+        'pref': this.pref,
+        'isUser': false
       }).then(function (result) {
         console.log(result.data.msg);
       })["catch"](function (err) {
@@ -289,12 +287,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     submit: function submit() {
       axios.post('/api/v1/family/create', {
-        input: {
-          'ageGroup': this.age,
-          'diet': this.diet,
-          'pref': this.pref,
-          'isUser': true
-        }
+        'ageGroup': this.age,
+        'diet': this.diet,
+        'pref': this.pref,
+        'isUser': true
       }).then(function (result) {
         console.log(result.data.msg);
       })["catch"](function (err) {
@@ -567,8 +563,8 @@ var render = function() {
         "v-btn",
         { attrs: { color: "secondary" } },
         [
-          _c("router-link", { attrs: { to: { name: "onboard" } } }, [
-            _vm._v("Onboard")
+          _c("router-link", { attrs: { to: { name: "profile" } } }, [
+            _vm._v("Profile")
           ])
         ],
         1

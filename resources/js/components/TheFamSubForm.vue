@@ -60,12 +60,10 @@
             submit: function(){
                 console.log('this is the submit function');
                 axios.post('/api/v1/family/create', {
-                    input : {
                         'ageGroup' : this.age,
                         'diet' : this.diet,
                         'pref' : this.pref,
                         'isUser' : false
-                    }
                 }).then((result) => {
                     console.log(result.data.msg);
                 }).catch((err) => {

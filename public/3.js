@@ -16,9 +16,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Profile'
+  name: 'Profile',
+  data: function data() {
+    return {
+      username: null,
+      showOne: false,
+      showTwo: false
+    };
+  },
+  methods: {
+    showUser: function showUser() {
+      this.showOne = true;
+    },
+    showFamily: function showFamily() {
+      this.showTwo = true;
+    }
+  }
 });
 
 /***/ }),
@@ -86,7 +112,47 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("TheNav")], 1)
+  return _c(
+    "div",
+    [
+      _c("TheNav"),
+      _vm._v(" "),
+      _c(
+        "v-card",
+        [
+          _c("v-card-title", [_vm._v("Hello " + _vm._s(_vm.username))]),
+          _vm._v(" "),
+          _c("v-btn", { staticClass: "m-3", on: { click: _vm.showUser } }, [
+            _vm._v("My info")
+          ]),
+          _vm._v(" "),
+          _c("v-btn", { staticClass: "m-3", on: { click: _vm.showFamily } }, [
+            _vm._v("Family Info")
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.showOne
+        ? _c(
+            "v-card",
+            { staticClass: "my-3" },
+            [_c("v-card-title", [_vm._v("My Info")])],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showTwo
+        ? _c(
+            "v-card",
+            { staticClass: "my-3" },
+            [_c("v-card-title", [_vm._v("Family Info")])],
+            1
+          )
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -139,8 +205,8 @@ var render = function() {
         "v-btn",
         { attrs: { color: "secondary" } },
         [
-          _c("router-link", { attrs: { to: { name: "onboard" } } }, [
-            _vm._v("Onboard")
+          _c("router-link", { attrs: { to: { name: "profile" } } }, [
+            _vm._v("Profile")
           ])
         ],
         1
@@ -170,6 +236,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Profile_vue_vue_type_template_id_2ffc6693_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Profile.vue?vue&type=template&id=2ffc6693&scoped=true& */ "./resources/js/MainApp/views/Profile.vue?vue&type=template&id=2ffc6693&scoped=true&");
 /* harmony import */ var _Profile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Profile.vue?vue&type=script&lang=js& */ "./resources/js/MainApp/views/Profile.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 
 
 
@@ -187,6 +257,14 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null
   
 )
+
+/* vuetify-loader */
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"]})
+
 
 /* hot reload */
 if (false) { var api; }

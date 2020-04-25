@@ -45,12 +45,10 @@
             },
             submit: function(){
                 axios.post('/api/v1/family/create', {
-                    input : {
                         'ageGroup' : this.age,
                         'diet' : this.diet,
                         'pref' : this.pref,
                         'isUser' : true
-                    }
                 }).then((result) => {
                     console.log(result.data.msg);
                 }).catch((err) => {

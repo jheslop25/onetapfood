@@ -49,7 +49,7 @@ export default {
             }).then((result) => {
                 localStorage.setItem('user-token', result.data.access_token.accessToken);
                 localStorage.setItem('user-id', result.data.user.id);
-                context.$router.push('/main');
+                context.$router.push('/onboard');
             }).catch((err) => {
                 console.log(err);
             });

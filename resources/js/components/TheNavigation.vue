@@ -7,7 +7,7 @@
       <router-link :to="{ name: 'cooking'}">Cook</router-link>
     </v-btn>
     <v-btn color="secondary">
-      <router-link :to="{ name: 'onboard'}">Onboard</router-link>
+      <router-link :to="{ name: 'profile'}">Profile</router-link>
     </v-btn>
     <v-btn @click="logout">Logout</v-btn>
   </div>

@@ -147,8 +147,8 @@ var render = function() {
         "v-btn",
         { attrs: { color: "secondary" } },
         [
-          _c("router-link", { attrs: { to: { name: "onboard" } } }, [
-            _vm._v("Onboard")
+          _c("router-link", { attrs: { to: { name: "profile" } } }, [
+            _vm._v("Profile")
           ])
         ],
         1
