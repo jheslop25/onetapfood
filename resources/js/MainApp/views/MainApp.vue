@@ -1,9 +1,6 @@
 <template>
   <div>
-    <v-app-bar>
       <TheNav />
-    </v-app-bar>
-    <!-- <test /> -->
   </div>
 </template>
 

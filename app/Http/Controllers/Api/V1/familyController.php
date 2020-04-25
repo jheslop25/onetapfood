@@ -92,7 +92,8 @@ class familyController extends Controller
         if (Auth::check()) {
             $profile = []; //init an empty array. data will be pushed to this array.
             array_push($profile, $user = Auth::user()); //add user info to profile
-            array_push($profile, $family = Family::where('user_id', Auth::user()->id)->get()); // add family members to profile
+            array_push($profile, $userPref = Family::where('user_id', Auth::user()->id)->where('is_user', true)->get());
+            array_push($profile, $family = Family::where('user_id', Auth::user()->id)->where('is_user', false)->get()); // add family members to profile
 
             //will add user orders etc to profile later
 

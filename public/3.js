@@ -27,14 +27,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Profile',
+  components: {
+    TheNav: _components_TheNavigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
       username: null,
+      email: null,
+      userAgeGroup: null,
+      userDiet: null,
+      userPref: null,
       showOne: false,
-      showTwo: false
+      showTwo: false,
+      family: null
     };
   },
   methods: {
@@ -54,8 +69,17 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this = this;
+
     axios.post('/api/v1/family/profile').then(function (result) {
       console.log(result.data);
+      var profile = result.data.profile;
+      _this.username = profile[0].name;
+      _this.email = profile[0].email;
+      _this.userAgeGroup = profile[1][0].member_age_group;
+      _this.userDiet = profile[1][0].member_diet;
+      _this.userPref = profile[1][0].member_pref;
+      _this.family = profile[2];
     })["catch"](function (err) {
       console.log(err);
     });
@@ -134,6 +158,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-card",
+        { staticClass: "my-3" },
         [
           _c("v-card-title", [_vm._v("Hello " + _vm._s(_vm.username))]),
           _vm._v(" "),
@@ -152,7 +177,21 @@ var render = function() {
         ? _c(
             "v-card",
             { staticClass: "my-3" },
-            [_c("v-card-title", [_vm._v("My Info")])],
+            [
+              _c("v-card-title", [_vm._v("My Info")]),
+              _vm._v(" "),
+              _c("v-card-subtitle", [_vm._v("Email: " + _vm._s(_vm.email))]),
+              _vm._v(" "),
+              _c("v-card-subtitle", [
+                _vm._v("Age Group: " + _vm._s(_vm.userAgeGroup))
+              ]),
+              _vm._v(" "),
+              _c("v-card-subtitle", [_vm._v("Diet: " + _vm._s(_vm.userDiet))]),
+              _vm._v(" "),
+              _c("v-card-subtitle", [
+                _vm._v("I Can't Eat: " + _vm._s(_vm.userPref))
+              ])
+            ],
             1
           )
         : _vm._e(),
@@ -161,8 +200,14 @@ var render = function() {
         ? _c(
             "v-card",
             { staticClass: "my-3" },
-            [_c("v-card-title", [_vm._v("Family Info")])],
-            1
+            [
+              _c("v-card-title", [_vm._v("Family Info")]),
+              _vm._v(" "),
+              _vm._l(_vm.family, function(member) {
+                return _c("div", { key: member.id }, [_c("v-card-subtitle")], 1)
+              })
+            ],
+            2
           )
         : _vm._e()
     ],
@@ -278,7 +323,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"]})
 
 
 /* hot reload */
