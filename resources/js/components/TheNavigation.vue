@@ -19,13 +19,19 @@ export default {
   methods: {
       logout: function(){
           let context = this;
+          let config = {
+              headers: {
+                  Authorization: 'Bearer '+ localStorage.getItem('user-token')
+              }
+          };
           axios.post('api/user/logout', {
               userID: localStorage['user-id']
-          }).then((result) => {
+          }, config).then((result) => {
               console.log(result.data.msg);
               context.$router.push('/');
               localStorage.removeItem('user-token');
               localStorage.removeItem('user-id');
+              localStorage.clear();
           }).catch((err) => {
               console.log(err);
           });

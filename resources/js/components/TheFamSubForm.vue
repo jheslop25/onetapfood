@@ -59,12 +59,17 @@
             },
             submit: function(){
                 console.log('this is the submit function');
+                let config = {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("user-token")
+                    }
+                };
                 axios.post('/api/v1/family/create', {
                         'ageGroup' : this.age,
                         'diet' : this.diet,
                         'pref' : this.pref,
                         'isUser' : false
-                }).then((result) => {
+                }, config).then((result) => {
                     console.log(result.data.msg);
                 }).catch((err) => {
                     console.log(err);

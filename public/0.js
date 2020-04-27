@@ -118,12 +118,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     submit: function submit() {
       console.log('this is the submit function');
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
       axios.post('/api/v1/family/create', {
         'ageGroup': this.age,
         'diet': this.diet,
         'pref': this.pref,
         'isUser': false
-      }).then(function (result) {
+      }, config).then(function (result) {
         console.log(result.data.msg);
       })["catch"](function (err) {
         console.log(err);
@@ -213,13 +218,19 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     logout: function logout() {
       var context = this;
+      var config = {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('user-token')
+        }
+      };
       axios.post('api/user/logout', {
         userID: localStorage['user-id']
-      }).then(function (result) {
+      }, config).then(function (result) {
         console.log(result.data.msg);
         context.$router.push('/');
         localStorage.removeItem('user-token');
         localStorage.removeItem('user-id');
+        localStorage.clear();
       })["catch"](function (err) {
         console.log(err);
       });
@@ -286,12 +297,17 @@ __webpack_require__.r(__webpack_exports__);
       this.$root.$emit('user-next');
     },
     submit: function submit() {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
       axios.post('/api/v1/family/create', {
         'ageGroup': this.age,
         'diet': this.diet,
         'pref': this.pref,
         'isUser': true
-      }).then(function (result) {
+      }, config).then(function (result) {
         console.log(result.data.msg);
       })["catch"](function (err) {
         console.log(err);
