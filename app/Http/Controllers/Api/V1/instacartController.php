@@ -101,7 +101,7 @@ class instacartController extends Controller
             $cookies = parse_cookies($client->header('set-cookie'));
             return response()->json(['_instacart_session' => $cookies[4]->value]);
         } else {
-            return response()->json(['msg' => 'please login'], 200);
+            return response()->json(['msg' => 'unauthorized'], 401);
         }
     }
 

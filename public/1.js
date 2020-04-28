@@ -57,6 +57,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheInstacart",
   methods: {
@@ -74,11 +78,12 @@ __webpack_require__.r(__webpack_exports__);
           password: this.password
         }
       }, config).then(function (result) {
-        _this.$store.commit('storeToken', result.data._instacart_session);
-
+        localStorage.setItem('_instacart_session', result.data._instacart_session);
         console.log(result.data._instacart_session);
+        _this.Authenticated = true; //we will need to handle this in a more solid way in the future.
       })["catch"](function (err) {
         console.log(err);
+        _this.errorLogin = "Something went wrong, please try again.";
       });
       ;
     },
@@ -90,7 +95,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       email: null,
       password: null,
-      show: false
+      show: false,
+      errorLogin: null,
+      Authenticated: false
     };
   }
 });
@@ -170,59 +177,76 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "v-card",
-        [
-          !_vm.show
-            ? _c("v-btn", { on: { click: _vm.showForm } }, [
-                _vm._v("Add to Instacart")
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.show
-            ? _c("v-card-title", [_vm._v("Please Login to Instacart")])
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "v-form",
+      !_vm.Authenticated
+        ? _c(
+            "v-card",
+            { staticClass: "py-3" },
             [
-              _vm.show
-                ? _c("v-text-field", {
-                    attrs: { label: "Instacart Email" },
-                    model: {
-                      value: _vm.email,
-                      callback: function($$v) {
-                        _vm.email = $$v
-                      },
-                      expression: "email"
-                    }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.show
-                ? _c("v-text-field", {
-                    attrs: { label: "Instacart Password" },
-                    model: {
-                      value: _vm.password,
-                      callback: function($$v) {
-                        _vm.password = $$v
-                      },
-                      expression: "password"
-                    }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.show
-                ? _c("v-btn", { on: { click: _vm.instaLogin } }, [
-                    _vm._v("Login")
+              !_vm.show
+                ? _c("v-btn", { on: { click: _vm.showForm } }, [
+                    _vm._v("Add to Instacart")
                   ])
-                : _vm._e()
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.show
+                ? _c("v-card-title", [_vm._v("Please Login to Instacart")])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("v-card-subtitle", { attrs: { color: "red--text" } }, [
+                _vm._v(_vm._s(_vm.errorLogin))
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-form",
+                { staticClass: "m-3" },
+                [
+                  _vm.show
+                    ? _c("v-text-field", {
+                        attrs: { label: "Instacart Email" },
+                        model: {
+                          value: _vm.email,
+                          callback: function($$v) {
+                            _vm.email = $$v
+                          },
+                          expression: "email"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.show
+                    ? _c("v-text-field", {
+                        attrs: { label: "Instacart Password" },
+                        model: {
+                          value: _vm.password,
+                          callback: function($$v) {
+                            _vm.password = $$v
+                          },
+                          expression: "password"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.show
+                    ? _c("v-btn", { on: { click: _vm.instaLogin } }, [
+                        _vm._v("Login")
+                      ])
+                    : _vm._e()
+                ],
+                1
+              )
             ],
             1
           )
-        ],
-        1
-      )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.Authenticated
+        ? _c(
+            "v-card",
+            { staticClass: "p-3" },
+            [_c("v-card-title", [_vm._v("Searching for Ingredients...")])],
+            1
+          )
+        : _vm._e()
     ],
     1
   )
@@ -370,7 +394,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__["VForm"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_7__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__["VForm"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_7__["VTextField"]})
 
 
 /* hot reload */
