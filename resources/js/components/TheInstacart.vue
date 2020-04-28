@@ -11,7 +11,11 @@
       </v-form>
     </v-card>
     <v-card v-if="Authenticated" class="p-3">
-        <v-card-title>Searching for Ingredients...</v-card-title>
+      <v-card-title>Searching for Ingredients...</v-card-title>
+      <v-form>
+        <v-text-field v-model="query" label="search"></v-text-field>
+        <v-btn @click="searchInsta">Search</v-btn>
+      </v-form>
     </v-card>
   </div>
 </template>
@@ -26,26 +30,53 @@ export default {
           Authorization: "Bearer " + localStorage.getItem("user-token")
         }
       };
-      axios.post(
-        "/api/v1/instacart/login",
-        {
-          input: {
-            email: this.email,
-            password: this.password
-          }
-        },
-        config
-      ).then((result) => {
-          localStorage.setItem('_instacart_session', result.data._instacart_session);
+      axios
+        .post(
+          "/api/v1/instacart/login",
+          {
+            input: {
+              email: this.email,
+              password: this.password
+            }
+          },
+          config
+        )
+        .then(result => {
+          localStorage.setItem(
+            "_instacart_session",
+            result.data._instacart_session
+          );
           console.log(result.data._instacart_session);
           this.Authenticated = true; //we will need to handle this in a more solid way in the future.
-      }).catch((err) => {
+        })
+        .catch(err => {
           console.log(err);
-          this.errorLogin = "Something went wrong, please try again."
-      });;
+          this.errorLogin = "Please tr went wrong, py again.";
+        });
     },
     showForm: function() {
       this.show = true;
+    },
+    searchInsta: function() {
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      console.log("youve decided to tempt your fate");
+      axios
+        .post("api/v1/instacart/search", {
+            input: {
+                query: this.query,
+                cookie: localStorage['_instacart_session']
+            }
+        }, config)
+        .then(result => {
+            console.log(result.data.res);
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
   },
   data() {
@@ -55,7 +86,15 @@ export default {
       show: false,
       errorLogin: null,
       Authenticated: false,
+      query: null
     };
+  },
+  mounted() {
+    if (localStorage["_instacart_session"]) {
+      this.Authenticated = true;
+    } else {
+      this.Authenticated = false;
+    }
   }
 };
 </script>

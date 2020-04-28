@@ -61,6 +61,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheInstacart",
   methods: {
@@ -78,17 +82,34 @@ __webpack_require__.r(__webpack_exports__);
           password: this.password
         }
       }, config).then(function (result) {
-        localStorage.setItem('_instacart_session', result.data._instacart_session);
+        localStorage.setItem("_instacart_session", result.data._instacart_session);
         console.log(result.data._instacart_session);
         _this.Authenticated = true; //we will need to handle this in a more solid way in the future.
       })["catch"](function (err) {
         console.log(err);
-        _this.errorLogin = "Something went wrong, please try again.";
+        _this.errorLogin = "Please tr went wrong, py again.";
       });
-      ;
     },
     showForm: function showForm() {
       this.show = true;
+    },
+    searchInsta: function searchInsta() {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      console.log("youve decided to tempt your fate");
+      axios.post("api/v1/instacart/search", {
+        input: {
+          query: this.query,
+          cookie: localStorage['_instacart_session']
+        }
+      }, config).then(function (result) {
+        console.log(result.data.res);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   },
   data: function data() {
@@ -97,8 +118,16 @@ __webpack_require__.r(__webpack_exports__);
       password: null,
       show: false,
       errorLogin: null,
-      Authenticated: false
+      Authenticated: false,
+      query: null
     };
+  },
+  mounted: function mounted() {
+    if (localStorage["_instacart_session"]) {
+      this.Authenticated = true;
+    } else {
+      this.Authenticated = false;
+    }
   }
 });
 
@@ -183,9 +212,11 @@ var render = function() {
             { staticClass: "py-3" },
             [
               !_vm.show
-                ? _c("v-btn", { on: { click: _vm.showForm } }, [
-                    _vm._v("Add to Instacart")
-                  ])
+                ? _c(
+                    "v-btn",
+                    { staticClass: "mx-3", on: { click: _vm.showForm } },
+                    [_vm._v("Add to Instacart")]
+                  )
                 : _vm._e(),
               _vm._v(" "),
               _vm.show
@@ -243,7 +274,30 @@ var render = function() {
         ? _c(
             "v-card",
             { staticClass: "p-3" },
-            [_c("v-card-title", [_vm._v("Searching for Ingredients...")])],
+            [
+              _c("v-card-title", [_vm._v("Searching for Ingredients...")]),
+              _vm._v(" "),
+              _c(
+                "v-form",
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "search" },
+                    model: {
+                      value: _vm.query,
+                      callback: function($$v) {
+                        _vm.query = $$v
+                      },
+                      expression: "query"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-btn", { on: { click: _vm.searchInsta } }, [
+                    _vm._v("Search")
+                  ])
+                ],
+                1
+              )
+            ],
             1
           )
         : _vm._e()

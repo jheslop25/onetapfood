@@ -93,10 +93,8 @@ class instacartController extends Controller
         //return response()->json(['msg' => 'the auth works'], 200);
         if (Auth::check()) {
             $client = Http::post($this->baseURL . '/v3/dynamic_data/authenticate/login?source=mobile_web&cache_key=undefined', [
-                'scope' => [
                     'email' => $request->input['email'],
                     'password' => $request->input['password']
-                ]
             ]);
             $cookies = parse_cookies($client->header('set-cookie'));
             return response()->json(['_instacart_session' => $cookies[4]->value]);
@@ -108,14 +106,20 @@ class instacartController extends Controller
     public function search(Request $request)
     {
         if (Auth::check()) {
-            $cookie = $request->input['instacart'];
+            $cookie = $request->input['cookie'];
+            $query = $request->input['query'];
             $client = Http::withHeaders([
-                'Cookie' => '_instacart_session' . $cookie,
+                'cookie' => '_instacart_session=' . $cookie,
                 'X-Requested-With' => 'XMLHttpRequest',
-                'Content-Type' => 'application/json'
-            ])->get($this->baseURL . '/v3/containers/real-canadian-superstore/search_v3/' . $request->input['query']);
+                'Content-Type' => 'application/json',
+                'Sec-Fetch-Mode' => 'cors',
+                'Sec-Fetch-dest' => 'empty',
+                'Accept' => 'application/json',
+                'Accept-Language' => 'en-US,en;q=0.9'
+            ])->get($this->baseURL . '/v3/containers/real-canadian-superstore/search_v3/' . $query);
             $result = $client->body();
             return response()->json(['res' => $result], 200);
+            // return response()->json(['res' => ['q' => $query, 'c' => $cookie]],200);
         } else {
             return response()->json(['msg' => 'please login'], 200);
         }
