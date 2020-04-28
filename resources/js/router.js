@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from './MainApp/views/Home';
 import store from './store.js'
+import Profile from './MainApp/views/Profile.vue';
 
 
 Vue.use(VueRouter);
@@ -29,7 +30,7 @@ const router = new VueRouter({
         {
             path: '/profile',
             name: 'profile',
-            component: () => import('./MainApp/views/Profile.vue'),
+            component: Profile,
             meta: {reqAuth: true}
         },
         {
