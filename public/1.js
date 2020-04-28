@@ -106,7 +106,9 @@ __webpack_require__.r(__webpack_exports__);
           cookie: localStorage['_instacart_session']
         }
       }, config).then(function (result) {
-        console.log(result.data.res);
+        console.log(result.data);
+        var searchRes = JSON.parse(result.data.res);
+        console.log(searchRes.container.modules[3].data.items);
       })["catch"](function (err) {
         console.log(err);
       });

@@ -72,7 +72,9 @@ export default {
             }
         }, config)
         .then(result => {
-            console.log(result.data.res);
+            console.log(result.data);
+            let searchRes = JSON.parse(result.data.res);
+            console.log(searchRes.container.modules[3].data.items);
         })
         .catch(err => {
             console.log(err);
