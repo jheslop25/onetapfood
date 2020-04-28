@@ -47,10 +47,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheInstacart",
   methods: {
     instaLogin: function instaLogin() {
+      var _this = this;
+
       var config = {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("user-token")
@@ -61,13 +73,24 @@ __webpack_require__.r(__webpack_exports__);
           email: this.email,
           password: this.password
         }
-      }, config);
+      }, config).then(function (result) {
+        _this.$store.commit('storeToken', result.data._instacart_session);
+
+        console.log(result.data._instacart_session);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+      ;
+    },
+    showForm: function showForm() {
+      this.show = true;
     }
   },
   data: function data() {
     return {
       email: null,
-      password: null
+      password: null,
+      show: false
     };
   }
 });
@@ -144,7 +167,65 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("hello instacart")])
+  return _c(
+    "div",
+    [
+      _c(
+        "v-card",
+        [
+          !_vm.show
+            ? _c("v-btn", { on: { click: _vm.showForm } }, [
+                _vm._v("Add to Instacart")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.show
+            ? _c("v-card-title", [_vm._v("Please Login to Instacart")])
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "v-form",
+            [
+              _vm.show
+                ? _c("v-text-field", {
+                    attrs: { label: "Instacart Email" },
+                    model: {
+                      value: _vm.email,
+                      callback: function($$v) {
+                        _vm.email = $$v
+                      },
+                      expression: "email"
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.show
+                ? _c("v-text-field", {
+                    attrs: { label: "Instacart Password" },
+                    model: {
+                      value: _vm.password,
+                      callback: function($$v) {
+                        _vm.password = $$v
+                      },
+                      expression: "password"
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.show
+                ? _c("v-btn", { on: { click: _vm.instaLogin } }, [
+                    _vm._v("Login")
+                  ])
+                : _vm._e()
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -258,6 +339,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TheInstacart_vue_vue_type_template_id_528f25f5_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TheInstacart.vue?vue&type=template&id=528f25f5&scoped=true& */ "./resources/js/components/TheInstacart.vue?vue&type=template&id=528f25f5&scoped=true&");
 /* harmony import */ var _TheInstacart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TheInstacart.vue?vue&type=script&lang=js& */ "./resources/js/components/TheInstacart.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -275,6 +362,16 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null
   
 )
+
+/* vuetify-loader */
+
+
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__["VForm"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_7__["VTextField"]})
+
 
 /* hot reload */
 if (false) { var api; }

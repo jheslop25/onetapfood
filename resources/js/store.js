@@ -5,7 +5,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         user: null,
-        token: null
+        _instacart_session: null,
     },
     mutations: {
         storeUser: function(state, data){
@@ -13,8 +13,7 @@ const store = new Vuex.Store({
             console.log(state.user);
         },
         storeToken: function(state, data){
-            state.token = data;
-            console.log(state.token);
+            state._instacart_session = data;
         }
     },
     actions: {
