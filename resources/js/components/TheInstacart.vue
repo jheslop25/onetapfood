@@ -47,6 +47,7 @@ export default {
             result.data._instacart_session
           );
           console.log(result.data._instacart_session);
+          console.log(result.data.body);
           this.Authenticated = true; //we will need to handle this in a more solid way in the future.
         })
         .catch(err => {
@@ -75,6 +76,7 @@ export default {
             console.log(result.data);
             let searchRes = JSON.parse(result.data.res);
             console.log(searchRes.container.modules[3].data.items);
+            console.log(searchRes.container.modules);
         })
         .catch(err => {
             console.log(err);

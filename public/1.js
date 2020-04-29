@@ -84,6 +84,7 @@ __webpack_require__.r(__webpack_exports__);
       }, config).then(function (result) {
         localStorage.setItem("_instacart_session", result.data._instacart_session);
         console.log(result.data._instacart_session);
+        console.log(result.data.body);
         _this.Authenticated = true; //we will need to handle this in a more solid way in the future.
       })["catch"](function (err) {
         console.log(err);
@@ -109,6 +110,7 @@ __webpack_require__.r(__webpack_exports__);
         console.log(result.data);
         var searchRes = JSON.parse(result.data.res);
         console.log(searchRes.container.modules[3].data.items);
+        console.log(searchRes.container.modules);
       })["catch"](function (err) {
         console.log(err);
       });
