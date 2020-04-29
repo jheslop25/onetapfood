@@ -169,24 +169,23 @@ class instacartController extends Controller
     {
         //add all ingredients to cart
         if (Auth::check()) {
-            $cookie = $request->input['instacart'];
-            foreach($request->input['list'] as $item){
-                $response = Http::withHeaders()->put($this->baseURL.'/v3/carts/54133112/update_items?source=web',[
-                    // data here
-                    'items' => [
-                        [
-                            "item_id" => $item['item_id'],
-                            "quantity" => $item['quant'],
-                            "source_type" => 'search',
-                            "source_value" => $item['item_name']
-                        ]
-                    ]
-                ]);
-                if($response->ok()){
-                    return response()->json(['msg' => 'all items added to cart'], 200);
-                } else {
-                    return response()->json(['msg' => 'something went wrong'], $response->status());
-                }
+            $items = $request->input['items'];
+            $cookie = $request->input['cookie'];
+            $cartID = $request->input['cartID'];
+            $client = Http::withHeaders([
+                'cookie' => '_instacart_session=' . $cookie,
+                'X-Requested-With' => 'XMLHttpRequest',
+                'Content-Type' => 'application/json',
+                'X-Client-Identifier' => 'web',
+                'Accept' => 'application/json',
+                'Accept-Language' => 'en-US,en;q=0.9'
+            ])->put($this->baseURL . '/v3/carts/' . $cartID, [
+                'items' => $items
+            ]);
+            if($client->ok()){
+                return response()->json(['msg' => 'items added successfully']);
+            } else {
+                return response(['msg' => 'something went wrong'], 400);
             }
         } else {
             return response()->json(['msg' => 'please login'], 200);
