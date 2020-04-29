@@ -23,7 +23,7 @@ Auth::routes();
 Route::prefix('/user')->group( function() {
     Route::post('/login', 'Api\V1\loginController@login');
     Route::post('/register', 'Api\V1\registerController@create');
-    Route::middleware('auth:api')->post('/logout', 'Api\V1\loginController@logout');
+    Route::post('/logout', 'Api\V1\loginController@logout');
     Route::middleware('auth:api')->get('/all', 'Api\V1\loginController@users');
 });
 
@@ -34,6 +34,8 @@ Route::prefix('/v1')->middleware('auth:api')->group( function(){
 Route::post('/instacart/login', 'Api\V1\instacartController@login');
 
 Route::post('/instacart/search', 'Api\V1\instacartController@search');
+
+Route::post('/instacart/user', 'Api\V1\instacartController@getInstacartUser');
 
 Route::post('/instacart/cart/add', 'Api\V1\instacartController@AddAllToCart');
 

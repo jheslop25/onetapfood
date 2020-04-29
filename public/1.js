@@ -65,6 +65,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheInstacart",
   methods: {
@@ -104,13 +108,33 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("api/v1/instacart/search", {
         input: {
           query: this.query,
-          cookie: localStorage['_instacart_session']
+          cookie: localStorage["_instacart_session"]
         }
       }, config).then(function (result) {
         console.log(result.data);
         var searchRes = JSON.parse(result.data.res);
         console.log(searchRes.container.modules[3].data.items);
         console.log(searchRes.container.modules);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getUserCart: function getUserCart() {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.post("/api/v1/instacart/user", {
+        input: {
+          cookie: localStorage["_instacart_session"]
+        }
+      }, config).then(function (result) {
+        console.log(result.data); //   const regex = /\"user_id\":(.*)};/gm;
+        //   let str = JSON.stringify(result.data.body);
+        //   const user_id = str.match(regex);
+        //   console.log(str);
+        //   console.log('user_id' + user_id);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -304,7 +328,18 @@ var render = function() {
             ],
             1
           )
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "v-card",
+        { staticClass: "p-5 m-3" },
+        [
+          _c("v-card-title", [_vm._v("Get user cart")]),
+          _vm._v(" "),
+          _c("v-btn", { on: { click: _vm.getUserCart } }, [_vm._v("GET IT")])
+        ],
+        1
+      )
     ],
     1
   )

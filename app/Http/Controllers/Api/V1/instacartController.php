@@ -129,12 +129,43 @@ class instacartController extends Controller
     public function getInstacartUser(Request $request){
         //a function that returns an authenticated user's info from instacart
 
-        $pattern = "/\"user_id\":(.*)};/gm";
-        $string = 'hello';
-        preg_match($pattern, $string, $matches);
-        if(defined($matches[0])){
+        $cookie = $request->input['cookie']; // a string with the instacart session cookie
+        $client = Http::withHeaders([
+            'cookie' => '_instacart_session=' . $cookie,
+            'Sec-Fetch-Mode' => 'navigate',
+            'Sec-Fetch-dest' => 'document',
+            'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+            'Accept-Language' => 'en-US,en;q=0.9',
+            'Authority' => 'www.instacart.ca'
+        ])->get($this->baseURL . '/onboarding');
+
+
+
+        $reg = '/"user_id":(.*)};/m';
+        $string = $client->body();
+        preg_match_all($reg, $string, $matches, PREG_SET_ORDER, 0);
+        if($matches[0]){
             //do some stuff
+            $userID = $matches[0][1];
+            
+            $response = Http::withHeaders([
+                'cookie' => '_instacart_session=' . $cookie,
+                'X-Requested-With' => 'XMLHttpRequest',
+                'Content-Type' => 'application/json',
+                'X-Client-Identifier' => 'web',
+                'Accept' => 'application/json',
+                'Accept-Language' => 'en-US,en;q=0.9'
+            ])->post($this->baseURL . '/v3/users/' . $userID . '/track_segment',[
+                'adblock_presence' => 'false'
+            ]);
+            
+            return response()->json(['user' => $response->body()], 200);
         }
+
+
+
+
+
 
         // if (Auth::check()) {
         //     $cookie = $request->input['cookie'];

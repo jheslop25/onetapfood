@@ -17,6 +17,10 @@
         <v-btn @click="searchInsta">Search</v-btn>
       </v-form>
     </v-card>
+    <v-card class="p-5 m-3">
+      <v-card-title>Get user cart</v-card-title>
+      <v-btn @click="getUserCart">GET IT</v-btn>
+    </v-card>
   </div>
 </template>
 
@@ -66,20 +70,52 @@ export default {
       };
       console.log("youve decided to tempt your fate");
       axios
-        .post("api/v1/instacart/search", {
+        .post(
+          "api/v1/instacart/search",
+          {
             input: {
-                query: this.query,
-                cookie: localStorage['_instacart_session']
+              query: this.query,
+              cookie: localStorage["_instacart_session"]
             }
-        }, config)
+          },
+          config
+        )
         .then(result => {
-            console.log(result.data);
-            let searchRes = JSON.parse(result.data.res);
-            console.log(searchRes.container.modules[3].data.items);
-            console.log(searchRes.container.modules);
+          console.log(result.data);
+          let searchRes = JSON.parse(result.data.res);
+          console.log(searchRes.container.modules[3].data.items);
+          console.log(searchRes.container.modules);
         })
         .catch(err => {
-            console.log(err);
+          console.log(err);
+        });
+    },
+    getUserCart: function() {
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios
+        .post(
+          "/api/v1/instacart/user",
+          {
+            input: {
+              cookie: localStorage["_instacart_session"]
+            }
+          },
+          config
+        )
+        .then(result => {
+            console.log(result.data);
+        //   const regex = /\"user_id\":(.*)};/gm;
+        //   let str = JSON.stringify(result.data.body);
+        //   const user_id = str.match(regex);
+        //   console.log(str);
+        //   console.log('user_id' + user_id);
+        })
+        .catch(err => {
+          console.log(err);
         });
     }
   },
