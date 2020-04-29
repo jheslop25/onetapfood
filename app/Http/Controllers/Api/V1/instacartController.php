@@ -160,31 +160,9 @@ class instacartController extends Controller
             ]);
             
             return response()->json(['user' => $response->body()], 200);
+        } else {
+            return response(['msg' => 'no userID was returned'], 400);
         }
-
-
-
-
-
-
-        // if (Auth::check()) {
-        //     $cookie = $request->input['cookie'];
-        //     $query = $request->input['query'];
-        //     $client = Http::withHeaders([
-        //         'cookie' => '_instacart_session=' . $cookie,
-        //         'X-Requested-With' => 'XMLHttpRequest',
-        //         'Content-Type' => 'application/json',
-        //         'Sec-Fetch-Mode' => 'cors',
-        //         'Sec-Fetch-dest' => 'empty',
-        //         'Accept' => 'application/json',
-        //         'Accept-Language' => 'en-US,en;q=0.9'
-        //     ])->get($this->baseURL . '/v3/containers/real-canadian-superstore/search_v3/' . $query);
-        //     $result = $client->body();
-        //     return response()->json(['res' => $result], 200);
-        //     // return response()->json(['res' => ['q' => $query, 'c' => $cookie]],200);
-        // } else {
-        //     return response()->json(['msg' => 'please login'], 200);
-        // }
     }
 
     public function AddAllToCart(Request $request)
