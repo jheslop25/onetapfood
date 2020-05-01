@@ -2325,6 +2325,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheSubscription",
   data: function data() {
@@ -2340,7 +2343,7 @@ __webpack_require__.r(__webpack_exports__);
       paymentMethods: [],
       paymentMethodsLoadStatus: 0,
       paymentMethodSelected: {},
-      selectedPlan: ''
+      selectedPlan: ""
     };
   },
   mounted: function mounted() {
@@ -2436,6 +2439,19 @@ __webpack_require__.r(__webpack_exports__);
         id: paymentID
       }, config).then(function (response) {
         this.loadPaymentMethods();
+      }.bind(this));
+    },
+    updateSubscription: function updateSubscription() {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.put("/api/user/subscription", {
+        plan: this.selectedPlan,
+        payment: this.paymentMethodSelected
+      }, config).then(function (response) {
+        alert("You Are Subscribed!");
       }.bind(this));
     }
   }
@@ -40615,36 +40631,55 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-card",
-        {
-          staticClass: "m-3 row",
-          on: {
-            click: function($event) {
-              _vm.selectedPlan = "plan_HC7gOF85Bn5CfQ"
-            }
-          }
-        },
+        { staticClass: "m-3 p-3" },
         [
-          _c("v-card-subtitle", { staticClass: "col-6" }, [_vm._v("Basic")]),
+          _c(
+            "v-card",
+            {
+              staticClass: "m-3 row",
+              on: {
+                click: function($event) {
+                  _vm.selectedPlan = "plan_HC7gOF85Bn5CfQ"
+                }
+              }
+            },
+            [
+              _c("v-card-subtitle", { staticClass: "col-6" }, [
+                _vm._v("Basic")
+              ]),
+              _vm._v(" "),
+              _c("v-card-subtitle", { staticClass: "col-6" }, [
+                _vm._v("$7/mo.")
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("v-card-subtitle", { staticClass: "col-6" }, [_vm._v("$7/mo.")])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-card",
-        {
-          staticClass: "m-3 row",
-          on: {
-            click: function($event) {
-              _vm.selectedPlan = "plan_HC7myo3NX0wgfx"
-            }
-          }
-        },
-        [
-          _c("v-card-subtitle", { staticClass: "col-6" }, [_vm._v("Premium")]),
+          _c(
+            "v-card",
+            {
+              staticClass: "m-3 row",
+              on: {
+                click: function($event) {
+                  _vm.selectedPlan = "plan_HC7myo3NX0wgfx"
+                }
+              }
+            },
+            [
+              _c("v-card-subtitle", { staticClass: "col-6" }, [
+                _vm._v("Premium")
+              ]),
+              _vm._v(" "),
+              _c("v-card-subtitle", { staticClass: "col-6" }, [
+                _vm._v("$15/mo.")
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("v-card-subtitle", { staticClass: "col-6" }, [_vm._v("$15/mo.")])
+          _c("v-btn", { on: { click: _vm.updateSubscription } }, [
+            _vm._v("Subscribe")
+          ])
         ],
         1
       )

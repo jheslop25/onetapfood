@@ -34,13 +34,16 @@
         </div>
       </div>
     </div>
-    <v-card class="m-3 row" @click="selectedPlan = 'plan_HC7gOF85Bn5CfQ'">
-      <v-card-subtitle class="col-6">Basic</v-card-subtitle>
-      <v-card-subtitle class="col-6">$7/mo.</v-card-subtitle>
-    </v-card>
-    <v-card class="m-3 row" @click="selectedPlan = 'plan_HC7myo3NX0wgfx'">
-      <v-card-subtitle class="col-6">Premium</v-card-subtitle>
-      <v-card-subtitle class="col-6">$15/mo.</v-card-subtitle>
+    <v-card class="m-3 p-3">
+      <v-card class="m-3 row" @click="selectedPlan = 'plan_HC7gOF85Bn5CfQ'">
+        <v-card-subtitle class="col-6">Basic</v-card-subtitle>
+        <v-card-subtitle class="col-6">$7/mo.</v-card-subtitle>
+      </v-card>
+      <v-card class="m-3 row" @click="selectedPlan = 'plan_HC7myo3NX0wgfx'">
+        <v-card-subtitle class="col-6">Premium</v-card-subtitle>
+        <v-card-subtitle class="col-6">$15/mo.</v-card-subtitle>
+      </v-card>
+      <v-btn @click="updateSubscription">Subscribe</v-btn>
     </v-card>
   </div>
 </template>
@@ -61,7 +64,7 @@ export default {
       paymentMethods: [],
       paymentMethodsLoadStatus: 0,
       paymentMethodSelected: {},
-      selectedPlan: '',
+      selectedPlan: ""
     };
   },
   mounted() {
@@ -188,6 +191,27 @@ export default {
         .then(
           function(response) {
             this.loadPaymentMethods();
+          }.bind(this)
+        );
+    },
+    updateSubscription() {
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios
+        .put(
+          "/api/user/subscription",
+          {
+            plan: this.selectedPlan,
+            payment: this.paymentMethodSelected
+          },
+          config
+        )
+        .then(
+          function(response) {
+            alert("You Are Subscribed!");
           }.bind(this)
         );
     }
