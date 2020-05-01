@@ -5,6 +5,7 @@
       <v-card-title>Hello {{username}}</v-card-title>
       <v-btn class="m-3" @click="showUser">My info</v-btn>
       <v-btn class="m-3" @click="showFamily">Family Info</v-btn>
+       <v-btn class="m-3" @click="showSub">Manage Subscription</v-btn>
     </v-card>
     <v-card class="my-3" v-if="showOne">
       <v-card-title>My Info</v-card-title>
@@ -22,16 +23,20 @@
         <v-card-subtitle>I can't have: {{member.member_pref}}</v-card-subtitle>
       </div>
     </v-card>
+    <the-subscription v-if="showThree"></the-subscription>
   </div>
 </template>
 
 <script>
 // import config from '../../axiosConfig.js';
 import TheNav from "../../components/TheNavigation.vue";
+import TheSubscription from '../../components/TheSubscription.vue';
+
 export default {
   name: "Profile",
   components: {
-    TheNav
+    TheNav,
+    TheSubscription
   },
   data() {
     return {
@@ -42,6 +47,7 @@ export default {
       userPref: null,
       showOne: false,
       showTwo: false,
+      showThree: false,
       family: null
     };
   },
@@ -58,6 +64,13 @@ export default {
         this.showTwo = false;
       } else {
         this.showTwo = true;
+      }
+    },
+    showSub: function(){
+        if (this.showThree == true) {
+        this.showThree = false;
+      } else {
+        this.showThree = true;
       }
     }
   },

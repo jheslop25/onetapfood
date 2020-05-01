@@ -24,6 +24,9 @@ Route::prefix('/user')->group( function() {
     Route::post('/login', 'Api\V1\loginController@login');
     Route::post('/register', 'Api\V1\registerController@create');
     Route::post('/logout', 'Api\V1\loginController@logout');
+    Route::middleware('auth:api')->get('/setup-intent', 'Api\V1\loginController@getSetupIntent');
+    Route::middleware('auth:api')->post('/payments', 'Api\V1\loginController@postPaymentMethods');
+    Route::middleware('auth:api')->get('/payment-methods', 'Api\V1\loginController@getPaymentMethods');
     Route::middleware('auth:api')->get('/all', 'Api\V1\loginController@users');
 });
 
