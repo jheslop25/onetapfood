@@ -83,4 +83,38 @@ class loginController extends Controller
 
         return response()->json($methods);
     }
+
+    public function removePaymentMethod(Request $request)
+    {
+        $user = $request->user();
+        $paymentMethodID = $request->get('id');
+
+        $paymentMethods = $user->paymentMethods();
+
+        foreach ($paymentMethods as $method) {
+            if ($method->id == $paymentMethodID) {
+                $method->delete();
+                break;
+            }
+        }
+
+        return response()->json(null, 204);
+    }
+
+    public function updateSubscription( Request $request ){
+        $user = $request->user();
+        $planID = $request->get('plan');
+        $paymentID = $request->get('payment');
+
+        if( $user->subscribed('OneTapFood.ca') ){
+            $user->newSubscription( 'OneTapFood.ca', $planID )
+                    ->create( $paymentID );
+        }else{
+            $user->subscription('OneTapFood.ca')->swap( $planID );
+        }
+
+        return response()->json([
+            'subscription_updated' => true
+        ]);
+    }
 }

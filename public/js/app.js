@@ -2289,6 +2289,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheSubscription",
   data: function data() {
@@ -2301,7 +2337,10 @@ __webpack_require__.r(__webpack_exports__);
       name: "",
       addPaymentStatus: 0,
       addPaymentStatusError: "",
-      paymentMethods: []
+      paymentMethods: [],
+      paymentMethodsLoadStatus: 0,
+      paymentMethodSelected: {},
+      selectedPlan: ''
     };
   },
   mounted: function mounted() {
@@ -2365,15 +2404,38 @@ __webpack_require__.r(__webpack_exports__);
       }.bind(this));
     },
     savePaymentMethod: function savePaymentMethod(method) {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
       axios.post("/api/user/payments", {
         payment_method: method
-      }).then(function () {
+      }, config).then(function () {
         this.loadPaymentMethods();
       }.bind(this));
     },
     loadPaymentMethods: function loadPaymentMethods() {
-      axios.get("/api/user/payment-methods").then(function (response) {
+      this.paymentMethodsLoadStatus = 1;
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.get("/api/user/payment-methods", config).then(function (response) {
         this.paymentMethods = response.data;
+      }.bind(this));
+    },
+    removePaymentMethod: function removePaymentMethod(paymentID) {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.post("/api/user/remove-payment", {
+        id: paymentID
+      }, config).then(function (response) {
+        this.loadPaymentMethods();
       }.bind(this));
     }
   }
@@ -40458,6 +40520,131 @@ var render = function() {
             },
             [_vm._v("Save Payment Method")]
           )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "mt-3 mb-3" }, [_vm._v("OR")]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                _vm.paymentMethodsLoadStatus == 2 &&
+                _vm.paymentMethods.length == 0,
+              expression:
+                "paymentMethodsLoadStatus == 2\n  && paymentMethods.length == 0"
+            }
+          ]
+        },
+        [_vm._v("No payment method on file, please add a payment method.")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                _vm.paymentMethodsLoadStatus == 2 &&
+                _vm.paymentMethods.length > 0,
+              expression:
+                "paymentMethodsLoadStatus == 2\n      && paymentMethods.length > 0"
+            }
+          ]
+        },
+        _vm._l(_vm.paymentMethods, function(method, key) {
+          return _c(
+            "div",
+            {
+              key: "method-" + key,
+              staticClass: "border rounded row p-1",
+              class: {
+                "bg-success text-light": _vm.paymentMethodSelected == method.id
+              },
+              on: {
+                click: function($event) {
+                  _vm.paymentMethodSelected = method.id
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "col-2" }, [
+                _vm._v(
+                  _vm._s(method.brand.charAt(0).toUpperCase()) +
+                    _vm._s(method.brand.slice(1))
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-7" }, [
+                _vm._v(
+                  "Ending In: " +
+                    _vm._s(method.last_four) +
+                    " Exp: " +
+                    _vm._s(method.exp_month) +
+                    " / " +
+                    _vm._s(method.exp_year)
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-3" }, [
+                _c(
+                  "span",
+                  {
+                    on: {
+                      click: function($event) {
+                        $event.stopPropagation()
+                        return _vm.removePaymentMethod(method.id)
+                      }
+                    }
+                  },
+                  [_vm._v("Remove")]
+                )
+              ])
+            ]
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c(
+        "v-card",
+        {
+          staticClass: "m-3 row",
+          on: {
+            click: function($event) {
+              _vm.selectedPlan = "plan_HC7gOF85Bn5CfQ"
+            }
+          }
+        },
+        [
+          _c("v-card-subtitle", { staticClass: "col-6" }, [_vm._v("Basic")]),
+          _vm._v(" "),
+          _c("v-card-subtitle", { staticClass: "col-6" }, [_vm._v("$7/mo.")])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-card",
+        {
+          staticClass: "m-3 row",
+          on: {
+            click: function($event) {
+              _vm.selectedPlan = "plan_HC7myo3NX0wgfx"
+            }
+          }
+        },
+        [
+          _c("v-card-subtitle", { staticClass: "col-6" }, [_vm._v("Premium")]),
+          _vm._v(" "),
+          _c("v-card-subtitle", { staticClass: "col-6" }, [_vm._v("$15/mo.")])
         ],
         1
       )
@@ -97764,7 +97951,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_6__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_6__["VTextField"]})
 
 
 /* hot reload */
