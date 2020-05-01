@@ -106,7 +106,7 @@ class loginController extends Controller
         $planID = $request->get('plan');
         $paymentID = $request->get('payment');
 
-        if( $user->subscribed('OneTapFood.ca') ){
+        if( !$user->subscribed('OneTapFood.ca') ){
             $user->newSubscription( 'OneTapFood.ca', $planID )
                     ->create( $paymentID );
         }else{
@@ -117,4 +117,17 @@ class loginController extends Controller
             'subscription_updated' => true
         ]);
     }
+
+    // public function createSubscription(Request $request){
+    //     $user = $request->user();
+    //     $planID = $request->get('plan');
+    //     $paymentID = $request->get('payment');
+
+    //     if(!$user->subscribed('OneTapFood.ca')){
+    //         $user->newSubscription( 'OneTapFood.ca', $planID )
+    //                 ->create( $paymentID );
+    //     } else {
+    //         return response()->json(['msg' => 'user already subscribed']);
+    //     }
+    // }
 }

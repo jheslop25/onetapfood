@@ -4,6 +4,7 @@
     <div id="onboard-container">
         <user-o-b v-if="!show" />
         <family-o-b v-if="show"/>
+        <the-sign-up class="m-3"></the-sign-up>
     </div>
   </div>
 </template>
@@ -12,12 +13,16 @@
 import TheNav from '../../components/TheNavigation.vue';
 import UserOB from '../../components/TheUserOB.vue';
 import FamilyOB from '../../components/TheFamilyOB.vue';
+import TheSignUp from '../../components/TheSignUp.vue';
+
+
 export default {
     name: 'Onboard',
     components: {
         TheNav,
         UserOB,
-        FamilyOB
+        FamilyOB,
+        TheSignUp
     },
     data() {
         return {

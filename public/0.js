@@ -12,6 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_TheNavigation_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/TheNavigation.vue */ "./resources/js/components/TheNavigation.vue");
 /* harmony import */ var _components_TheUserOB_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/TheUserOB.vue */ "./resources/js/components/TheUserOB.vue");
 /* harmony import */ var _components_TheFamilyOB_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/TheFamilyOB.vue */ "./resources/js/components/TheFamilyOB.vue");
+/* harmony import */ var _components_TheSignUp_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/TheSignUp.vue */ "./resources/js/components/TheSignUp.vue");
 //
 //
 //
@@ -22,6 +23,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -30,7 +33,8 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     TheNav: _components_TheNavigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     UserOB: _components_TheUserOB_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    FamilyOB: _components_TheFamilyOB_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    FamilyOB: _components_TheFamilyOB_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    TheSignUp: _components_TheSignUp_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
@@ -189,6 +193,168 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TheSignUp.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vuetify-loader/lib/loader.js??ref--11-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TheSignUp.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "TheSignUp",
+  data: function data() {
+    return {
+      stripeAPIToken: "pk_test_Lzn1cZLlZN6K1jdrxE7aCeBc",
+      stripe: "",
+      elements: "",
+      card: "",
+      intentToken: "",
+      name: "",
+      addPaymentStatus: 0,
+      addPaymentStatusError: "",
+      paymentMethods: [],
+      paymentMethodsLoadStatus: 0,
+      paymentMethodSelected: {},
+      selectedPlan: ""
+    };
+  },
+  mounted: function mounted() {
+    this.includeStripe("js.stripe.com/v3/", function () {
+      this.configureStripe();
+    }.bind(this));
+    this.loadIntent();
+    this.loadPaymentMethods();
+  },
+  methods: {
+    includeStripe: function includeStripe(URL, callback) {
+      var documentTag = document,
+          tag = "script",
+          object = documentTag.createElement(tag),
+          scriptTag = documentTag.getElementsByTagName(tag)[0];
+      object.src = "//" + URL;
+
+      if (callback) {
+        object.addEventListener("load", function (e) {
+          callback(null, e);
+        }, false);
+      }
+
+      scriptTag.parentNode.insertBefore(object, scriptTag);
+    },
+    configureStripe: function configureStripe() {
+      this.stripe = Stripe(this.stripeAPIToken);
+      this.elements = this.stripe.elements();
+      this.card = this.elements.create("card");
+      this.card.mount("#card-element");
+    },
+    loadIntent: function loadIntent() {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.get("/api/user/setup-intent", config).then(function (response) {
+        this.intentToken = response.data;
+      }.bind(this));
+    },
+    submitPaymentMethod: function submitPaymentMethod() {
+      this.addPaymentStatus = 1;
+      this.stripe.confirmCardSetup(this.intentToken.client_secret, {
+        payment_method: {
+          card: this.card,
+          billing_details: {
+            name: this.name
+          }
+        }
+      }).then(function (result) {
+        if (result.error) {
+          this.addPaymentStatus = 3;
+          this.addPaymentStatusError = result.error.message;
+        } else {
+          this.savePaymentMethod(result.setupIntent.payment_method);
+          this.addPaymentStatus = 2;
+          this.card.clear();
+          this.name = "";
+        }
+      }.bind(this));
+    },
+    savePaymentMethod: function savePaymentMethod(method) {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.post("/api/user/payments", {
+        payment_method: method
+      }, config).then(function () {
+        this.loadPaymentMethods();
+      }.bind(this));
+    },
+    loadPaymentMethods: function loadPaymentMethods() {
+      this.paymentMethodsLoadStatus = 1;
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.get("/api/user/payment-methods", config).then(function (response) {
+        this.paymentMethods = response.data;
+      }.bind(this));
+    },
+    removePaymentMethod: function removePaymentMethod(paymentID) {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.post("/api/user/remove-payment", {
+        id: paymentID
+      }, config).then(function (response) {
+        this.loadPaymentMethods();
+      }.bind(this));
+    },
+    updateSubscription: function updateSubscription() {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.put("/api/user/subscription", {
+        plan: this.selectedPlan,
+        payment: this.paymentMethodSelected
+      }, config).then(function (response) {
+        alert("You Are Subscribed!");
+      }.bind(this));
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TheUserOB.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vuetify-loader/lib/loader.js??ref--11-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TheUserOB.vue?vue&type=script&lang=js& ***!
@@ -300,7 +466,9 @@ var render = function() {
         [
           !_vm.show ? _c("user-o-b") : _vm._e(),
           _vm._v(" "),
-          _vm.show ? _c("family-o-b") : _vm._e()
+          _vm.show ? _c("family-o-b") : _vm._e(),
+          _vm._v(" "),
+          _c("the-sign-up", { staticClass: "m-3" })
         ],
         1
       )
@@ -469,6 +637,128 @@ var render = function() {
             : _vm._e()
         ],
         2
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TheSignUp.vue?vue&type=template&id=41453eae&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vuetify-loader/lib/loader.js??ref--11-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TheSignUp.vue?vue&type=template&id=41453eae&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-card",
+        { staticClass: "m-3 p-3" },
+        [
+          _c("v-card-title", [_vm._v("Choose a subscription")]),
+          _vm._v(" "),
+          _c(
+            "v-card",
+            {
+              staticClass: "m-3 row",
+              on: {
+                click: function($event) {
+                  _vm.selectedPlan = "plan_HC7gOF85Bn5CfQ"
+                }
+              }
+            },
+            [
+              _c("v-card-subtitle", { staticClass: "col-6" }, [
+                _vm._v("Basic")
+              ]),
+              _vm._v(" "),
+              _c("v-card-subtitle", { staticClass: "col-6" }, [
+                _vm._v("$7/mo.")
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-card",
+            {
+              staticClass: "m-3 row",
+              on: {
+                click: function($event) {
+                  _vm.selectedPlan = "plan_HC7myo3NX0wgfx"
+                }
+              }
+            },
+            [
+              _c("v-card-subtitle", { staticClass: "col-6" }, [
+                _vm._v("Premium")
+              ]),
+              _vm._v(" "),
+              _c("v-card-subtitle", { staticClass: "col-6" }, [
+                _vm._v("$15/mo.")
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-card",
+            { staticClass: "m-3" },
+            [
+              _c("v-text-field", {
+                staticClass: "m-3",
+                attrs: { id: "card-holder-name", label: "Card Holder Name" },
+                model: {
+                  value: _vm.name,
+                  callback: function($$v) {
+                    _vm.name = $$v
+                  },
+                  expression: "name"
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "m-3", attrs: { id: "card-element" } }),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  staticClass: "m-3",
+                  attrs: { id: "add-card-button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.submitPaymentMethod()
+                    }
+                  }
+                },
+                [_vm._v("Save Payment Method")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            { staticClass: "m-3", on: { click: _vm.updateSubscription } },
+            [_vm._v("Subscribe")]
+          )
+        ],
+        1
       )
     ],
     1
@@ -827,6 +1117,90 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_11_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheFamilyOB_vue_vue_type_template_id_34ce16ad_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_11_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheFamilyOB_vue_vue_type_template_id_34ce16ad_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/TheSignUp.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/TheSignUp.vue ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TheSignUp_vue_vue_type_template_id_41453eae_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TheSignUp.vue?vue&type=template&id=41453eae&scoped=true& */ "./resources/js/components/TheSignUp.vue?vue&type=template&id=41453eae&scoped=true&");
+/* harmony import */ var _TheSignUp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TheSignUp.vue?vue&type=script&lang=js& */ "./resources/js/components/TheSignUp.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _TheSignUp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TheSignUp_vue_vue_type_template_id_41453eae_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TheSignUp_vue_vue_type_template_id_41453eae_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "41453eae",
+  null
+  
+)
+
+/* vuetify-loader */
+
+
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_6__["VTextField"]})
+
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/TheSignUp.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/TheSignUp.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/TheSignUp.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vuetify_loader_lib_loader_js_ref_11_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheSignUp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vuetify-loader/lib/loader.js??ref--11-0!../../../node_modules/vue-loader/lib??vue-loader-options!./TheSignUp.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TheSignUp.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vuetify_loader_lib_loader_js_ref_11_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheSignUp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/TheSignUp.vue?vue&type=template&id=41453eae&scoped=true&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/TheSignUp.vue?vue&type=template&id=41453eae&scoped=true& ***!
+  \******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_11_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheSignUp_vue_vue_type_template_id_41453eae_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vuetify-loader/lib/loader.js??ref--11-0!../../../node_modules/vue-loader/lib??vue-loader-options!./TheSignUp.vue?vue&type=template&id=41453eae&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TheSignUp.vue?vue&type=template&id=41453eae&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_11_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheSignUp_vue_vue_type_template_id_41453eae_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_11_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheSignUp_vue_vue_type_template_id_41453eae_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
