@@ -2330,6 +2330,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheSubscription",
   data: function data() {
@@ -2345,7 +2349,8 @@ __webpack_require__.r(__webpack_exports__);
       paymentMethods: [],
       paymentMethodsLoadStatus: 0,
       paymentMethodSelected: {},
-      selectedPlan: ""
+      selectedPlan: "",
+      subscription: ''
     };
   },
   mounted: function mounted() {
@@ -2354,6 +2359,7 @@ __webpack_require__.r(__webpack_exports__);
     }.bind(this));
     this.loadIntent();
     this.loadPaymentMethods();
+    this.getSubScription();
   },
   methods: {
     includeStripe: function includeStripe(URL, callback) {
@@ -2456,6 +2462,18 @@ __webpack_require__.r(__webpack_exports__);
       }, config).then(function (response) {
         alert("You Are Subscribed!");
       }.bind(this));
+    },
+    getSubScription: function getSubScription() {
+      var _this = this;
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.get('/api/user/get/active', config).then(function (result) {
+        _this.subscription = result.data.subscription;
+      })["catch"](function (err) {});
     }
   }
 });
@@ -40505,8 +40523,20 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-card",
+    { staticClass: "p-3" },
     [
       _c("v-card-title", [_vm._v("Manage Your Subscription")]),
+      _vm._v(" "),
+      _c(
+        "v-card",
+        { staticClass: "m-3" },
+        [
+          _c("v-card-title", [_vm._v("Your Current Subscription")]),
+          _vm._v(" "),
+          _c("v-card-subtitle", [_vm._v(_vm._s(_vm.subscription.title))])
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "v-card",

@@ -1,6 +1,10 @@
 <template>
-  <v-card>
+  <v-card class="p-3">
     <v-card-title>Manage Your Subscription</v-card-title>
+    <v-card class="m-3">
+        <v-card-title>Your Current Subscription</v-card-title>
+        <v-card-subtitle>{{subscription.title}}</v-card-subtitle>
+    </v-card>
 
     <v-card
       v-show="paymentMethodsLoadStatus == 2
@@ -66,7 +70,8 @@ export default {
       paymentMethods: [],
       paymentMethodsLoadStatus: 0,
       paymentMethodSelected: {},
-      selectedPlan: ""
+      selectedPlan: "",
+      subscription: ''
     };
   },
   mounted() {
@@ -78,6 +83,7 @@ export default {
     );
     this.loadIntent();
     this.loadPaymentMethods();
+    this.getSubScription();
   },
   methods: {
     includeStripe(URL, callback) {
@@ -217,6 +223,18 @@ export default {
             alert("You Are Subscribed!");
           }.bind(this)
         );
+    },
+    getSubScription(){
+        let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.get('/api/user/get/active', config).then((result) => {
+          this.subscription = result.data.subscription;
+      }).catch((err) => {
+
+      });
     }
   }
 };

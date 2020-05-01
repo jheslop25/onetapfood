@@ -29,6 +29,7 @@ Route::prefix('/user')->group( function() {
     Route::middleware('auth:api')->get('/payment-methods', 'Api\V1\loginController@getPaymentMethods');
     Route::middleware('auth:api')->post('/remove-payment', 'Api\V1\loginController@removePaymentMethod');
     Route::middleware('auth:api')->put('/subscription', 'Api\V1\loginController@updateSubscription');
+    Route::middleware('auth:api')->get('/get/active', 'Api\V1\loginController@getSubscription');
     Route::middleware('auth:api')->get('/all', 'Api\V1\loginController@users');
 });
 

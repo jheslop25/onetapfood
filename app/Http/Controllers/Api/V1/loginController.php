@@ -101,16 +101,17 @@ class loginController extends Controller
         return response()->json(null, 204);
     }
 
-    public function updateSubscription( Request $request ){
+    public function updateSubscription(Request $request)
+    {
         $user = $request->user();
         $planID = $request->get('plan');
         $paymentID = $request->get('payment');
 
-        if( !$user->subscribed('OneTapFood.ca') ){
-            $user->newSubscription( 'OneTapFood.ca', $planID )
-                    ->create( $paymentID );
-        }else{
-            $user->subscription('OneTapFood.ca')->swap( $planID );
+        if (!$user->subscribed('OneTapFood.ca')) {
+            $user->newSubscription('OneTapFood.ca', $planID)
+                ->create($paymentID);
+        } else {
+            $user->subscription('OneTapFood.ca')->swap($planID);
         }
 
         return response()->json([
@@ -118,16 +119,28 @@ class loginController extends Controller
         ]);
     }
 
-    // public function createSubscription(Request $request){
-    //     $user = $request->user();
-    //     $planID = $request->get('plan');
-    //     $paymentID = $request->get('payment');
+    public function getSubscription(Request $request)
+    {
+        $user = $request->user();
+        if ($user->subscribed('OneTapFood.ca')) {
+            $sub = $user->subscription('OneTapFood.ca');
+            $plan = $sub->stripe_plan;
+            $status = $sub->stripe_status;
+            $created_at = $sub->created_at;
+            $title = null;
+            if ($plan == 'plan_HC7gOF85Bn5CfQ') {
+                $title = 'Basic';
+            } elseif ($plan == 'plan_HC7myo3NX0wgfx') {
+                $title = 'Premium';
+            }
 
-    //     if(!$user->subscribed('OneTapFood.ca')){
-    //         $user->newSubscription( 'OneTapFood.ca', $planID )
-    //                 ->create( $paymentID );
-    //     } else {
-    //         return response()->json(['msg' => 'user already subscribed']);
-    //     }
-    // }
+            return response()->json(['subscription' => [
+                'title' => $title,
+                'status' => $status,
+                'since' => $created_at
+            ]]);
+        } else {
+            return response()->json(['msg' => 'No Active Subscription']);
+        }
+    }
 }
