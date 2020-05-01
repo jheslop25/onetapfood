@@ -2327,6 +2327,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheSubscription",
   data: function data() {
@@ -2426,6 +2429,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios.get("/api/user/payment-methods", config).then(function (response) {
         this.paymentMethods = response.data;
+        this.paymentMethodsLoadStatus = 2;
       }.bind(this));
     },
     removePaymentMethod: function removePaymentMethod(paymentID) {
@@ -40500,13 +40504,109 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "v-card",
     [
+      _c("v-card-title", [_vm._v("Manage Your Subscription")]),
+      _vm._v(" "),
       _c(
         "v-card",
-        { staticClass: "p-3" },
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                _vm.paymentMethodsLoadStatus == 2 &&
+                _vm.paymentMethods.length == 0,
+              expression:
+                "paymentMethodsLoadStatus == 2\n  && paymentMethods.length == 0"
+            }
+          ],
+          staticClass: "m-3 p-3"
+        },
+        [_vm._v("No payment method on file, please add a payment method.")]
+      ),
+      _vm._v(" "),
+      _c(
+        "v-card",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                _vm.paymentMethodsLoadStatus == 2 &&
+                _vm.paymentMethods.length > 0,
+              expression:
+                "paymentMethodsLoadStatus == 2\n      && paymentMethods.length > 0"
+            }
+          ],
+          staticClass: "m-3 p-3"
+        },
+        _vm._l(_vm.paymentMethods, function(method, key) {
+          return _c(
+            "div",
+            {
+              key: "method-" + key,
+              staticClass: "border rounded row align-items-center p-1",
+              class: {
+                "bg-success text-light": _vm.paymentMethodSelected == method.id
+              },
+              on: {
+                click: function($event) {
+                  _vm.paymentMethodSelected = method.id
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "col-2" }, [
+                _vm._v(
+                  _vm._s(method.brand.charAt(0).toUpperCase()) +
+                    _vm._s(method.brand.slice(1))
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-7" }, [
+                _vm._v(
+                  "Active Payment Method Ending In: " +
+                    _vm._s(method.last_four) +
+                    " Exp: " +
+                    _vm._s(method.exp_month) +
+                    " / " +
+                    _vm._s(method.exp_year)
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-3" },
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          return _vm.removePaymentMethod(method.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Remove")]
+                  )
+                ],
+                1
+              )
+            ]
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c(
+        "v-card",
+        { staticClass: "m-3 p-3" },
         [
-          _c("v-card-title", [_vm._v("Manage Your Subscription")]),
+          _c("v-card-title", [_vm._v("Add New Payment Method")]),
           _vm._v(" "),
           _c("v-text-field", {
             staticClass: "m-3",
@@ -40537,93 +40637,6 @@ var render = function() {
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-card",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value:
-                _vm.paymentMethodsLoadStatus == 2 &&
-                _vm.paymentMethods.length == 0,
-              expression:
-                "paymentMethodsLoadStatus == 2\n  && paymentMethods.length == 0"
-            }
-          ]
-        },
-        [_vm._v("No payment method on file, please add a payment method.")]
-      ),
-      _vm._v(" "),
-      _c(
-        "v-card",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value:
-                _vm.paymentMethodsLoadStatus == 2 &&
-                _vm.paymentMethods.length > 0,
-              expression:
-                "paymentMethodsLoadStatus == 2\n      && paymentMethods.length > 0"
-            }
-          ]
-        },
-        _vm._l(_vm.paymentMethods, function(method, key) {
-          return _c(
-            "div",
-            {
-              key: "method-" + key,
-              staticClass: "border rounded row p-1",
-              class: {
-                "bg-success text-light": _vm.paymentMethodSelected == method.id
-              },
-              on: {
-                click: function($event) {
-                  _vm.paymentMethodSelected = method.id
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "col-2" }, [
-                _vm._v(
-                  _vm._s(method.brand.charAt(0).toUpperCase()) +
-                    _vm._s(method.brand.slice(1))
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-7" }, [
-                _vm._v(
-                  "Ending In: " +
-                    _vm._s(method.last_four) +
-                    " Exp: " +
-                    _vm._s(method.exp_month) +
-                    " / " +
-                    _vm._s(method.exp_year)
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-3" }, [
-                _c(
-                  "span",
-                  {
-                    on: {
-                      click: function($event) {
-                        $event.stopPropagation()
-                        return _vm.removePaymentMethod(method.id)
-                      }
-                    }
-                  },
-                  [_vm._v("Remove")]
-                )
-              ])
-            ]
-          )
-        }),
-        0
       ),
       _vm._v(" "),
       _c(
@@ -40674,9 +40687,11 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-btn", { on: { click: _vm.updateSubscription } }, [
-            _vm._v("Subscribe")
-          ])
+          _c(
+            "v-btn",
+            { staticClass: "m-3", on: { click: _vm.updateSubscription } },
+            [_vm._v("Update")]
+          )
         ],
         1
       )
