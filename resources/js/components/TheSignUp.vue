@@ -4,23 +4,26 @@
         <v-card-title>Choose a subscription</v-card-title>
       <v-card class="m-3 row" @click="selectedPlan = 'plan_HC7gOF85Bn5CfQ'">
         <v-card-subtitle class="col-6">Basic</v-card-subtitle>
-        <v-card-subtitle class="col-6">$7/mo.</v-card-subtitle>
+        <v-card-subtitle class="col-6">15 days free, then $7/mo.</v-card-subtitle>
       </v-card>
       <v-card class="m-3 row" @click="selectedPlan = 'plan_HC7myo3NX0wgfx'">
         <v-card-subtitle class="col-6">Premium</v-card-subtitle>
-        <v-card-subtitle class="col-6">$15/mo.</v-card-subtitle>
+        <v-card-subtitle class="col-6">15 days free, then $15/mo.</v-card-subtitle>
       </v-card>
-      <v-card class="m-3">
+      <v-card class="m-3 p-3">
           <v-text-field class="m-3" id="card-holder-name" v-model="name" label="Card Holder Name"></v-text-field>
       <div class="m-3" id="card-element"></div>
-      <v-btn id="add-card-button" class="m-3" @click="submitPaymentMethod()">Save Payment Method</v-btn>
+      <!-- <v-btn id="add-card-button" class="m-3" @click="submitPaymentMethod()">Save Payment Method</v-btn> -->
       </v-card>
-      <v-btn class="m-3" @click="updateSubscription">Subscribe</v-btn>
+      <v-btn class="m-3" @click="submitPaymentMethod()">Subscribe</v-btn>
     </v-card>
   </div>
 </template>
 
 <script>
+
+//this component was created in part by following an excellent
+//tutorial from Dan Pastori https://serversideup.net/creating-a-stripe-subscription-with-laravel-cashier-laravel-passport/.
 export default {
   name: "TheSignUp",
   data() {
@@ -130,6 +133,7 @@ export default {
         .then(
           function() {
             this.loadPaymentMethods();
+            this.updateSubscription();
           }.bind(this)
         );
     },
@@ -184,7 +188,8 @@ export default {
         .then(
           function(response) {
             alert("You Are Subscribed!");
-          }.bind(this)
+          }.bind(this),
+          this.$router.push('/main')
         );
     }
   }

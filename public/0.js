@@ -38,16 +38,24 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      show: false
+      show: false,
+      showFam: false,
+      showSub: false
     };
   },
   methods: {
     showNext: function showNext() {
       this.show = true;
+      this.showFam = true;
+    },
+    showSubBox: function showSubBox() {
+      this.showSub = true;
+      this.showFam = false;
     }
   },
   mounted: function mounted() {
     this.$root.$on('user-next', this.showNext);
+    this.$root.$on('subscription', this.showSubBox);
   }
 });
 
@@ -138,9 +146,9 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
-    goToMain: function goToMain() {
+    goToSub: function goToSub() {
       this.submit();
-      this.$router.push('/main');
+      this.$root.$emit('subscription');
     }
   }
 });
@@ -224,6 +232,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//this component was created in part by following an excellent
+//tutorial from Dan Pastori https://serversideup.net/creating-a-stripe-subscription-with-laravel-cashier-laravel-passport/.
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheSignUp",
   data: function data() {
@@ -312,6 +322,7 @@ __webpack_require__.r(__webpack_exports__);
         payment_method: method
       }, config).then(function () {
         this.loadPaymentMethods();
+        this.updateSubscription();
       }.bind(this));
     },
     loadPaymentMethods: function loadPaymentMethods() {
@@ -348,7 +359,7 @@ __webpack_require__.r(__webpack_exports__);
         payment: this.paymentMethodSelected
       }, config).then(function (response) {
         alert("You Are Subscribed!");
-      }.bind(this));
+      }.bind(this), this.$router.push('/main'));
     }
   }
 });
@@ -466,9 +477,9 @@ var render = function() {
         [
           !_vm.show ? _c("user-o-b") : _vm._e(),
           _vm._v(" "),
-          _vm.show ? _c("family-o-b") : _vm._e(),
+          _vm.showFam ? _c("family-o-b") : _vm._e(),
           _vm._v(" "),
-          _c("the-sign-up", { staticClass: "m-3" })
+          _vm.showSub ? _c("the-sign-up", { staticClass: "m-3" }) : _vm._e()
         ],
         1
       )
@@ -567,7 +578,7 @@ var render = function() {
                     {
                       staticClass: "mx-3 mb-3",
                       attrs: { color: "primary" },
-                      on: { click: _vm.goToMain }
+                      on: { click: _vm.goToSub }
                     },
                     [_vm._v("Finish")]
                   )
@@ -689,7 +700,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("v-card-subtitle", { staticClass: "col-6" }, [
-                _vm._v("$7/mo.")
+                _vm._v("15 days free, then $7/mo.")
               ])
             ],
             1
@@ -711,7 +722,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("v-card-subtitle", { staticClass: "col-6" }, [
-                _vm._v("$15/mo.")
+                _vm._v("15 days free, then $15/mo.")
               ])
             ],
             1
@@ -719,7 +730,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-card",
-            { staticClass: "m-3" },
+            { staticClass: "m-3 p-3" },
             [
               _c("v-text-field", {
                 staticClass: "m-3",
@@ -733,28 +744,21 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "m-3", attrs: { id: "card-element" } }),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  staticClass: "m-3",
-                  attrs: { id: "add-card-button" },
-                  on: {
-                    click: function($event) {
-                      return _vm.submitPaymentMethod()
-                    }
-                  }
-                },
-                [_vm._v("Save Payment Method")]
-              )
+              _c("div", { staticClass: "m-3", attrs: { id: "card-element" } })
             ],
             1
           ),
           _vm._v(" "),
           _c(
             "v-btn",
-            { staticClass: "m-3", on: { click: _vm.updateSubscription } },
+            {
+              staticClass: "m-3",
+              on: {
+                click: function($event) {
+                  return _vm.submitPaymentMethod()
+                }
+              }
+            },
             [_vm._v("Subscribe")]
           )
         ],

@@ -3,8 +3,8 @@
     <the-nav />
     <div id="onboard-container">
         <user-o-b v-if="!show" />
-        <family-o-b v-if="show"/>
-        <the-sign-up class="m-3"></the-sign-up>
+        <family-o-b v-if="showFam"/>
+        <the-sign-up v-if="showSub" class="m-3"></the-sign-up>
     </div>
   </div>
 </template>
@@ -26,16 +26,24 @@ export default {
     },
     data() {
         return {
-            show: false
+            show: false,
+            showFam: false,
+            showSub: false
         }
     },
     methods: {
         showNext: function(){
             this.show = true;
+            this.showFam = true;
+        },
+        showSubBox: function(){
+            this.showSub = true;
+            this.showFam = false;
         }
     },
     mounted(){
-        this.$root.$on('user-next', this.showNext)
+        this.$root.$on('user-next', this.showNext);
+        this.$root.$on('subscription', this.showSubBox);
     }
 };
 </script>

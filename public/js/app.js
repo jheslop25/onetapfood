@@ -40540,7 +40540,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "div",
+        "v-card",
         {
           directives: [
             {
@@ -40558,7 +40558,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "div",
+        "v-card",
         {
           directives: [
             {

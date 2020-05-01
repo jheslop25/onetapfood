@@ -7,13 +7,13 @@
       <v-btn id="add-card-button" class="m-3" @click="submitPaymentMethod()">Save Payment Method</v-btn>
     </v-card>
 
-    <div
+    <v-card
       v-show="paymentMethodsLoadStatus == 2
     && paymentMethods.length == 0"
       class
-    >No payment method on file, please add a payment method.</div>
+    >No payment method on file, please add a payment method.</v-card>
 
-    <div v-show="paymentMethodsLoadStatus == 2
+    <v-card v-show="paymentMethodsLoadStatus == 2
         && paymentMethods.length > 0">
       <div
         v-for="(method, key) in paymentMethods"
@@ -32,7 +32,7 @@
           <span v-on:click.stop="removePaymentMethod( method.id )">Remove</span>
         </div>
       </div>
-    </div>
+    </v-card>
     <v-card class="m-3 p-3">
       <v-card class="m-3 row" @click="selectedPlan = 'plan_HC7gOF85Bn5CfQ'">
         <v-card-subtitle class="col-6">Basic</v-card-subtitle>

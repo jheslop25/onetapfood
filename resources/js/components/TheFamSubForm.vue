@@ -3,31 +3,31 @@
         <v-form>
                 <v-card-title>Family Member {{num}}</v-card-title>
                 <v-card-subtitle>Select an age group</v-card-subtitle>
-                <v-select 
+                <v-select
                     class="mx-3"
-                    v-model="age" 
+                    v-model="age"
                     label="Age group"
                     :items="ageGroups"
                     outlined
                     append-icon="menu-down"
                 ></v-select>
                 <v-card-subtitle>Select a diet...</v-card-subtitle>
-                <v-select 
+                <v-select
                     class="mx-3"
-                    v-model="diet" 
+                    v-model="diet"
                     label="Diet"
                     :items="dietNames"
                     outlined
                     append-icon="menu-down"
                 ></v-select>
                 <v-card-subtitle>Are there any foods you can't eat?</v-card-subtitle>
-                <v-textarea 
+                <v-textarea
                     class="mx-3"
-                    v-model="pref" 
+                    v-model="pref"
                     label="Preferences"
                     outlined
                 ></v-textarea>
-                <v-btn v-if="show" color="primary" class="mx-3 mb-3" @click="goToMain">Finish</v-btn>
+                <v-btn v-if="show" color="primary" class="mx-3 mb-3" @click="goToSub">Finish</v-btn>
                 <v-btn v-if="show" class="mx-3 mb-3" @click="addMOAR">Add Family Member</v-btn>
             </v-form>
     </div>
@@ -75,9 +75,9 @@
                     console.log(err);
                 });
             },
-            goToMain: function(){
+            goToSub: function(){
                 this.submit();
-                this.$router.push('/main');
+                this.$root.$emit('subscription');
             }
         }
     }
