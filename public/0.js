@@ -276,9 +276,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     createMealPlan: function createMealPlan() {
+      var _this = this;
+
       //a function to get a meal plan from spoon
       axios.get(this.spoonUrl + this.spoonApi + this.q + this.diet).then(function (result) {
-        console.log(result.data);
+        console.log(result.data.results);
+        _this.meals = result.data.results;
       })["catch"](function (err) {
         console.log(err);
       });
@@ -308,6 +311,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheRecipe",
   data: function data() {
@@ -315,7 +324,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {},
   mounted: function mounted() {},
-  props: {}
+  props: {
+    title: String,
+    imgURL: String
+  }
 });
 
 /***/ }),
@@ -529,7 +541,10 @@ var render = function() {
           ]),
           _vm._v(" "),
           _vm._l(_vm.meals, function(meal) {
-            return _c("the-recipe", { key: meal.id })
+            return _c("the-recipe", {
+              key: meal.id,
+              attrs: { title: meal.title, imgURL: meal.image }
+            })
           })
         ],
         2
@@ -560,7 +575,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    hello recipe\n")])
+  return _c(
+    "div",
+    [
+      _c(
+        "v-card",
+        [
+          _c("v-card-subtitle", [
+            _vm._v("\n            " + _vm._s(_vm.title) + "\n        ")
+          ]),
+          _vm._v(" "),
+          _c("v-img", { attrs: { "max-width": "200", src: _vm.imgURL } })
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -817,6 +848,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TheRecipe_vue_vue_type_template_id_fd43e7f8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TheRecipe.vue?vue&type=template&id=fd43e7f8&scoped=true& */ "./resources/js/components/TheRecipe.vue?vue&type=template&id=fd43e7f8&scoped=true&");
 /* harmony import */ var _TheRecipe_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TheRecipe.vue?vue&type=script&lang=js& */ "./resources/js/components/TheRecipe.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/index.js");
 
 
 
@@ -834,6 +869,14 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null
   
 )
+
+/* vuetify-loader */
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__["VCard"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__["VCardSubtitle"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_5__["VImg"]})
+
 
 /* hot reload */
 if (false) { var api; }

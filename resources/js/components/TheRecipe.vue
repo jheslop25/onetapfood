@@ -1,6 +1,12 @@
 <template>
     <div>
-        hello recipe
+        <v-card>
+            <v-card-subtitle>
+                {{title}}
+            </v-card-subtitle>
+            <v-img max-width="200" 
+            :src='imgURL'></v-img>
+        </v-card>
     </div>
 </template>
 
@@ -19,7 +25,8 @@
 
         },
         props: {
-
+            title: String,
+            imgURL: String, 
         }
     }
 </script>

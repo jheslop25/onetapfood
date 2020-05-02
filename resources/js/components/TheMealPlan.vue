@@ -4,7 +4,7 @@
       <!-- a place to display a meal plan from spoonacular -->
       <v-card-title>My Meal Plan</v-card-title>
       <v-btn @click="createMealPlan">Create Meal Plan</v-btn>
-      <the-recipe v-for="meal in meals" v-bind:key="meal.id"></the-recipe>
+      <the-recipe v-for="meal in meals" v-bind:key="meal.id" :title="meal.title" :imgURL="meal.image"></the-recipe>
     </v-card>
   </div>
 </template>
@@ -29,7 +29,8 @@ export default {
       axios
         .get(this.spoonUrl + this.spoonApi + this.q + this.diet)
         .then(result => {
-            console.log(result.data);
+            console.log(result.data.results);
+            this.meals = result.data.results;
         })
         .catch(err => {
             console.log(err);
