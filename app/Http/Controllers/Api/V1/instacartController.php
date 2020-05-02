@@ -147,7 +147,7 @@ class instacartController extends Controller
         if($matches[0]){
             //do some stuff
             $userID = $matches[0][1];
-            
+
             $response = Http::withHeaders([
                 'cookie' => '_instacart_session=' . $cookie,
                 'X-Requested-With' => 'XMLHttpRequest',
@@ -158,7 +158,7 @@ class instacartController extends Controller
             ])->post($this->baseURL . '/v3/users/' . $userID . '/track_segment',[
                 'adblock_presence' => 'false'
             ]);
-            
+
             return response()->json(['user' => $response->body()], 200);
         } else {
             return response(['msg' => 'no userID was returned'], 400);
@@ -174,18 +174,21 @@ class instacartController extends Controller
             $cartID = $request->input['cartID'];
             $client = Http::withHeaders([
                 'cookie' => '_instacart_session=' . $cookie,
-                'X-Requested-With' => 'XMLHttpRequest',
-                'Content-Type' => 'application/json',
-                'X-Client-Identifier' => 'web',
-                'Accept' => 'application/json',
-                'Accept-Language' => 'en-US,en;q=0.9'
-            ])->put($this->baseURL . '/v3/carts/' . $cartID, [
+                'x-requested-with' => 'XMLHttpRequest',
+                'content-type' => 'application/json',
+                'sec-Fetch-site' => 'same-origin',
+                'sec-Fetch-Mode' => 'cors',
+                'sec-Fetch-dest' => 'empty',
+                'x-client-identifier' => 'web',
+                'accept' => 'application/json',
+                'accept-language' => 'en-US,en;q=0.9'
+            ])->put($this->baseURL . '/v3/carts/' . $cartID . '/update_items', [
                 'items' => $items
             ]);
             if($client->ok()){
-                return response()->json(['msg' => 'items added successfully']);
+                return response()->json(['msg' => 'items added successfully', 'body' => $client->body()]);
             } else {
-                return response(['msg' => 'something went wrong'], 400);
+                return response(['msg' => 'something went wrong', 'err' => $client->body()], 400);
             }
         } else {
             return response()->json(['msg' => 'please login'], 200);
