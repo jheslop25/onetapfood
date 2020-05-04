@@ -17,10 +17,10 @@ class CreateMealsTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->string('title');
-            $table->json('ingredients_array');
-            $table->string('instructions');
-            $table->string('photo_URL');
-            $table->string('type');
+            $table->json('ingredients_array')->nullable();
+            $table->string('instructions')->nullable();
+            $table->string('photo_URL')->nullable();
+            $table->string('type')->nullable();
             $table->date('sched_date');
             $table->timestamps();
         });

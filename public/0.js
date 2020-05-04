@@ -262,16 +262,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheMealPlan",
   data: function data() {
     return {
-      meals: null,
+      breakfast: null,
+      lunch: null,
+      supper: null,
       spoonApi: "?apiKey=b2408b5b91424531aa6d57aa58070853",
       q: "&query=steak and eggs",
       diet: "&diet=whole30",
-      spoonUrl: "https://api.spoonacular.com/recipes/complexSearch"
+      spoonUrl: "https://api.spoonacular.com/recipes/complexSearch",
+      type1: "&type=breakfast",
+      type2: "&type=main course",
+      options: "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&number=7",
+      show1: true,
+      show2: false,
+      show3: false,
+      show4: false
     };
   },
   methods: {
@@ -279,12 +331,55 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       //a function to get a meal plan from spoon
-      axios.get(this.spoonUrl + this.spoonApi + this.q + this.diet).then(function (result) {
+      this.show1 = false;
+      axios.get(this.spoonUrl + this.spoonApi + this.type1 + this.diet + this.options).then(function (result) {
         console.log(result.data.results);
-        _this.meals = result.data.results;
+        _this.breakfast = result.data.results;
       })["catch"](function (err) {
         console.log(err);
       });
+      axios.get(this.spoonUrl + this.spoonApi + this.type2 + this.diet + this.options).then(function (result) {
+        console.log(result.data.results);
+        _this.lunch = result.data.results;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+      axios.get(this.spoonUrl + this.spoonApi + this.type2 + this.diet + this.options + "&offset=50").then(function (result) {
+        console.log(result.data.results);
+        _this.supper = result.data.results;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    showBreakfast: function showBreakfast() {
+      if (this.show2 == false) {
+        this.show2 = true;
+        this.show3 = false;
+        this.show4 = false;
+      } else {
+        this.show2 = false;
+      }
+    },
+    showLunch: function showLunch() {
+      if (this.show3 == false) {
+        this.show3 = true;
+        this.show4 = false;
+        this.show2 = false;
+      } else {
+        this.show3 = false;
+      }
+    },
+    showSupper: function showSupper() {
+      if (this.show4 == false) {
+        this.show4 = true;
+        this.show3 = false;
+        this.show2 = false;
+      } else {
+        this.show4 = false;
+      }
+    },
+    saveMeals: function saveMeals() {
+      console.log('so you want to save your meal plan eh?');
     }
   },
   mounted: function mounted() {},
@@ -317,16 +412,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheRecipe",
   data: function data() {
-    return {};
+    return {
+      show1: false
+    };
   },
-  methods: {},
+  methods: {
+    showDetails: function showDetails() {
+      if (this.show1 == true) {
+        this.show1 = false;
+      } else {
+        this.show1 = true;
+      }
+    }
+  },
   mounted: function mounted() {},
   props: {
     title: String,
-    imgURL: String
+    imgURL: String,
+    prepTime: Number,
+    readyTime: Number,
+    ingredients: Array,
+    instruct: Array,
+    cookingTime: Number
   }
 });
 
@@ -529,26 +646,106 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "mb-3" },
     [
-      _c(
-        "v-card",
-        { staticClass: "m-3 p-3" },
-        [
-          _c("v-card-title", [_vm._v("My Meal Plan")]),
-          _vm._v(" "),
-          _c("v-btn", { on: { click: _vm.createMealPlan } }, [
+      _c("v-card-title", [_vm._v("My Meal Plan")]),
+      _vm._v(" "),
+      _vm.show1
+        ? _c("v-btn", { on: { click: _vm.createMealPlan } }, [
             _vm._v("Create Meal Plan")
-          ]),
-          _vm._v(" "),
-          _vm._l(_vm.meals, function(meal) {
-            return _c("the-recipe", {
-              key: meal.id,
-              attrs: { title: meal.title, imgURL: meal.image }
-            })
-          })
-        ],
-        2
-      )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.show1
+        ? _c("v-btn", { on: { click: _vm.showBreakfast } }, [
+            _vm._v("Breakfast")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.show1
+        ? _c("v-btn", { on: { click: _vm.showLunch } }, [_vm._v("Lunch")])
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.show1
+        ? _c("v-btn", { on: { click: _vm.showSupper } }, [_vm._v("Supper")])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.show2
+        ? _c(
+            "div",
+            [
+              _c("v-card-title", [_vm._v("Breakfast")]),
+              _vm._v(" "),
+              _vm._l(_vm.breakfast, function(meal) {
+                return _c("the-recipe", {
+                  key: meal.id,
+                  attrs: {
+                    title: meal.title,
+                    imgURL: meal.image,
+                    prepTime: meal.preparationMinutes,
+                    readyTime: meal.readyInMinutes,
+                    ingredients: meal.missedIngredients,
+                    instruct: meal.analyzedInstructions[0].steps,
+                    cookingTime: meal.cookingMinutes
+                  }
+                })
+              })
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.show3
+        ? _c(
+            "div",
+            [
+              _c("v-card-title", [_vm._v("Lunch")]),
+              _vm._v(" "),
+              _vm._l(_vm.lunch, function(meal) {
+                return _c("the-recipe", {
+                  key: meal.id,
+                  attrs: {
+                    title: meal.title,
+                    imgURL: meal.image,
+                    prepTime: meal.preparationMinutes,
+                    readyTime: meal.readyInMinutes,
+                    ingredients: meal.missedIngredients,
+                    instruct: meal.analyzedInstructions[0].steps,
+                    cookingTime: meal.cookingMinutes
+                  }
+                })
+              })
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.show4
+        ? _c(
+            "div",
+            [
+              _c("v-card-title", [_vm._v("Supper")]),
+              _vm._v(" "),
+              _vm._l(_vm.supper, function(meal) {
+                return _c("the-recipe", {
+                  key: meal.id,
+                  attrs: {
+                    title: meal.title,
+                    imgURL: meal.image,
+                    prepTime: meal.preparationMinutes,
+                    readyTime: meal.readyInMinutes,
+                    ingredients: meal.missedIngredients,
+                    instruct: meal.analyzedInstructions[0].steps,
+                    cookingTime: meal.cookingMinutes
+                  }
+                })
+              })
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("v-btn", { on: { click: _vm.saveMeals } }, [_vm._v("Save Meal Plan")])
     ],
     1
   )
@@ -580,12 +777,44 @@ var render = function() {
     [
       _c(
         "v-card",
+        { staticClass: "m-3 p-3 row justify-content-center" },
         [
-          _c("v-card-subtitle", [
-            _vm._v("\n            " + _vm._s(_vm.title) + "\n        ")
+          _c("v-card-title", [_vm._v(_vm._s(_vm.title))]),
+          _vm._v(" "),
+          _c("v-img", { attrs: { "max-width": "200", src: _vm.imgURL } }),
+          _vm._v(" "),
+          _c("v-card-text", [_vm._v("Prep Time: " + _vm._s(_vm.prepTime))]),
+          _vm._v(" "),
+          _c("v-card-text", [
+            _vm._v("Cooking Time: " + _vm._s(_vm.cookingTime))
           ]),
           _vm._v(" "),
-          _c("v-img", { attrs: { "max-width": "200", src: _vm.imgURL } })
+          _c("v-card-text", [_vm._v("Ready In: " + _vm._s(_vm.readyTime))]),
+          _vm._v(" "),
+          _c("v-btn", { staticClass: "m-3", on: { click: _vm.showDetails } }, [
+            _vm._v("Show Details")
+          ]),
+          _vm._v(" "),
+          _vm.show1
+            ? _c(
+                "div",
+                [
+                  _vm.show1
+                    ? _c("v-card-title", [_vm._v("Instructions")])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.instruct, function(step) {
+                    return _c(
+                      "div",
+                      { key: step.step, staticClass: "m-1 p-1" },
+                      [_c("v-card-subtitle", [_vm._v(_vm._s(step.step))])],
+                      1
+                    )
+                  })
+                ],
+                2
+              )
+            : _vm._e()
         ],
         1
       )
@@ -793,8 +1022,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"]})
 
 
 /* hot reload */
@@ -850,8 +1078,9 @@ __webpack_require__.r(__webpack_exports__);
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
-/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/index.js");
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/index.js");
 
 
 
@@ -875,7 +1104,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__["VCard"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_4__["VCardSubtitle"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_5__["VImg"]})
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_6__["VImg"]})
 
 
 /* hot reload */

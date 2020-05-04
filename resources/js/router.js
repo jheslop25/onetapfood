@@ -47,6 +47,12 @@ const router = new VueRouter({
             path: '/register',
             name: 'register',
             component: () => import('./MainApp/views/Register.vue')
+        },
+        {
+            path: '/pantry',
+            name: 'pantry',
+            component: () => import('./MainApp/views/Pantry.vue'),
+            meta: {reqAuth: true}
         }
 
     ]

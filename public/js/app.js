@@ -2239,6 +2239,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheNavigation",
   methods: {
@@ -2246,16 +2254,16 @@ __webpack_require__.r(__webpack_exports__);
       var context = this;
       var config = {
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('user-token')
+          Authorization: "Bearer " + localStorage.getItem("user-token")
         }
       };
-      axios.post('api/user/logout', {
-        userID: localStorage['user-id']
+      axios.post("api/user/logout", {
+        userID: localStorage["user-id"]
       }, config).then(function (result) {
         console.log(result.data.msg);
-        context.$router.push('/');
-        localStorage.removeItem('user-token');
-        localStorage.removeItem('user-id');
+        context.$router.push("/");
+        localStorage.removeItem("user-token");
+        localStorage.removeItem("user-id");
         localStorage.clear();
       })["catch"](function (err) {
         console.log(err);
@@ -40458,46 +40466,61 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "v-btn",
-        { attrs: { color: "secondary" } },
-        [
-          _c("router-link", { attrs: { to: { name: "main" } } }, [
-            _vm._v("Main")
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-btn",
-        { attrs: { color: "secondary" } },
-        [
-          _c("router-link", { attrs: { to: { name: "cooking" } } }, [
-            _vm._v("Cook")
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-btn",
-        { attrs: { color: "secondary" } },
-        [
-          _c("router-link", { attrs: { to: { name: "profile" } } }, [
-            _vm._v("Profile")
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("v-btn", { on: { click: _vm.logout } }, [_vm._v("Logout")])
-    ],
-    1
-  )
+  return _c("div", [
+    _c(
+      "div",
+      [
+        _c(
+          "v-btn",
+          [
+            _c("router-link", { attrs: { to: { name: "main" } } }, [
+              _vm._v("Main")
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "v-btn",
+          [
+            _c("router-link", { attrs: { to: { name: "cooking" } } }, [
+              _vm._v("Cook")
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "v-btn",
+          [
+            _c("router-link", { attrs: { to: { name: "profile" } } }, [
+              _vm._v("Profile")
+            ])
+          ],
+          1
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      [
+        _c(
+          "v-btn",
+          [
+            _c("router-link", { attrs: { to: { name: "pantry" } } }, [
+              _vm._v("Pantry")
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("v-btn", { on: { click: _vm.logout } }, [_vm._v("Logout")])
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -98139,6 +98162,15 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'register',
     component: function component() {
       return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./MainApp/views/Register.vue */ "./resources/js/MainApp/views/Register.vue"));
+    }
+  }, {
+    path: '/pantry',
+    name: 'pantry',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./MainApp/views/Pantry.vue */ "./resources/js/MainApp/views/Pantry.vue"));
+    },
+    meta: {
+      reqAuth: true
     }
   }]
 });
