@@ -59,22 +59,22 @@ export default {
   name: "TheMealPlan",
   data() {
     return {
-      breakfast: null,
-      lunch: null,
-      supper: null,
-      spoonApi: "?apiKey=b2408b5b91424531aa6d57aa58070853",
-      q: "&query=steak and eggs",
-      diet: "&diet=whole30",
-      spoonUrl: "https://api.spoonacular.com/recipes/complexSearch",
-      type1: "&type=breakfast",
-      type2: "&type=main course",
-      options:
-        "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&number=7",
       show1: true,
       show2: false,
       show3: false,
       show4: false,
     };
+  },
+  computed: {
+      breakfast: function(){
+        return this.$store.state.breakfast;
+      },
+      lunch: function(){
+        return this.$store.state.lunch;
+      },
+      supper: function(){
+        return this.$store.state.supper;
+      }
   },
   methods: {
     createMealPlan() {
