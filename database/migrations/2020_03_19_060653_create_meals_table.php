@@ -16,12 +16,13 @@ class CreateMealsTable extends Migration
         Schema::create('meals', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->string('title');
+            $table->bigInteger('spoon_id');
+            $table->string('title')->nullable();
             $table->json('ingredients_array')->nullable();
             $table->string('instructions')->nullable();
             $table->string('photo_URL')->nullable();
             $table->string('type')->nullable();
-            $table->date('sched_date');
+            $table->date('sched_date')->nullable();
             $table->timestamps();
         });
     }

@@ -26,19 +26,15 @@ class mealPlanController extends Controller
     {
         // a function that stores a meal plan in the DB. we'll build the meal plan with js on client.
         if (Auth::check()) {
-            $mealPlan = $request->input;
-            foreach ($mealPlan as $meal) {
+            $meals = $request->input;
+            foreach($meals as $meal){
                 $record = new \App\Meal();
                 $record->user_id = $request->user()->id;
-                $record->title = $meal['title'];
-                $record->ingredients_array = $meal['ingredients'];
-                $record->instructions = $meal['instructions'];
-                $record->photo_URL = $meal['photo'];
-                $record->type = $meal['type'];
-                $record->sched_date = $meal['date'];
+                $record->spoon_id = $meal['id'];
                 $record->save();
             }
-            return response()->json(['msg' => $meal['title']], 200);
+                
+            return response()->json(['msg' => 'it worked... I think'], 200);
         } else {
             return response()->json(['msg' => 'please login'], 200);
         }

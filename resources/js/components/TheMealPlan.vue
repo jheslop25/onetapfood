@@ -8,7 +8,7 @@
     <v-btn v-if="!show1" @click="showSupper">Supper</v-btn>
     <v-btn v-if="!show1" @click="saveMeals">Save Meal Plan</v-btn>
     <div v-if="show2">
-        <v-card-title>Breakfast</v-card-title>
+      <v-card-title>Breakfast</v-card-title>
       <the-recipe
         v-for="meal in breakfast"
         v-bind:key="meal.id"
@@ -22,7 +22,7 @@
       ></the-recipe>
     </div>
     <div v-if="show3">
-        <v-card-title>Lunch</v-card-title>
+      <v-card-title>Lunch</v-card-title>
       <the-recipe
         v-for="meal in lunch"
         v-bind:key="meal.id"
@@ -36,7 +36,7 @@
       ></the-recipe>
     </div>
     <div v-if="show4">
-        <v-card-title>Supper</v-card-title>
+      <v-card-title>Supper</v-card-title>
       <the-recipe
         v-for="meal in supper"
         v-bind:key="meal.id"
@@ -62,28 +62,28 @@ export default {
       show1: true,
       show2: false,
       show3: false,
-      show4: false,
+      show4: false
     };
   },
   computed: {
-      breakfast: function(){
-        return this.$store.state.breakfast;
-      },
-      lunch: function(){
-        return this.$store.state.lunch;
-      },
-      supper: function(){
-        return this.$store.state.supper;
-      }
+    breakfast: function() {
+      return this.$store.state.breakfast;
+    },
+    lunch: function() {
+      return this.$store.state.lunch;
+    },
+    supper: function() {
+      return this.$store.state.supper;
+    }
   },
   methods: {
     createMealPlan() {
       //a function to get a meal plan from spoon
       this.show1 = false;
-      this.$store.dispatch('createMealPlan');
+      this.$store.dispatch("createMealPlan");
     },
-    showBreakfast(){
-        if (this.show2 == false) {
+    showBreakfast() {
+      if (this.show2 == false) {
         this.show2 = true;
         this.show3 = false;
         this.show4 = false;
@@ -91,8 +91,8 @@ export default {
         this.show2 = false;
       }
     },
-    showLunch(){
-        if (this.show3 == false) {
+    showLunch() {
+      if (this.show3 == false) {
         this.show3 = true;
         this.show4 = false;
         this.show2 = false;
@@ -100,8 +100,8 @@ export default {
         this.show3 = false;
       }
     },
-    showSupper(){
-        if (this.show4 == false) {
+    showSupper() {
+      if (this.show4 == false) {
         this.show4 = true;
         this.show3 = false;
         this.show2 = false;
@@ -109,12 +109,39 @@ export default {
         this.show4 = false;
       }
     },
-    saveMeals(){
-        console.log('so you want to save your meal plan eh?');
-        let mealIDs = {};
-        for(i=0; i< this.breakfast.length; i++)
+    saveMeals() {
+      console.log("so you want to save your meal plan eh?");
+      // this.$store.dispatch('saveMealPlan');
+      let meals = [];
+      for(let i = 0; i < this.breakfast.length; i++){
+          meals.push({id: this.breakfast[i].id});
+      }
+      for(let i = 0; i < this.lunch.length; i++){
+          meals.push({id: this.lunch[i].id});
+      }
+      for(let i = 0; i < this.supper.length; i++){
+          meals.push({id: this.supper[i].id});
+      }
 
-        this.$store.commit('storeMealPlan',)
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios
+        .post(
+          "api/v1/meal-plan/make",
+          {
+            input: meals
+          },
+          config
+        )
+        .then(result => {
+          console.log(result.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   mounted() {},

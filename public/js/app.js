@@ -98211,7 +98211,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     user: null,
-    _instacart_session: null
+    _instacart_session: null,
+    breakfast: null,
+    lunch: null,
+    supper: null,
+    profile: null
   },
   mutations: {
     storeUser: function storeUser(state, data) {
@@ -98220,9 +98224,52 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     },
     storeToken: function storeToken(state, data) {
       state._instacart_session = data;
+    },
+    storeProfile: function storeProfile(state, data) {//store a user profile for the rest of the app to access
+    },
+    storeBreakfast: function storeBreakfast(state, data) {
+      state.breakfast = data;
+    },
+    storeLunch: function storeLunch(state, data) {
+      state.lunch = data;
+    },
+    storeSupper: function storeSupper(state, data) {
+      state.supper = data;
     }
   },
-  actions: {},
+  actions: {
+    getMealPlan: function getMealPlan(context) {//get meal plan from db
+    },
+    getProfile: function getProfile(context) {},
+    createMealPlan: function createMealPlan(context) {
+      //a function to get a meal plan from spoon
+      var spoonApi = "?apiKey=b2408b5b91424531aa6d57aa58070853";
+      var q = "&query=steak and eggs";
+      var diet = "&diet=whole30";
+      var spoonUrl = "https://api.spoonacular.com/recipes/complexSearch";
+      var type1 = "&type=breakfast";
+      var type2 = "&type=main course";
+      var options = "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&number=7";
+      axios.get(spoonUrl + spoonApi + type1 + diet + options).then(function (result) {
+        console.log(result.data.results);
+        context.commit('storeBreakfast', result.data.results);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+      axios.get(spoonUrl + spoonApi + type2 + diet + options).then(function (result) {
+        console.log(result.data.results);
+        context.commit('storeLunch', result.data.results);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+      axios.get(spoonUrl + spoonApi + type2 + diet + options + "&offset=50").then(function (result) {
+        console.log(result.data.results);
+        context.commit('storeSupper', result.data.results);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  },
   getters: {}
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
@@ -98247,8 +98294,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /projects/OTF/onetapfood/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /projects/OTF/onetapfood/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /projects/onetapfood/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /projects/onetapfood/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

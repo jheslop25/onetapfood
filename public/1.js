@@ -310,46 +310,28 @@ __webpack_require__.r(__webpack_exports__);
   name: "TheMealPlan",
   data: function data() {
     return {
-      breakfast: null,
-      lunch: null,
-      supper: null,
-      spoonApi: "?apiKey=b2408b5b91424531aa6d57aa58070853",
-      q: "&query=steak and eggs",
-      diet: "&diet=whole30",
-      spoonUrl: "https://api.spoonacular.com/recipes/complexSearch",
-      type1: "&type=breakfast",
-      type2: "&type=main course",
-      options: "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&number=7",
       show1: true,
       show2: false,
       show3: false,
       show4: false
     };
   },
+  computed: {
+    breakfast: function breakfast() {
+      return this.$store.state.breakfast;
+    },
+    lunch: function lunch() {
+      return this.$store.state.lunch;
+    },
+    supper: function supper() {
+      return this.$store.state.supper;
+    }
+  },
   methods: {
     createMealPlan: function createMealPlan() {
-      var _this = this;
-
       //a function to get a meal plan from spoon
       this.show1 = false;
-      axios.get(this.spoonUrl + this.spoonApi + this.type1 + this.diet + this.options).then(function (result) {
-        console.log(result.data.results);
-        _this.breakfast = result.data.results;
-      })["catch"](function (err) {
-        console.log(err);
-      });
-      axios.get(this.spoonUrl + this.spoonApi + this.type2 + this.diet + this.options).then(function (result) {
-        console.log(result.data.results);
-        _this.lunch = result.data.results;
-      })["catch"](function (err) {
-        console.log(err);
-      });
-      axios.get(this.spoonUrl + this.spoonApi + this.type2 + this.diet + this.options + "&offset=50").then(function (result) {
-        console.log(result.data.results);
-        _this.supper = result.data.results;
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      this.$store.dispatch("createMealPlan");
     },
     showBreakfast: function showBreakfast() {
       if (this.show2 == false) {
@@ -379,7 +361,40 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     saveMeals: function saveMeals() {
-      console.log('so you want to save your meal plan eh?');
+      console.log("so you want to save your meal plan eh?"); // this.$store.dispatch('saveMealPlan');
+
+      var meals = [];
+
+      for (var i = 0; i < this.breakfast.length; i++) {
+        meals.push({
+          id: this.breakfast[i].id
+        });
+      }
+
+      for (var _i = 0; _i < this.lunch.length; _i++) {
+        meals.push({
+          id: this.lunch[_i].id
+        });
+      }
+
+      for (var _i2 = 0; _i2 < this.supper.length; _i2++) {
+        meals.push({
+          id: this.supper[_i2].id
+        });
+      }
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.post("api/v1/meal-plan/make", {
+        input: meals
+      }, config).then(function (result) {
+        console.log(result.data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   },
   mounted: function mounted() {},
