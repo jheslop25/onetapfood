@@ -16,10 +16,11 @@ class CreateIngredientsTable extends Migration
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->string('ingredient_name');
-            $table->string('unit');
-            $table->integer('quantity');
-            $table->string('photo_URL');
+            $table->bigInteger('spoon_id');
+            $table->string('ingredient_name')->nullable();
+            $table->string('unit')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->string('photo_URL')->nullable();
             $table->timestamps();
         });
     }
