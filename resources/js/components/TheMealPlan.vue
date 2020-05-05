@@ -6,6 +6,7 @@
     <v-btn v-if="!show1" @click="showBreakfast">Breakfast</v-btn>
     <v-btn v-if="!show1" @click="showLunch">Lunch</v-btn>
     <v-btn v-if="!show1" @click="showSupper">Supper</v-btn>
+    <v-btn v-if="!show1" @click="saveMeals">Save Meal Plan</v-btn>
     <div v-if="show2">
         <v-card-title>Breakfast</v-card-title>
       <the-recipe
@@ -48,7 +49,6 @@
         :cookingTime="meal.cookingMinutes"
       ></the-recipe>
     </div>
-    <v-btn @click="saveMeals">Save Meal Plan</v-btn>
   </div>
 </template>
 
@@ -80,44 +80,7 @@ export default {
     createMealPlan() {
       //a function to get a meal plan from spoon
       this.show1 = false;
-      axios
-        .get(
-          this.spoonUrl + this.spoonApi + this.type1 + this.diet + this.options
-        )
-        .then(result => {
-          console.log(result.data.results);
-          this.breakfast = result.data.results;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      axios
-        .get(
-          this.spoonUrl + this.spoonApi + this.type2 + this.diet + this.options
-        )
-        .then(result => {
-          console.log(result.data.results);
-          this.lunch = result.data.results;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      axios
-        .get(
-          this.spoonUrl +
-            this.spoonApi +
-            this.type2 +
-            this.diet +
-            this.options +
-            "&offset=50"
-        )
-        .then(result => {
-          console.log(result.data.results);
-          this.supper = result.data.results;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.$store.dispatch('createMealPlan');
     },
     showBreakfast(){
         if (this.show2 == false) {
@@ -148,6 +111,10 @@ export default {
     },
     saveMeals(){
         console.log('so you want to save your meal plan eh?');
+        let mealIDs = {};
+        for(i=0; i< this.breakfast.length; i++)
+
+        this.$store.commit('storeMealPlan',)
     }
   },
   mounted() {},

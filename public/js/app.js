@@ -98124,7 +98124,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/main',
     name: 'main',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./MainApp/views/MainApp.vue */ "./resources/js/MainApp/views/MainApp.vue"));
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./MainApp/views/MainApp.vue */ "./resources/js/MainApp/views/MainApp.vue"));
     },
     meta: {
       reqAuth: true
@@ -98149,7 +98149,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/onboard',
     name: 'onboard',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./MainApp/views/Onboard.vue */ "./resources/js/MainApp/views/Onboard.vue"));
+      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./MainApp/views/Onboard.vue */ "./resources/js/MainApp/views/Onboard.vue"));
     }
   }, {
     path: '/login',
