@@ -1,8 +1,6 @@
 <template>
   <div>
-    <v-app-bar>
-      <TheNav />
-    </v-app-bar>
+      <TheNav class="m-3" />
   </div>
 </template>
 

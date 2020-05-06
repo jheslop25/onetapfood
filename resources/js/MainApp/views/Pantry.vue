@@ -1,6 +1,6 @@
 <template>
     <div>
-        <the-nav></the-nav>
+        <the-nav class="m-3"></the-nav>
         <the-ingredient></the-ingredient>
     </div>
 </template>

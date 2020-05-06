@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TheNav />
+    <TheNav class="m-3"/>
     <v-card class="my-3">
       <v-card-title>Hello {{this.username}}</v-card-title>
       <v-btn class="m-3" @click="showUser">My info</v-btn>

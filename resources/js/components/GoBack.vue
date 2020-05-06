@@ -1,7 +1,5 @@
 <template>
-    <v-btn @click="goBack">
-        back
-    </v-btn>
+    <v-icon x-large color="white" @click="goBack">mdi-arrow-left-circle</v-icon>
 </template>
 
 <script>

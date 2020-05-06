@@ -1,6 +1,5 @@
 <template>
   <div>
-    <the-nav />
     <div id="onboard-container">
         <user-o-b v-if="!show" />
         <family-o-b v-if="showFam"/>

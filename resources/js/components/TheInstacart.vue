@@ -10,21 +10,13 @@
         <v-btn v-if="show" @click="instaLogin">Login</v-btn>
       </v-form>
     </v-card>
-    <v-card v-if="Authenticated" class="p-3">
+    <!-- <v-card v-if="Authenticated" class="p-3">
       <v-card-title>Searching for Ingredients...</v-card-title>
       <v-form>
         <v-text-field v-model="query" label="search"></v-text-field>
         <v-btn @click="searchInsta">Search</v-btn>
       </v-form>
-    </v-card>
-    <v-card class="p-5 m-3">
-      <v-card-title>Get user cart</v-card-title>
-      <v-btn @click="getUserCart">GET IT</v-btn>
-    </v-card>
-    <v-card class="m-3 p-3">
-      <v-card-title>Add Items to Cart</v-card-title>
-      <v-btn @click="addToCart">Add</v-btn>
-    </v-card>
+    </v-card> -->
   </div>
 </template>
 
@@ -57,6 +49,7 @@ export default {
           console.log(result.data._instacart_session);
           console.log(result.data.body);
           this.Authenticated = true; //we will need to handle this in a more solid way in the future.
+          this.getUserCart();
         })
         .catch(err => {
           console.log(err);
