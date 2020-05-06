@@ -1,20 +1,21 @@
 <template>
   <div>
     <TheNav class="m-3"/>
-    <v-card class="my-3">
+    <div class="row justify-content-center">
+      <v-card max-width="400" class="m-3 col-md-4">
       <v-card-title>Hello {{this.username}}</v-card-title>
       <v-btn class="m-3" @click="showUser">My info</v-btn>
       <v-btn class="m-3" @click="showFamily">Family Info</v-btn>
       <v-btn class="m-3" @click="showSub">Manage Subscription</v-btn>
     </v-card>
-    <v-card class="my-3" v-if="showOne">
+    <v-card max-width="400" class="m-3 col-md-4" v-if="showOne">
       <v-card-title>My Info</v-card-title>
       <v-card-subtitle>Email: {{this.email}}</v-card-subtitle>
       <v-card-subtitle>Age Group: {{this.userAgeGroup}}</v-card-subtitle>
       <v-card-subtitle>Diet: {{this.userDiet}}</v-card-subtitle>
       <v-card-subtitle>I Can't Eat: {{this.userPref}}</v-card-subtitle>
     </v-card>
-    <v-card class="my-3" v-if="showTwo">
+    <v-card max-width="400" class="m-3 col-md-4" v-if="showTwo">
       <v-card-title>Family Info</v-card-title>
       <div v-for="member in family" v-bind:key="member.id">
         <v-card-subtitle>Name: {{member.id}}</v-card-subtitle>
@@ -23,7 +24,8 @@
         <v-card-subtitle>I can't have: {{member.member_pref}}</v-card-subtitle>
       </div>
     </v-card>
-    <the-subscription v-if="showThree"></the-subscription>
+    </div>
+    <the-subscription v-if="showThree" class="m-3"></the-subscription>
   </div>
 </template>
 

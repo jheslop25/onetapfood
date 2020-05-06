@@ -7,9 +7,8 @@
     <v-btn v-if="!show1" @click="showLunch">Lunch</v-btn>
     <v-btn v-if="!show1" @click="showSupper">Supper</v-btn>
     <v-btn v-if="!show1" @click="saveMeals">Save Meal Plan</v-btn>
-    <div v-if="show2">
-      <v-card-title>Breakfast</v-card-title>
-      <the-recipe
+    <div class="row justify-content-center" v-if="show2">
+      <the-recipe class="col-md-4"
         v-for="meal in breakfast"
         v-bind:key="meal.id"
         :title="meal.title"
@@ -21,9 +20,8 @@
         :cookingTime="meal.cookingMinutes"
       ></the-recipe>
     </div>
-    <div v-if="show3">
-      <v-card-title>Lunch</v-card-title>
-      <the-recipe
+    <div class="row justify-content-center" v-if="show3">
+      <the-recipe class="col-md-4"
         v-for="meal in lunch"
         v-bind:key="meal.id"
         :title="meal.title"
@@ -35,9 +33,8 @@
         :cookingTime="meal.cookingMinutes"
       ></the-recipe>
     </div>
-    <div v-if="show4">
-      <v-card-title>Supper</v-card-title>
-      <the-recipe
+    <div class="row justify-content-center" v-if="show4">
+      <the-recipe class="col-md-4"
         v-for="meal in supper"
         v-bind:key="meal.id"
         :title="meal.title"

@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <v-card class="py-3" v-if="!Authenticated">
+  <div class="py-3" v-if="!Authenticated">
       <v-btn class="mx-3" v-if="!show" @click="showForm">Add to Instacart</v-btn>
       <v-card-title v-if="show">Please Login to Instacart</v-card-title>
       <v-card-subtitle color="red--text">{{errorLogin}}</v-card-subtitle>
@@ -9,7 +8,7 @@
         <v-text-field v-if="show" v-model="password" label="Instacart Password"></v-text-field>
         <v-btn v-if="show" @click="instaLogin">Login</v-btn>
       </v-form>
-    </v-card>
+
     <!-- <v-card v-if="Authenticated" class="p-3">
       <v-card-title>Searching for Ingredients...</v-card-title>
       <v-form>

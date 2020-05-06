@@ -210,7 +210,6 @@ const store = new Vuex.Store({
         )
         .then(result => {
           console.log(result.data);
-          context.dispatch('getMealPlan');
         })
         .catch(err => {
           console.log(err);

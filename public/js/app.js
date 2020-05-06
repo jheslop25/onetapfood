@@ -2243,6 +2243,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 // import config from '../../axiosConfig.js';
 
 
@@ -2430,6 +2432,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheSubscription",
   data: function data() {
@@ -2446,7 +2449,7 @@ __webpack_require__.r(__webpack_exports__);
       paymentMethodsLoadStatus: 0,
       paymentMethodSelected: {},
       selectedPlan: "",
-      subscription: ''
+      subscription: ""
     };
   },
   mounted: function mounted() {
@@ -2567,7 +2570,7 @@ __webpack_require__.r(__webpack_exports__);
           Authorization: "Bearer " + localStorage.getItem("user-token")
         }
       };
-      axios.get('/api/user/get/active', config).then(function (result) {
+      axios.get("/api/user/get/active", config).then(function (result) {
         _this.subscription = result.data.subscription;
       })["catch"](function (err) {});
     }
@@ -40505,86 +40508,101 @@ var render = function() {
       _c("TheNav", { staticClass: "m-3" }),
       _vm._v(" "),
       _c(
-        "v-card",
-        { staticClass: "my-3" },
+        "div",
+        { staticClass: "row justify-content-center" },
         [
-          _c("v-card-title", [_vm._v("Hello " + _vm._s(this.username))]),
+          _c(
+            "v-card",
+            { staticClass: "m-3 col-md-4", attrs: { "max-width": "400" } },
+            [
+              _c("v-card-title", [_vm._v("Hello " + _vm._s(this.username))]),
+              _vm._v(" "),
+              _c("v-btn", { staticClass: "m-3", on: { click: _vm.showUser } }, [
+                _vm._v("My info")
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                { staticClass: "m-3", on: { click: _vm.showFamily } },
+                [_vm._v("Family Info")]
+              ),
+              _vm._v(" "),
+              _c("v-btn", { staticClass: "m-3", on: { click: _vm.showSub } }, [
+                _vm._v("Manage Subscription")
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("v-btn", { staticClass: "m-3", on: { click: _vm.showUser } }, [
-            _vm._v("My info")
-          ]),
+          _vm.showOne
+            ? _c(
+                "v-card",
+                { staticClass: "m-3 col-md-4", attrs: { "max-width": "400" } },
+                [
+                  _c("v-card-title", [_vm._v("My Info")]),
+                  _vm._v(" "),
+                  _c("v-card-subtitle", [
+                    _vm._v("Email: " + _vm._s(this.email))
+                  ]),
+                  _vm._v(" "),
+                  _c("v-card-subtitle", [
+                    _vm._v("Age Group: " + _vm._s(this.userAgeGroup))
+                  ]),
+                  _vm._v(" "),
+                  _c("v-card-subtitle", [
+                    _vm._v("Diet: " + _vm._s(this.userDiet))
+                  ]),
+                  _vm._v(" "),
+                  _c("v-card-subtitle", [
+                    _vm._v("I Can't Eat: " + _vm._s(this.userPref))
+                  ])
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
-          _c("v-btn", { staticClass: "m-3", on: { click: _vm.showFamily } }, [
-            _vm._v("Family Info")
-          ]),
-          _vm._v(" "),
-          _c("v-btn", { staticClass: "m-3", on: { click: _vm.showSub } }, [
-            _vm._v("Manage Subscription")
-          ])
+          _vm.showTwo
+            ? _c(
+                "v-card",
+                { staticClass: "m-3 col-md-4", attrs: { "max-width": "400" } },
+                [
+                  _c("v-card-title", [_vm._v("Family Info")]),
+                  _vm._v(" "),
+                  _vm._l(_vm.family, function(member) {
+                    return _c(
+                      "div",
+                      { key: member.id },
+                      [
+                        _c("v-card-subtitle", [
+                          _vm._v("Name: " + _vm._s(member.id))
+                        ]),
+                        _vm._v(" "),
+                        _c("v-card-subtitle", [
+                          _vm._v(
+                            "Age Group: " + _vm._s(member.member_age_group)
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("v-card-subtitle", [
+                          _vm._v("Diet: " + _vm._s(member.member_diet))
+                        ]),
+                        _vm._v(" "),
+                        _c("v-card-subtitle", [
+                          _vm._v("I can't have: " + _vm._s(member.member_pref))
+                        ])
+                      ],
+                      1
+                    )
+                  })
+                ],
+                2
+              )
+            : _vm._e()
         ],
         1
       ),
       _vm._v(" "),
-      _vm.showOne
-        ? _c(
-            "v-card",
-            { staticClass: "my-3" },
-            [
-              _c("v-card-title", [_vm._v("My Info")]),
-              _vm._v(" "),
-              _c("v-card-subtitle", [_vm._v("Email: " + _vm._s(this.email))]),
-              _vm._v(" "),
-              _c("v-card-subtitle", [
-                _vm._v("Age Group: " + _vm._s(this.userAgeGroup))
-              ]),
-              _vm._v(" "),
-              _c("v-card-subtitle", [_vm._v("Diet: " + _vm._s(this.userDiet))]),
-              _vm._v(" "),
-              _c("v-card-subtitle", [
-                _vm._v("I Can't Eat: " + _vm._s(this.userPref))
-              ])
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.showTwo
-        ? _c(
-            "v-card",
-            { staticClass: "my-3" },
-            [
-              _c("v-card-title", [_vm._v("Family Info")]),
-              _vm._v(" "),
-              _vm._l(_vm.family, function(member) {
-                return _c(
-                  "div",
-                  { key: member.id },
-                  [
-                    _c("v-card-subtitle", [
-                      _vm._v("Name: " + _vm._s(member.id))
-                    ]),
-                    _vm._v(" "),
-                    _c("v-card-subtitle", [
-                      _vm._v("Age Group: " + _vm._s(member.member_age_group))
-                    ]),
-                    _vm._v(" "),
-                    _c("v-card-subtitle", [
-                      _vm._v("Diet: " + _vm._s(member.member_diet))
-                    ]),
-                    _vm._v(" "),
-                    _c("v-card-subtitle", [
-                      _vm._v("I can't have: " + _vm._s(member.member_pref))
-                    ])
-                  ],
-                  1
-                )
-              })
-            ],
-            2
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.showThree ? _c("the-subscription") : _vm._e()
+      _vm.showThree ? _c("the-subscription", { staticClass: "m-3" }) : _vm._e()
     ],
     1
   )
@@ -40709,213 +40727,207 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-card",
-    { staticClass: "p-3" },
-    [
-      _c("v-card-title", [_vm._v("Manage Your Subscription")]),
-      _vm._v(" "),
-      _c(
-        "v-card",
-        { staticClass: "m-3" },
-        [
-          _c("v-card-title", [_vm._v("Your Current Subscription")]),
-          _vm._v(" "),
-          _c("v-card-subtitle", [_vm._v(_vm._s(_vm.subscription.title))])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-card",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value:
-                _vm.paymentMethodsLoadStatus == 2 &&
-                _vm.paymentMethods.length == 0,
-              expression:
-                "paymentMethodsLoadStatus == 2\n  && paymentMethods.length == 0"
-            }
-          ],
-          staticClass: "m-3 p-3"
-        },
-        [_vm._v("No payment method on file, please add a payment method.")]
-      ),
-      _vm._v(" "),
-      _c(
-        "v-card",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value:
-                _vm.paymentMethodsLoadStatus == 2 &&
-                _vm.paymentMethods.length > 0,
-              expression:
-                "paymentMethodsLoadStatus == 2\n      && paymentMethods.length > 0"
-            }
-          ],
-          staticClass: "m-3 p-3"
-        },
-        _vm._l(_vm.paymentMethods, function(method, key) {
-          return _c(
-            "div",
-            {
-              key: "method-" + key,
-              staticClass: "border rounded row align-items-center p-1",
-              class: {
-                "bg-success text-light": _vm.paymentMethodSelected == method.id
-              },
-              on: {
-                click: function($event) {
-                  _vm.paymentMethodSelected = method.id
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "row justify-content-center " },
+      [
+        _c(
+          "v-card",
+          { staticClass: "m-3 col-lg-3" },
+          [
+            _c("v-card-title", [_vm._v("Your Current Subscription")]),
+            _vm._v(" "),
+            _c("v-card-subtitle", [_vm._v(_vm._s(_vm.subscription.title))]),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "m-3 row",
+                on: {
+                  click: function($event) {
+                    _vm.selectedPlan = "plan_HC7gOF85Bn5CfQ"
+                  }
                 }
-              }
-            },
-            [
-              _c("div", { staticClass: "col-2" }, [
-                _vm._v(
-                  _vm._s(method.brand.charAt(0).toUpperCase()) +
-                    _vm._s(method.brand.slice(1))
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-7" }, [
-                _vm._v(
-                  "Active Payment Method Ending In: " +
-                    _vm._s(method.last_four) +
-                    " Exp: " +
-                    _vm._s(method.exp_month) +
-                    " / " +
-                    _vm._s(method.exp_year)
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-3" },
-                [
-                  _c(
-                    "v-btn",
-                    {
-                      on: {
-                        click: function($event) {
-                          $event.stopPropagation()
-                          return _vm.removePaymentMethod(method.id)
-                        }
-                      }
-                    },
-                    [_vm._v("Remove")]
-                  )
-                ],
-                1
-              )
-            ]
-          )
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _c(
-        "v-card",
-        { staticClass: "m-3 p-3" },
-        [
-          _c("v-card-title", [_vm._v("Add New Payment Method")]),
-          _vm._v(" "),
-          _c("v-text-field", {
-            staticClass: "m-3",
-            attrs: { id: "card-holder-name", label: "Card Holder Name" },
-            model: {
-              value: _vm.name,
-              callback: function($$v) {
-                _vm.name = $$v
               },
-              expression: "name"
-            }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "m-3", attrs: { id: "card-element" } }),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
+              [
+                _c("v-card-subtitle", { staticClass: "col-6" }, [
+                  _vm._v("Basic")
+                ]),
+                _vm._v(" "),
+                _c("v-card-subtitle", { staticClass: "col-6" }, [
+                  _vm._v("$7/mo.")
+                ])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "m-3 row",
+                on: {
+                  click: function($event) {
+                    _vm.selectedPlan = "plan_HC7myo3NX0wgfx"
+                  }
+                }
+              },
+              [
+                _c("v-card-subtitle", { staticClass: "col-6" }, [
+                  _vm._v("Premium")
+                ]),
+                _vm._v(" "),
+                _c("v-card-subtitle", { staticClass: "col-6" }, [
+                  _vm._v("$15/mo.")
+                ])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "v-btn",
+              { staticClass: "m-3", on: { click: _vm.updateSubscription } },
+              [_vm._v("Update")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "v-card",
+          { staticClass: "m-3 p-3 col-lg-3" },
+          [
+            _c("v-card-title", [_vm._v("Add New Payment Method")]),
+            _vm._v(" "),
+            _c("v-text-field", {
               staticClass: "m-3",
-              attrs: { id: "add-card-button" },
-              on: {
-                click: function($event) {
-                  return _vm.submitPaymentMethod()
-                }
+              attrs: { id: "card-holder-name", label: "Card Holder Name" },
+              model: {
+                value: _vm.name,
+                callback: function($$v) {
+                  _vm.name = $$v
+                },
+                expression: "name"
               }
-            },
-            [_vm._v("Save Payment Method")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-card",
-        { staticClass: "m-3 p-3" },
-        [
-          _c(
-            "v-card",
-            {
-              staticClass: "m-3 row",
-              on: {
-                click: function($event) {
-                  _vm.selectedPlan = "plan_HC7gOF85Bn5CfQ"
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "m-3", attrs: { id: "card-element" } }),
+            _vm._v(" "),
+            _c(
+              "v-btn",
+              {
+                staticClass: "m-3",
+                attrs: { id: "add-card-button" },
+                on: {
+                  click: function($event) {
+                    return _vm.submitPaymentMethod()
+                  }
                 }
+              },
+              [_vm._v("Save Payment Method")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value:
+                  _vm.paymentMethodsLoadStatus == 2 &&
+                  _vm.paymentMethods.length == 0,
+                expression:
+                  "paymentMethodsLoadStatus == 2\n  && paymentMethods.length == 0"
               }
-            },
-            [
-              _c("v-card-subtitle", { staticClass: "col-6" }, [
-                _vm._v("Basic")
-              ]),
-              _vm._v(" "),
-              _c("v-card-subtitle", { staticClass: "col-6" }, [
-                _vm._v("$7/mo.")
-              ])
             ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card",
-            {
-              staticClass: "m-3 row",
-              on: {
-                click: function($event) {
-                  _vm.selectedPlan = "plan_HC7myo3NX0wgfx"
-                }
+            staticClass: "m-3 p-3 col-lg-3"
+          },
+          [_vm._v("No payment method on file, please add a payment method.")]
+        ),
+        _vm._v(" "),
+        _c(
+          "v-card",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value:
+                  _vm.paymentMethodsLoadStatus == 2 &&
+                  _vm.paymentMethods.length > 0,
+                expression:
+                  "paymentMethodsLoadStatus == 2\n      && paymentMethods.length > 0"
               }
-            },
-            [
-              _c("v-card-subtitle", { staticClass: "col-6" }, [
-                _vm._v("Premium")
-              ]),
-              _vm._v(" "),
-              _c("v-card-subtitle", { staticClass: "col-6" }, [
-                _vm._v("$15/mo.")
-              ])
             ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            { staticClass: "m-3", on: { click: _vm.updateSubscription } },
-            [_vm._v("Update")]
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
+            staticClass: "m-3 p-3 col-lg-3"
+          },
+          _vm._l(_vm.paymentMethods, function(method, key) {
+            return _c(
+              "div",
+              {
+                key: "method-" + key,
+                staticClass: "m-3 row align-items-center",
+                class: {
+                  "bg-success text-light":
+                    _vm.paymentMethodSelected == method.id
+                },
+                on: {
+                  click: function($event) {
+                    _vm.paymentMethodSelected = method.id
+                  }
+                }
+              },
+              [
+                _c("div", {}, [
+                  _vm._v(
+                    _vm._s(method.brand.charAt(0).toUpperCase()) +
+                      _vm._s(method.brand.slice(1))
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-7" }, [
+                  _vm._v(
+                    "Active Payment Method Ending In: " +
+                      _vm._s(method.last_four) +
+                      " Exp: " +
+                      _vm._s(method.exp_month) +
+                      " / " +
+                      _vm._s(method.exp_year)
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-3" },
+                  [
+                    _c(
+                      "v-btn",
+                      {
+                        on: {
+                          click: function($event) {
+                            $event.stopPropagation()
+                            return _vm.removePaymentMethod(method.id)
+                          }
+                        }
+                      },
+                      [_vm._v("Remove")]
+                    )
+                  ],
+                  1
+                )
+              ]
+            )
+          }),
+          0
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -98587,7 +98599,6 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         input: meals
       }, config).then(function (result) {
         console.log(result.data);
-        context.dispatch('getMealPlan');
       })["catch"](function (err) {
         console.log(err);
       });

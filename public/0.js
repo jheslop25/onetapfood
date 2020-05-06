@@ -104,7 +104,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheInstacart",
   methods: {
@@ -285,9 +284,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TheRecipe_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TheRecipe.vue */ "./resources/js/components/TheRecipe.vue");
-//
-//
-//
 //
 //
 //
@@ -583,75 +579,69 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      !_vm.Authenticated
-        ? _c(
-            "v-card",
-            { staticClass: "py-3" },
+  return !_vm.Authenticated
+    ? _c(
+        "div",
+        { staticClass: "py-3" },
+        [
+          !_vm.show
+            ? _c(
+                "v-btn",
+                { staticClass: "mx-3", on: { click: _vm.showForm } },
+                [_vm._v("Add to Instacart")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.show
+            ? _c("v-card-title", [_vm._v("Please Login to Instacart")])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("v-card-subtitle", { attrs: { color: "red--text" } }, [
+            _vm._v(_vm._s(_vm.errorLogin))
+          ]),
+          _vm._v(" "),
+          _c(
+            "v-form",
+            { staticClass: "m-3" },
             [
-              !_vm.show
-                ? _c(
-                    "v-btn",
-                    { staticClass: "mx-3", on: { click: _vm.showForm } },
-                    [_vm._v("Add to Instacart")]
-                  )
+              _vm.show
+                ? _c("v-text-field", {
+                    attrs: { label: "Instacart Email" },
+                    model: {
+                      value: _vm.email,
+                      callback: function($$v) {
+                        _vm.email = $$v
+                      },
+                      expression: "email"
+                    }
+                  })
                 : _vm._e(),
               _vm._v(" "),
               _vm.show
-                ? _c("v-card-title", [_vm._v("Please Login to Instacart")])
+                ? _c("v-text-field", {
+                    attrs: { label: "Instacart Password" },
+                    model: {
+                      value: _vm.password,
+                      callback: function($$v) {
+                        _vm.password = $$v
+                      },
+                      expression: "password"
+                    }
+                  })
                 : _vm._e(),
               _vm._v(" "),
-              _c("v-card-subtitle", { attrs: { color: "red--text" } }, [
-                _vm._v(_vm._s(_vm.errorLogin))
-              ]),
-              _vm._v(" "),
-              _c(
-                "v-form",
-                { staticClass: "m-3" },
-                [
-                  _vm.show
-                    ? _c("v-text-field", {
-                        attrs: { label: "Instacart Email" },
-                        model: {
-                          value: _vm.email,
-                          callback: function($$v) {
-                            _vm.email = $$v
-                          },
-                          expression: "email"
-                        }
-                      })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.show
-                    ? _c("v-text-field", {
-                        attrs: { label: "Instacart Password" },
-                        model: {
-                          value: _vm.password,
-                          callback: function($$v) {
-                            _vm.password = $$v
-                          },
-                          expression: "password"
-                        }
-                      })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.show
-                    ? _c("v-btn", { on: { click: _vm.instaLogin } }, [
-                        _vm._v("Login")
-                      ])
-                    : _vm._e()
-                ],
-                1
-              )
+              _vm.show
+                ? _c("v-btn", { on: { click: _vm.instaLogin } }, [
+                    _vm._v("Login")
+                  ])
+                : _vm._e()
             ],
             1
           )
-        : _vm._e()
-    ],
-    1
-  )
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -710,75 +700,69 @@ var render = function() {
       _vm.show2
         ? _c(
             "div",
-            [
-              _c("v-card-title", [_vm._v("Breakfast")]),
-              _vm._v(" "),
-              _vm._l(_vm.breakfast, function(meal) {
-                return _c("the-recipe", {
-                  key: meal.id,
-                  attrs: {
-                    title: meal.title,
-                    imgURL: meal.image,
-                    prepTime: meal.preparationMinutes,
-                    readyTime: meal.readyInMinutes,
-                    ingredients: meal.missedIngredients,
-                    instruct: meal.analyzedInstructions[0].steps,
-                    cookingTime: meal.cookingMinutes
-                  }
-                })
+            { staticClass: "row justify-content-center" },
+            _vm._l(_vm.breakfast, function(meal) {
+              return _c("the-recipe", {
+                key: meal.id,
+                staticClass: "col-md-4",
+                attrs: {
+                  title: meal.title,
+                  imgURL: meal.image,
+                  prepTime: meal.preparationMinutes,
+                  readyTime: meal.readyInMinutes,
+                  ingredients: meal.missedIngredients,
+                  instruct: meal.analyzedInstructions[0].steps,
+                  cookingTime: meal.cookingMinutes
+                }
               })
-            ],
-            2
+            }),
+            1
           )
         : _vm._e(),
       _vm._v(" "),
       _vm.show3
         ? _c(
             "div",
-            [
-              _c("v-card-title", [_vm._v("Lunch")]),
-              _vm._v(" "),
-              _vm._l(_vm.lunch, function(meal) {
-                return _c("the-recipe", {
-                  key: meal.id,
-                  attrs: {
-                    title: meal.title,
-                    imgURL: meal.image,
-                    prepTime: meal.preparationMinutes,
-                    readyTime: meal.readyInMinutes,
-                    ingredients: meal.missedIngredients,
-                    instruct: meal.analyzedInstructions[0].steps,
-                    cookingTime: meal.cookingMinutes
-                  }
-                })
+            { staticClass: "row justify-content-center" },
+            _vm._l(_vm.lunch, function(meal) {
+              return _c("the-recipe", {
+                key: meal.id,
+                staticClass: "col-md-4",
+                attrs: {
+                  title: meal.title,
+                  imgURL: meal.image,
+                  prepTime: meal.preparationMinutes,
+                  readyTime: meal.readyInMinutes,
+                  ingredients: meal.missedIngredients,
+                  instruct: meal.analyzedInstructions[0].steps,
+                  cookingTime: meal.cookingMinutes
+                }
               })
-            ],
-            2
+            }),
+            1
           )
         : _vm._e(),
       _vm._v(" "),
       _vm.show4
         ? _c(
             "div",
-            [
-              _c("v-card-title", [_vm._v("Supper")]),
-              _vm._v(" "),
-              _vm._l(_vm.supper, function(meal) {
-                return _c("the-recipe", {
-                  key: meal.id,
-                  attrs: {
-                    title: meal.title,
-                    imgURL: meal.image,
-                    prepTime: meal.preparationMinutes,
-                    readyTime: meal.readyInMinutes,
-                    ingredients: meal.missedIngredients,
-                    instruct: meal.analyzedInstructions[0].steps,
-                    cookingTime: meal.cookingMinutes
-                  }
-                })
+            { staticClass: "row justify-content-center" },
+            _vm._l(_vm.supper, function(meal) {
+              return _c("the-recipe", {
+                key: meal.id,
+                staticClass: "col-md-4",
+                attrs: {
+                  title: meal.title,
+                  imgURL: meal.image,
+                  prepTime: meal.preparationMinutes,
+                  readyTime: meal.readyInMinutes,
+                  ingredients: meal.missedIngredients,
+                  instruct: meal.analyzedInstructions[0].steps,
+                  cookingTime: meal.cookingMinutes
+                }
               })
-            ],
-            2
+            }),
+            1
           )
         : _vm._e()
     ],
@@ -1078,8 +1062,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__["VForm"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_7__["VTextField"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__["VForm"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_7__["VTextField"]})
 
 
 /* hot reload */
