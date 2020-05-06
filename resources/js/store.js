@@ -16,6 +16,9 @@ const store = new Vuex.Store({
     userPref: null,
     family: null,
     showExisting: false,
+    breakfastExisting: null,
+    lunchExisting: null,
+    supperExisting: null,
 
   },
   mutations: {
@@ -51,6 +54,46 @@ const store = new Vuex.Store({
         .then((result) => {
           console.log(result.data);
           context.state.showExisting = result.data.show;
+          if (result.data.show == true) {
+            let q = '';
+            let breakfast = result.data.meals[0];
+            var lunch = result.data.meals[1];
+            var supper = result.data.meals[2];
+            for (let i = 0; i < breakfast.length; i++) {
+              q += breakfast[i].spoon_id + ','
+            }
+            axios.get('https://api.spoonacular.com/recipes/informationBulk?apiKey=b2408b5b91424531aa6d57aa58070853&ids=' + q)
+              .then((result) => {
+                console.log(result.data);
+                context.state.breakfastExisting = result.data;
+                let x = '';
+                
+                for (let i = 0; i < lunch.length; i++) {
+                  x += lunch[i].spoon_id + ','
+                }
+                axios.get('https://api.spoonacular.com/recipes/informationBulk?apiKey=b2408b5b91424531aa6d57aa58070853&ids=' + x)
+                  .then((result) => {
+                    console.log(result.data);
+                    context.state.lunchExisting = result.data;
+                    let z = '';
+                    
+                    for (let i = 0; i < supper.length; i++) {
+                      z += supper[i].spoon_id + ','
+                    }
+                    axios.get('https://api.spoonacular.com/recipes/informationBulk?apiKey=b2408b5b91424531aa6d57aa58070853&ids=' + z)
+                      .then((result) => {
+                        console.log(result.data);
+                        context.state.supperExisting = result.data;
+                      }).catch((err) => {
+                        console.log(err);
+                      });
+                  }).catch((err) => {
+                    console.log(err);
+                  });
+              }).catch((err) => {
+                console.log(err);
+              });
+          }
         }).catch((err) => {
           console.log(err);
         });
@@ -167,7 +210,7 @@ const store = new Vuex.Store({
         )
         .then(result => {
           console.log(result.data);
-          context.dispatch('getMeals');
+          context.dispatch('getMealPlan');
         })
         .catch(err => {
           console.log(err);

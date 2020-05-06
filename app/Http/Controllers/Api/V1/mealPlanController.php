@@ -37,6 +37,10 @@ class mealPlanController extends Controller
     {
         // a function that stores a meal plan in the DB. we'll build the meal plan with js on client.
         if (Auth::check()) {
+            //delete old meal plan
+            \App\Meal::where('user_id', $request->user()->id)->delete();
+
+            //add new meal plan
             $meals = $request->input;
             foreach($meals as $meal){
                 $record = new \App\Meal();

@@ -98217,7 +98217,10 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     userDiet: null,
     userPref: null,
     family: null,
-    showExisting: false
+    showExisting: false,
+    breakfastExisting: null,
+    lunchExisting: null,
+    supperExisting: null
   },
   mutations: {
     storeUser: function storeUser(state, data) {
@@ -98250,6 +98253,48 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       axios.post('/api/v1/meal-plan', {}, config).then(function (result) {
         console.log(result.data);
         context.state.showExisting = result.data.show;
+
+        if (result.data.show == true) {
+          var q = '';
+          var breakfast = result.data.meals[0];
+          var lunch = result.data.meals[1];
+          var supper = result.data.meals[2];
+
+          for (var i = 0; i < breakfast.length; i++) {
+            q += breakfast[i].spoon_id + ',';
+          }
+
+          axios.get('https://api.spoonacular.com/recipes/informationBulk?apiKey=b2408b5b91424531aa6d57aa58070853&ids=' + q).then(function (result) {
+            console.log(result.data);
+            context.state.breakfastExisting = result.data;
+            var x = '';
+
+            for (var _i = 0; _i < lunch.length; _i++) {
+              x += lunch[_i].spoon_id + ',';
+            }
+
+            axios.get('https://api.spoonacular.com/recipes/informationBulk?apiKey=b2408b5b91424531aa6d57aa58070853&ids=' + x).then(function (result) {
+              console.log(result.data);
+              context.state.lunchExisting = result.data;
+              var z = '';
+
+              for (var _i2 = 0; _i2 < supper.length; _i2++) {
+                z += supper[_i2].spoon_id + ',';
+              }
+
+              axios.get('https://api.spoonacular.com/recipes/informationBulk?apiKey=b2408b5b91424531aa6d57aa58070853&ids=' + z).then(function (result) {
+                console.log(result.data);
+                context.state.supperExisting = result.data;
+              })["catch"](function (err) {
+                console.log(err);
+              });
+            })["catch"](function (err) {
+              console.log(err);
+            });
+          })["catch"](function (err) {
+            console.log(err);
+          });
+        }
       })["catch"](function (err) {
         console.log(err);
       });
@@ -98322,25 +98367,25 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         });
       }
 
-      for (var _i = 0; _i < lunch.length; _i++) {
+      for (var _i3 = 0; _i3 < lunch.length; _i3++) {
         var tomorrow = new Date();
 
-        var _sched = tomorrow.setDate(tomorrow.getDate() + _i);
+        var _sched = tomorrow.setDate(tomorrow.getDate() + _i3);
 
         meals.push({
-          id: lunch[_i].id,
+          id: lunch[_i3].id,
           type: "lunch",
           date: _sched
         });
       }
 
-      for (var _i2 = 0; _i2 < supper.length; _i2++) {
+      for (var _i4 = 0; _i4 < supper.length; _i4++) {
         var tomorrow = new Date();
 
-        var _sched2 = tomorrow.setDate(tomorrow.getDate() + _i2);
+        var _sched2 = tomorrow.setDate(tomorrow.getDate() + _i4);
 
         meals.push({
-          id: supper[_i2].id,
+          id: supper[_i4].id,
           type: "supper",
           date: _sched2
         });
@@ -98355,7 +98400,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         input: meals
       }, config).then(function (result) {
         console.log(result.data);
-        context.dispatch('getMeals');
+        context.dispatch('getMealPlan');
       })["catch"](function (err) {
         console.log(err);
       });
