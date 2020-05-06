@@ -17,6 +17,7 @@ class CreateMealsTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->bigInteger('spoon_id');
+            $table->string('status');
             $table->string('title')->nullable();
             $table->json('ingredients_array')->nullable();
             $table->string('instructions')->nullable();

@@ -16,9 +16,9 @@ class mealPlanController extends Controller
         if (Auth::check()) {
             $meals = [];
             
-            $breakfast = \App\Meal::where('user_id', $request->user()->id)->where('type', 'breakfast')->orderBy('sched_date', 'desc')->get();
-            $lunch = \App\Meal::where('user_id', $request->user()->id)->where('type', 'lunch')->orderBy('sched_date', 'desc')->get();
-            $supper = \App\Meal::where('user_id', $request->user()->id)->where('type', 'supper')->orderBy('sched_date', 'desc')->get();
+            $breakfast = \App\Meal::where('user_id', $request->user()->id)->where('type', 'breakfast')->where('status', 'active')->orderBy('sched_date', 'desc')->get();
+            $lunch = \App\Meal::where('user_id', $request->user()->id)->where('type', 'lunch')->where('status', 'active')->orderBy('sched_date', 'desc')->get();
+            $supper = \App\Meal::where('user_id', $request->user()->id)->where('type', 'supper')->where('status', 'active')->orderBy('sched_date', 'desc')->get();
             array_push($meals, $breakfast);
             array_push($meals, $lunch);
             array_push($meals, $supper);
@@ -48,6 +48,7 @@ class mealPlanController extends Controller
                 $record->spoon_id = $meal['id'];
                 $record->type = $meal['type'];
                 $record->sched_date = $meal['date'];
+                $record->status = 'new';
                 $record->save();
             }
                 
@@ -55,6 +56,10 @@ class mealPlanController extends Controller
         } else {
             return response()->json(['msg' => 'please login'], 200);
         }
+    }
+
+    public function mealStatus(Request $request){
+        //a function to update the status of a meal plan
     }
 
     public function updateMealPlan(Request $request)
