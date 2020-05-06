@@ -2055,6 +2055,10 @@ __webpack_require__.r(__webpack_exports__);
   name: "App",
   components: {
     GoBack: _components_GoBack_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('getProfile');
+    this.$store.dispatch('getMealPlan');
   }
 });
 
@@ -2128,16 +2132,30 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      username: null,
-      email: null,
-      userAgeGroup: null,
-      userDiet: null,
-      userPref: null,
       showOne: false,
       showTwo: false,
-      showThree: false,
-      family: null
+      showThree: false
     };
+  },
+  computed: {
+    username: function username() {
+      return this.$store.state.username;
+    },
+    email: function email() {
+      return this.$store.state.email;
+    },
+    userAgeGroup: function userAgeGroup() {
+      return this.$store.state.userAge;
+    },
+    userDiet: function userDiet() {
+      return this.$store.state.userDiet;
+    },
+    userPref: function userPref() {
+      return this.$store.state.userPref;
+    },
+    family: function family() {
+      return this.$store.state.family;
+    }
   },
   methods: {
     showUser: function showUser() {
@@ -2162,29 +2180,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  mounted: function mounted() {
-    var _this = this;
-
-    var config = {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("user-token")
-      }
-    };
-    axios.post("/api/v1/family/profile", {
-      msg: "hello?"
-    }, config).then(function (result) {
-      console.log(result.data);
-      var profile = result.data.profile;
-      _this.username = profile[0].name;
-      _this.email = profile[0].email;
-      _this.userAgeGroup = profile[1][0].member_age_group;
-      _this.userDiet = profile[1][0].member_diet;
-      _this.userPref = profile[1][0].member_pref;
-      _this.family = profile[2];
-    })["catch"](function (err) {
-      console.log(err);
-    });
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -40339,7 +40335,7 @@ var render = function() {
         "v-card",
         { staticClass: "my-3" },
         [
-          _c("v-card-title", [_vm._v("Hello " + _vm._s(_vm.username))]),
+          _c("v-card-title", [_vm._v("Hello " + _vm._s(this.username))]),
           _vm._v(" "),
           _c("v-btn", { staticClass: "m-3", on: { click: _vm.showUser } }, [
             _vm._v("My info")
@@ -40363,16 +40359,16 @@ var render = function() {
             [
               _c("v-card-title", [_vm._v("My Info")]),
               _vm._v(" "),
-              _c("v-card-subtitle", [_vm._v("Email: " + _vm._s(_vm.email))]),
+              _c("v-card-subtitle", [_vm._v("Email: " + _vm._s(this.email))]),
               _vm._v(" "),
               _c("v-card-subtitle", [
-                _vm._v("Age Group: " + _vm._s(_vm.userAgeGroup))
+                _vm._v("Age Group: " + _vm._s(this.userAgeGroup))
               ]),
               _vm._v(" "),
-              _c("v-card-subtitle", [_vm._v("Diet: " + _vm._s(_vm.userDiet))]),
+              _c("v-card-subtitle", [_vm._v("Diet: " + _vm._s(this.userDiet))]),
               _vm._v(" "),
               _c("v-card-subtitle", [
-                _vm._v("I Can't Eat: " + _vm._s(_vm.userPref))
+                _vm._v("I Can't Eat: " + _vm._s(this.userPref))
               ])
             ],
             1
@@ -98215,7 +98211,13 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     breakfast: null,
     lunch: null,
     supper: null,
-    profile: null
+    username: null,
+    email: null,
+    userAge: null,
+    userDiet: null,
+    userPref: null,
+    family: null,
+    showExisting: false
   },
   mutations: {
     storeUser: function storeUser(state, data) {
@@ -98238,19 +98240,51 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     }
   },
   actions: {
-    getMealPlan: function getMealPlan(context) {//get meal plan from db
+    getMealPlan: function getMealPlan(context) {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      }; //get meal plan from db
+
+      axios.post('/api/v1/meal-plan', {}, config).then(function (result) {
+        console.log(result.data);
+        context.state.showExisting = result.data.show;
+      })["catch"](function (err) {
+        console.log(err);
+      });
     },
-    getProfile: function getProfile(context) {},
+    getProfile: function getProfile(context) {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.post("/api/v1/family/profile", {
+        msg: "hello?"
+      }, config).then(function (result) {
+        console.log(result.data);
+        var profile = result.data.profile;
+        context.state.username = profile[0].name;
+        context.state.email = profile[0].email;
+        context.state.userAge = profile[1][0].member_age_group;
+        context.state.userDiet = profile[1][0].member_diet;
+        context.state.userPref = profile[1][0].member_pref;
+        context.state.family = profile[2];
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
     createMealPlan: function createMealPlan(context) {
       //a function to get a meal plan from spoon
       var spoonApi = "?apiKey=b2408b5b91424531aa6d57aa58070853";
-      var q = "&query=steak and eggs";
-      var diet = "&diet=whole30";
+      var diet = '&diet=' + context.state.userDiet;
       var spoonUrl = "https://api.spoonacular.com/recipes/complexSearch";
       var type1 = "&type=breakfast";
       var type2 = "&type=main course";
       var options = "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&number=7";
-      axios.get(spoonUrl + spoonApi + type1 + diet + options).then(function (result) {
+      var exclude = '&excludeIngredients=' + context.state.userPref;
+      axios.get(spoonUrl + spoonApi + type1 + diet + options + exclude).then(function (result) {
         console.log(result.data.results);
         context.commit('storeBreakfast', result.data.results);
       })["catch"](function (err) {
@@ -98265,6 +98299,61 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       axios.get(spoonUrl + spoonApi + type2 + diet + options + "&offset=50").then(function (result) {
         console.log(result.data.results);
         context.commit('storeSupper', result.data.results);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    saveMeals: function saveMeals(context) {
+      console.log("so you want to save your meal plan eh?"); // this.$store.dispatch('saveMealPlan');
+
+      var meals = [];
+      var breakfast = context.state.breakfast;
+      var lunch = context.state.lunch;
+      var supper = context.state.supper;
+
+      for (var i = 0; i < breakfast.length; i++) {
+        var tomorrow = new Date();
+        var sched = tomorrow.setDate(tomorrow.getDate() + i).toLocaleString();
+        meals.push({
+          id: breakfast[i].id,
+          type: "breakfast",
+          date: sched
+        });
+      }
+
+      for (var _i = 0; _i < lunch.length; _i++) {
+        var tomorrow = new Date();
+
+        var _sched = tomorrow.setDate(tomorrow.getDate() + _i).toLocaleString();
+
+        meals.push({
+          id: lunch[_i].id,
+          type: "lunch",
+          date: _sched
+        });
+      }
+
+      for (var _i2 = 0; _i2 < supper.length; _i2++) {
+        var tomorrow = new Date();
+
+        var _sched2 = tomorrow.setDate(tomorrow.getDate() + _i2).toLocaleString();
+
+        meals.push({
+          id: supper[_i2].id,
+          type: "supper",
+          date: _sched2
+        });
+      }
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.post("api/v1/meal-plan/make", {
+        input: meals
+      }, config).then(function (result) {
+        console.log(result.data);
       })["catch"](function (err) {
         console.log(err);
       });

@@ -2,17 +2,17 @@
   <div>
     <TheNav />
     <v-card class="my-3">
-      <v-card-title>Hello {{username}}</v-card-title>
+      <v-card-title>Hello {{this.username}}</v-card-title>
       <v-btn class="m-3" @click="showUser">My info</v-btn>
       <v-btn class="m-3" @click="showFamily">Family Info</v-btn>
-       <v-btn class="m-3" @click="showSub">Manage Subscription</v-btn>
+      <v-btn class="m-3" @click="showSub">Manage Subscription</v-btn>
     </v-card>
     <v-card class="my-3" v-if="showOne">
       <v-card-title>My Info</v-card-title>
-      <v-card-subtitle>Email: {{email}}</v-card-subtitle>
-      <v-card-subtitle>Age Group: {{userAgeGroup}}</v-card-subtitle>
-      <v-card-subtitle>Diet: {{userDiet}}</v-card-subtitle>
-      <v-card-subtitle>I Can't Eat: {{userPref}}</v-card-subtitle>
+      <v-card-subtitle>Email: {{this.email}}</v-card-subtitle>
+      <v-card-subtitle>Age Group: {{this.userAgeGroup}}</v-card-subtitle>
+      <v-card-subtitle>Diet: {{this.userDiet}}</v-card-subtitle>
+      <v-card-subtitle>I Can't Eat: {{this.userPref}}</v-card-subtitle>
     </v-card>
     <v-card class="my-3" v-if="showTwo">
       <v-card-title>Family Info</v-card-title>
@@ -30,7 +30,7 @@
 <script>
 // import config from '../../axiosConfig.js';
 import TheNav from "../../components/TheNavigation.vue";
-import TheSubscription from '../../components/TheSubscription.vue';
+import TheSubscription from "../../components/TheSubscription.vue";
 
 export default {
   name: "Profile",
@@ -40,16 +40,30 @@ export default {
   },
   data() {
     return {
-      username: null,
-      email: null,
-      userAgeGroup: null,
-      userDiet: null,
-      userPref: null,
       showOne: false,
       showTwo: false,
-      showThree: false,
-      family: null
+      showThree: false
     };
+  },
+  computed: {
+    username: function(){
+      return this.$store.state.username;
+    },
+    email: function(){
+      return this.$store.state.email;
+    },
+    userAgeGroup: function(){
+      return this.$store.state.userAge;
+    },
+    userDiet: function(){
+      return this.$store.state.userDiet;
+    },
+    userPref: function(){
+      return this.$store.state.userPref;
+    },
+    family: function(){
+      return this.$store.state.family;
+    }
   },
   methods: {
     showUser: function() {
@@ -66,8 +80,8 @@ export default {
         this.showTwo = true;
       }
     },
-    showSub: function(){
-        if (this.showThree == true) {
+    showSub: function() {
+      if (this.showThree == true) {
         this.showThree = false;
       } else {
         this.showThree = true;
@@ -75,26 +89,7 @@ export default {
     }
   },
   mounted() {
-    let config = {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("user-token")
-      }
-    };
-    axios
-      .post("/api/v1/family/profile", { msg: "hello?" }, config)
-      .then(result => {
-        console.log(result.data);
-        let profile = result.data.profile;
-        this.username = profile[0].name;
-        this.email = profile[0].email;
-        this.userAgeGroup = profile[1][0].member_age_group;
-        this.userDiet = profile[1][0].member_diet;
-        this.userPref = profile[1][0].member_pref;
-        this.family = profile[2];
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    
   }
 };
 </script>

@@ -31,6 +31,10 @@ export default {
   name: "App",
   components: {
       GoBack
+  },
+  mounted(){
+    this.$store.dispatch('getProfile');
+    this.$store.dispatch('getMealPlan');
   }
 };
 </script>

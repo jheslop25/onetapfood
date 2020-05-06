@@ -81,6 +81,7 @@ export default {
       //a function to get a meal plan from spoon
       this.show1 = false;
       this.$store.dispatch("createMealPlan");
+      this.showBreakfast();
     },
     showBreakfast() {
       if (this.show2 == false) {
@@ -109,40 +110,46 @@ export default {
         this.show4 = false;
       }
     },
-    saveMeals() {
-      console.log("so you want to save your meal plan eh?");
-      // this.$store.dispatch('saveMealPlan');
-      let meals = [];
-      for(let i = 0; i < this.breakfast.length; i++){
-          meals.push({id: this.breakfast[i].id});
-      }
-      for(let i = 0; i < this.lunch.length; i++){
-          meals.push({id: this.lunch[i].id});
-      }
-      for(let i = 0; i < this.supper.length; i++){
-          meals.push({id: this.supper[i].id});
-      }
+    // saveMeals() {
+    //   console.log("so you want to save your meal plan eh?");
+    //   // this.$store.dispatch('saveMealPlan');
+    //   let meals = [];
+    //   for (let i = 0; i < this.breakfast.length; i++) {
+    //     var tomorrow = new Date();
+    //     let sched = tomorrow.setDate(tomorrow.getDate() + i).toLocaleString();
+    //     meals.push({ id: this.breakfast[i].id, type: "breakfast", date: sched});
+    //   }
+    //   for (let i = 0; i < this.lunch.length; i++) {
+    //     var tomorrow = new Date();
+    //     let sched = tomorrow.setDate(tomorrow.getDate() + i).toLocaleString();
+    //     meals.push({ id: this.lunch[i].id, type: "lunch", date: sched});
+    //   }
+    //   for (let i = 0; i < this.supper.length; i++) {
+    //     var tomorrow = new Date();
+    //     let sched = tomorrow.setDate(tomorrow.getDate() + i).toLocaleString();
+    //     meals.push({ id: this.supper[i].id, type: "supper", date: sched});
+    //   }
 
-      let config = {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("user-token")
-        }
-      };
-      axios
-        .post(
-          "api/v1/meal-plan/make",
-          {
-            input: meals
-          },
-          config
-        )
-        .then(result => {
-          console.log(result.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
+    //   let config = {
+    //     headers: {
+    //       Authorization: "Bearer " + localStorage.getItem("user-token")
+    //     }
+    //   };
+    //   axios
+    //     .post(
+    //       "api/v1/meal-plan/make",
+    //       {
+    //         input: meals
+    //       },
+    //       config
+    //     )
+    //     .then(result => {
+    //       console.log(result.data);
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // }
   },
   mounted() {},
   props: {},

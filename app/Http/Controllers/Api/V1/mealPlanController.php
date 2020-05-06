@@ -14,11 +14,14 @@ class mealPlanController extends Controller
         // a function that returns the whole meal plan stored in the DB
         // if no current record then return a json object that prompts the client to create one
         if (Auth::check()) {
-            $params = $request->input;
             $meals = \App\Meal::where('user_id', $request->user()->id)->orderBy('created_at', 'desc')->get();
-            return response()->json(['meals'=> $meals], 200);
+            if(sizeof($meals) > 0){
+                return response()->json(['meals'=> $meals, 'show' => true], 200);
+            } elseif (sizeof($meals) <= 0){
+                return response()->json(['meals'=> $meals, 'show' => false], 200);
+            }
         } else {
-            return response()->json(['msg' => 'please login'], 200);
+            return response()->json(['msg' => 'please login', 'show' => false], 200);
         }
     }
 
@@ -31,6 +34,8 @@ class mealPlanController extends Controller
                 $record = new \App\Meal();
                 $record->user_id = $request->user()->id;
                 $record->spoon_id = $meal['id'];
+                $record->type = $meal['type'];
+                $record->sched_date = $meal['date'];
                 $record->save();
             }
                 

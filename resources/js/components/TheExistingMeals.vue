@@ -1,6 +1,7 @@
 <template>
     <div>
         Your saved meal plan...
+        <v-btn @click="getMeals()">Get Meals</v-btn>
         <the-saved-meal></the-saved-meal>
     </div>
 </template>
@@ -11,6 +12,11 @@ import TheSavedMeal from './TheSavedMeal.vue';
         name: 'TheExistingMeals',
         components: {
             TheSavedMeal,
+        },
+        methods: {
+            getMeals(){
+                
+            }
         }
     }
 </script>
