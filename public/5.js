@@ -20,27 +20,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Register",
   data: function data() {
     return {
-      email: '',
-      password: '',
-      name: '',
-      location: ''
+      email: "",
+      password: "",
+      name: "",
+      location: ""
     };
   },
   methods: {
     register: function register() {
       var _this = this;
 
-      axios.post('/api/user/register', {
+      axios.post("/api/user/register", {
         email: this.email,
         password: this.password,
         name: this.name,
         location: this.location,
-        status: 'active',
-        type: 'user'
+        status: "active",
+        type: "user"
       }).then(function (result) {
         var data = {
           email: result.data.user.email,
@@ -55,13 +71,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     login: function login() {
       var context = this;
-      axios.post('/api/user/login', {
+      axios.post("/api/user/login", {
         email: this.email,
         password: this.password
       }).then(function (result) {
-        localStorage.setItem('user-token', result.data.access_token.accessToken);
-        localStorage.setItem('user-id', result.data.user.id);
-        context.$router.push('/onboard');
+        localStorage.setItem("user-token", result.data.access_token.accessToken);
+        localStorage.setItem("user-id", result.data.user.id);
+        context.$router.push("/onboard");
       })["catch"](function (err) {
         console.log(err);
       });
@@ -87,57 +103,105 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-form",
-    { ref: "form", staticClass: "card m-5 p-3" },
+    "v-row",
+    { attrs: { justify: "center", align: "center" } },
     [
-      _c("v-text-field", {
-        attrs: { label: "Name" },
-        model: {
-          value: _vm.name,
-          callback: function($$v) {
-            _vm.name = $$v
-          },
-          expression: "name"
-        }
-      }),
-      _vm._v(" "),
-      _c("v-text-field", {
-        attrs: { label: "email" },
-        model: {
-          value: _vm.email,
-          callback: function($$v) {
-            _vm.email = $$v
-          },
-          expression: "email"
-        }
-      }),
-      _vm._v(" "),
-      _c("v-text-field", {
-        attrs: { label: "password" },
-        model: {
-          value: _vm.password,
-          callback: function($$v) {
-            _vm.password = $$v
-          },
-          expression: "password"
-        }
-      }),
-      _vm._v(" "),
-      _c("v-text-field", {
-        attrs: { label: "location" },
-        model: {
-          value: _vm.location,
-          callback: function($$v) {
-            _vm.location = $$v
-          },
-          expression: "location"
-        }
-      }),
-      _vm._v(" "),
       _c(
-        "v-btn",
-        { attrs: { color: "sucesss" }, on: { click: _vm.register } },
-        [_vm._v("Register")]
+        "v-col",
+        { attrs: { xs: "12", sm: "8", md: "4", lg: "4" } },
+        [
+          _c(
+            "v-form",
+            { ref: "form", staticClass: "card m-1 p-3" },
+            [
+              _c("v-card-title", [_vm._v("Create Account")]),
+              _vm._v(" "),
+              _c("v-text-field", {
+                attrs: {
+                  "prepend-icon": "mdi-account-plus",
+                  autofocus: "",
+                  type: "name",
+                  label: "Name"
+                },
+                model: {
+                  value: _vm.name,
+                  callback: function($$v) {
+                    _vm.name = $$v
+                  },
+                  expression: "name"
+                }
+              }),
+              _vm._v(" "),
+              _c("v-text-field", {
+                attrs: {
+                  "prepend-icon": "mdi-email",
+                  type: "email",
+                  label: "email"
+                },
+                model: {
+                  value: _vm.email,
+                  callback: function($$v) {
+                    _vm.email = $$v
+                  },
+                  expression: "email"
+                }
+              }),
+              _vm._v(" "),
+              _c("v-text-field", {
+                attrs: {
+                  "prepend-icon": "mdi-lock-question",
+                  type: "password",
+                  label: "password"
+                },
+                model: {
+                  value: _vm.password,
+                  callback: function($$v) {
+                    _vm.password = $$v
+                  },
+                  expression: "password"
+                }
+              }),
+              _vm._v(" "),
+              _c("v-text-field", {
+                attrs: {
+                  "prepend-icon": "mdi-lock-question",
+                  type: "password",
+                  label: "confirm password"
+                },
+                model: {
+                  value: _vm.password,
+                  callback: function($$v) {
+                    _vm.password = $$v
+                  },
+                  expression: "password"
+                }
+              }),
+              _vm._v(" "),
+              _c("v-text-field", {
+                attrs: {
+                  type: "location",
+                  "prepend-icon": "mdi-map-marker",
+                  label: "location"
+                },
+                model: {
+                  value: _vm.location,
+                  callback: function($$v) {
+                    _vm.location = $$v
+                  },
+                  expression: "location"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                { attrs: { color: "sucesss" }, on: { click: _vm.register } },
+                [_vm._v("Register")]
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1
@@ -165,8 +229,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
-/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -190,7 +256,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_5__["VForm"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_6__["VTextField"]})
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_7__["VForm"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__["VTextField"]})
 
 
 /* hot reload */

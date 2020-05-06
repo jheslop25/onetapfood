@@ -22,7 +22,7 @@
       </v-container>
     </v-content>
     <v-footer color="primary" app>
-      <v-btn color="success">bye</v-btn>
+      <v-card-text dense>Copywrite 2020 EarthMountain</v-card-text>
     </v-footer>
   </v-app>
 </template>

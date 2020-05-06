@@ -3,11 +3,11 @@
     
     <v-col xs="12" sm="8" md="4" lg="4">
       <v-form class="card p-3" ref="form">
-        <v-card-title>Welcome, Please Login.</v-card-title>
+        <v-card-title class="mx-auto">Welcome, Please Login.</v-card-title>
         <v-alert v-if="showErrorBox" type="error">{{error}}</v-alert>
-        <v-text-field v-model="email" label="email"></v-text-field>
-        <v-text-field v-model="password" label="password"></v-text-field>
-        <v-btn color="sucesss" @click="login">Login</v-btn>
+        <v-text-field type="email" autofocus prepend-icon="mdi-email" v-model="email" label="email"></v-text-field>
+        <v-text-field type="password" prepend-icon="mdi-lock-question" v-model="password" label="password"></v-text-field>
+        <v-btn color="blue" @click="login">Login</v-btn>
       </v-form>
     </v-col>
     

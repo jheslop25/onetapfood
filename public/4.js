@@ -85,7 +85,9 @@ var render = function() {
             "v-form",
             { ref: "form", staticClass: "card p-3" },
             [
-              _c("v-card-title", [_vm._v("Welcome, Please Login.")]),
+              _c("v-card-title", { staticClass: "mx-auto" }, [
+                _vm._v("Welcome, Please Login.")
+              ]),
               _vm._v(" "),
               _vm.showErrorBox
                 ? _c("v-alert", { attrs: { type: "error" } }, [
@@ -94,7 +96,12 @@ var render = function() {
                 : _vm._e(),
               _vm._v(" "),
               _c("v-text-field", {
-                attrs: { label: "email" },
+                attrs: {
+                  type: "email",
+                  autofocus: "",
+                  "prepend-icon": "mdi-email",
+                  label: "email"
+                },
                 model: {
                   value: _vm.email,
                   callback: function($$v) {
@@ -105,7 +112,11 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("v-text-field", {
-                attrs: { label: "password" },
+                attrs: {
+                  type: "password",
+                  "prepend-icon": "mdi-lock-question",
+                  label: "password"
+                },
                 model: {
                   value: _vm.password,
                   callback: function($$v) {
@@ -117,7 +128,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-btn",
-                { attrs: { color: "sucesss" }, on: { click: _vm.login } },
+                { attrs: { color: "blue" }, on: { click: _vm.login } },
                 [_vm._v("Login")]
               )
             ],
