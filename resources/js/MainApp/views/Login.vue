@@ -26,6 +26,7 @@ export default {
                 localStorage.setItem('user-token', result.data.access_token.accessToken);
                 localStorage.setItem('user-id', result.data.user.id);
                 context.$router.push('/main');
+                this.$store.state.loggedIn = true;
             }).catch((err) => {
                 console.log(err);
                 context.error = "Sorry, something went wrong. We couldn't log you in.";

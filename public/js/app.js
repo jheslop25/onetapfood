@@ -2136,17 +2136,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   components: {
     GoBack: _components_GoBack_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  computed: {
+    showLogin: function showLogin() {
+      return this.$store.state.loggedIn;
+    }
+  },
   mounted: function mounted() {
     this.$store.dispatch("getProfile"); //this.$store.dispatch('getMealPlan');
+
+    if (localStorage.getItem('user-token')) {
+      this.$store.state.loggedIn = true;
+    } else {
+      this.$store.state.loggedIn = false;
+    }
   },
   methods: {
     logout: function logout() {
+      var _this = this;
+
       var context = this;
       var config = {
         headers: {
@@ -2161,18 +2176,10 @@ __webpack_require__.r(__webpack_exports__);
         localStorage.removeItem("user-token");
         localStorage.removeItem("user-id");
         localStorage.clear();
+        _this.$store.state.loggedIn = false;
       })["catch"](function (err) {
         console.log(err);
       });
-    }
-  },
-  computed: {
-    show: function show() {
-      if (localStorage['user-token'] != null) {
-        return true;
-      } else {
-        return false;
-      }
     }
   }
 });
@@ -40370,20 +40377,26 @@ var render = function() {
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
-          !_vm.show
+          _vm.showLogin == false
             ? _c(
-                "router-link",
-                { attrs: { to: { name: "login" } } },
+                "div",
                 [
                   _c(
-                    "v-btn",
+                    "router-link",
+                    { attrs: { to: { name: "login" } } },
                     [
                       _c(
-                        "v-icon",
-                        { attrs: { left: "", color: "blue accent-4" } },
-                        [_vm._v("mdi-account-circle-outline")]
-                      ),
-                      _vm._v("\n        login\n      ")
+                        "v-btn",
+                        [
+                          _c(
+                            "v-icon",
+                            { attrs: { left: "", color: "blue accent-4" } },
+                            [_vm._v("mdi-account-circle-outline")]
+                          ),
+                          _vm._v("\n        login\n      ")
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
@@ -40392,7 +40405,7 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm.show
+          _vm.showLogin == true
             ? _c(
                 "v-btn",
                 { on: { click: _vm.logout } },
@@ -98419,7 +98432,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     showExisting: false,
     breakfastExisting: null,
     lunchExisting: null,
-    supperExisting: null
+    supperExisting: null,
+    loggedIn: null
   },
   mutations: {
     storeUser: function storeUser(state, data) {

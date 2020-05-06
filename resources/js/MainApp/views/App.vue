@@ -3,13 +3,15 @@
     <v-app-bar color="primary" app>
       <go-back />
       <v-spacer></v-spacer>
-      <router-link v-if="!show" :to="{ name: 'login'}">
+      <div v-if="showLogin == false">
+        <router-link :to="{ name: 'login'}">
         <v-btn>
           <v-icon left color="blue accent-4">mdi-account-circle-outline</v-icon>
           login
         </v-btn>
       </router-link>
-      <v-btn v-if="show" @click="logout">
+      </div>
+      <v-btn v-if="showLogin == true" @click="logout">
         <v-icon left medium="true" color="blue accent-4">mdi-logout-variant</v-icon>
         Logout
       </v-btn>
@@ -32,9 +34,19 @@ export default {
   components: {
     GoBack
   },
+  computed: {
+    showLogin: function(){
+      return this.$store.state.loggedIn;
+    }
+  },
   mounted() {
     this.$store.dispatch("getProfile");
     //this.$store.dispatch('getMealPlan');
+    if(localStorage.getItem('user-token')){
+      this.$store.state.loggedIn = true;
+    } else {
+      this.$store.state.loggedIn = false;
+    }
   },
   methods: {
     logout: function() {
@@ -58,19 +70,11 @@ export default {
           localStorage.removeItem("user-token");
           localStorage.removeItem("user-id");
           localStorage.clear();
+          this.$store.state.loggedIn = false;
         })
         .catch(err => {
           console.log(err);
         });
-    }
-  },
-  computed: {
-    show(){
-      if(localStorage['user-token'] != null){
-        return true;
-      } else {
-        return false
-      }
     }
   }
 };

@@ -19,6 +19,7 @@ const store = new Vuex.Store({
     breakfastExisting: null,
     lunchExisting: null,
     supperExisting: null,
+    loggedIn: null,
 
   },
   mutations: {

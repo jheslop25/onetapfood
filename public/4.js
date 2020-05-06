@@ -28,6 +28,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     login: function login() {
+      var _this = this;
+
       var context = this;
       axios.post('/api/user/login', {
         email: this.email,
@@ -36,6 +38,7 @@ __webpack_require__.r(__webpack_exports__);
         localStorage.setItem('user-token', result.data.access_token.accessToken);
         localStorage.setItem('user-id', result.data.user.id);
         context.$router.push('/main');
+        _this.$store.state.loggedIn = true;
       })["catch"](function (err) {
         console.log(err);
         context.error = "Sorry, something went wrong. We couldn't log you in.";
