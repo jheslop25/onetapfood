@@ -22,7 +22,7 @@ class CreateMealsTable extends Migration
             $table->string('instructions')->nullable();
             $table->string('photo_URL')->nullable();
             $table->string('type')->nullable();
-            $table->date('sched_date')->nullable();
+            $table->bigInteger('sched_date')->nullable();
             $table->timestamps();
         });
     }

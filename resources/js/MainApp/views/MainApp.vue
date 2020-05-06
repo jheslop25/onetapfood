@@ -1,8 +1,8 @@
 <template>
   <div>
-      <TheNav />
-      <the-existing v-if="showExisting"></the-existing>
-      <the-meal-plan></the-meal-plan>
+      <TheNav class="m-3" />
+      <the-existing class="m-3 p-3" v-if="showExisting"></the-existing>
+      <the-meal-plan v-if="!showExisting"></the-meal-plan>
       <the-instacart></the-instacart>
   </div>
 </template>

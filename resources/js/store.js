@@ -16,7 +16,7 @@ const store = new Vuex.Store({
     userPref: null,
     family: null,
     showExisting: false,
-    
+
   },
   mutations: {
     storeUser: function (state, data) {
@@ -83,7 +83,7 @@ const store = new Vuex.Store({
     createMealPlan(context) {
       //a function to get a meal plan from spoon
       let spoonApi = "?apiKey=b2408b5b91424531aa6d57aa58070853"
-      let diet = '&diet='+context.state.userDiet;
+      let diet = '&diet=' + context.state.userDiet;
       let spoonUrl = "https://api.spoonacular.com/recipes/complexSearch"
       let type1 = "&type=breakfast"
       let type2 = "&type=main course"
@@ -96,33 +96,34 @@ const store = new Vuex.Store({
         .then(result => {
           console.log(result.data.results);
           context.commit('storeBreakfast', result.data.results);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      axios
-        .get(
-          spoonUrl + spoonApi + type2 + diet + options
-        )
-        .then(result => {
-          console.log(result.data.results);
-          context.commit('storeLunch', result.data.results);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      axios
-        .get(
-          spoonUrl +
-          spoonApi +
-          type2 +
-          diet +
-          options +
-          "&offset=50"
-        )
-        .then(result => {
-          console.log(result.data.results);
-          context.commit('storeSupper', result.data.results);
+          axios
+            .get(
+              spoonUrl + spoonApi + type2 + diet + options
+            )
+            .then(result => {
+              console.log(result.data.results);
+              context.commit('storeLunch', result.data.results);
+              axios
+                .get(
+                  spoonUrl +
+                  spoonApi +
+                  type2 +
+                  diet +
+                  options +
+                  "&offset=50"
+                )
+                .then(result => {
+                  console.log(result.data.results);
+                  context.commit('storeSupper', result.data.results);
+                  context.dispatch('saveMeals');
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+            })
+            .catch(err => {
+              console.log(err);
+            });
         })
         .catch(err => {
           console.log(err);
@@ -137,18 +138,18 @@ const store = new Vuex.Store({
       let supper = context.state.supper;
       for (let i = 0; i < breakfast.length; i++) {
         var tomorrow = new Date();
-        let sched = tomorrow.setDate(tomorrow.getDate() + i).toLocaleString();
-        meals.push({ id: breakfast[i].id, type: "breakfast", date: sched});
+        let sched = tomorrow.setDate(tomorrow.getDate() + i);
+        meals.push({ id: breakfast[i].id, type: "breakfast", date: sched });
       }
       for (let i = 0; i < lunch.length; i++) {
         var tomorrow = new Date();
-        let sched = tomorrow.setDate(tomorrow.getDate() + i).toLocaleString();
-        meals.push({ id: lunch[i].id, type: "lunch", date: sched});
+        let sched = tomorrow.setDate(tomorrow.getDate() + i);
+        meals.push({ id: lunch[i].id, type: "lunch", date: sched });
       }
       for (let i = 0; i < supper.length; i++) {
         var tomorrow = new Date();
-        let sched = tomorrow.setDate(tomorrow.getDate() + i).toLocaleString();
-        meals.push({ id: supper[i].id, type: "supper", date: sched});
+        let sched = tomorrow.setDate(tomorrow.getDate() + i);
+        meals.push({ id: supper[i].id, type: "supper", date: sched });
       }
 
       let config = {
@@ -166,6 +167,7 @@ const store = new Vuex.Store({
         )
         .then(result => {
           console.log(result.data);
+          context.dispatch('getMeals');
         })
         .catch(err => {
           console.log(err);

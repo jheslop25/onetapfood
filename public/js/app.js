@@ -98287,18 +98287,19 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       axios.get(spoonUrl + spoonApi + type1 + diet + options + exclude).then(function (result) {
         console.log(result.data.results);
         context.commit('storeBreakfast', result.data.results);
-      })["catch"](function (err) {
-        console.log(err);
-      });
-      axios.get(spoonUrl + spoonApi + type2 + diet + options).then(function (result) {
-        console.log(result.data.results);
-        context.commit('storeLunch', result.data.results);
-      })["catch"](function (err) {
-        console.log(err);
-      });
-      axios.get(spoonUrl + spoonApi + type2 + diet + options + "&offset=50").then(function (result) {
-        console.log(result.data.results);
-        context.commit('storeSupper', result.data.results);
+        axios.get(spoonUrl + spoonApi + type2 + diet + options).then(function (result) {
+          console.log(result.data.results);
+          context.commit('storeLunch', result.data.results);
+          axios.get(spoonUrl + spoonApi + type2 + diet + options + "&offset=50").then(function (result) {
+            console.log(result.data.results);
+            context.commit('storeSupper', result.data.results);
+            context.dispatch('saveMeals');
+          })["catch"](function (err) {
+            console.log(err);
+          });
+        })["catch"](function (err) {
+          console.log(err);
+        });
       })["catch"](function (err) {
         console.log(err);
       });
@@ -98313,7 +98314,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 
       for (var i = 0; i < breakfast.length; i++) {
         var tomorrow = new Date();
-        var sched = tomorrow.setDate(tomorrow.getDate() + i).toLocaleString();
+        var sched = tomorrow.setDate(tomorrow.getDate() + i);
         meals.push({
           id: breakfast[i].id,
           type: "breakfast",
@@ -98324,7 +98325,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       for (var _i = 0; _i < lunch.length; _i++) {
         var tomorrow = new Date();
 
-        var _sched = tomorrow.setDate(tomorrow.getDate() + _i).toLocaleString();
+        var _sched = tomorrow.setDate(tomorrow.getDate() + _i);
 
         meals.push({
           id: lunch[_i].id,
@@ -98336,7 +98337,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       for (var _i2 = 0; _i2 < supper.length; _i2++) {
         var tomorrow = new Date();
 
-        var _sched2 = tomorrow.setDate(tomorrow.getDate() + _i2).toLocaleString();
+        var _sched2 = tomorrow.setDate(tomorrow.getDate() + _i2);
 
         meals.push({
           id: supper[_i2].id,
@@ -98354,6 +98355,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         input: meals
       }, config).then(function (result) {
         console.log(result.data);
+        context.dispatch('getMeals');
       })["catch"](function (err) {
         console.log(err);
       });

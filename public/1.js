@@ -400,46 +400,10 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.show4 = false;
       }
-    } // saveMeals() {
-    //   console.log("so you want to save your meal plan eh?");
-    //   // this.$store.dispatch('saveMealPlan');
-    //   let meals = [];
-    //   for (let i = 0; i < this.breakfast.length; i++) {
-    //     var tomorrow = new Date();
-    //     let sched = tomorrow.setDate(tomorrow.getDate() + i).toLocaleString();
-    //     meals.push({ id: this.breakfast[i].id, type: "breakfast", date: sched});
-    //   }
-    //   for (let i = 0; i < this.lunch.length; i++) {
-    //     var tomorrow = new Date();
-    //     let sched = tomorrow.setDate(tomorrow.getDate() + i).toLocaleString();
-    //     meals.push({ id: this.lunch[i].id, type: "lunch", date: sched});
-    //   }
-    //   for (let i = 0; i < this.supper.length; i++) {
-    //     var tomorrow = new Date();
-    //     let sched = tomorrow.setDate(tomorrow.getDate() + i).toLocaleString();
-    //     meals.push({ id: this.supper[i].id, type: "supper", date: sched});
-    //   }
-    //   let config = {
-    //     headers: {
-    //       Authorization: "Bearer " + localStorage.getItem("user-token")
-    //     }
-    //   };
-    //   axios
-    //     .post(
-    //       "api/v1/meal-plan/make",
-    //       {
-    //         input: meals
-    //       },
-    //       config
-    //     )
-    //     .then(result => {
-    //       console.log(result.data);
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
-    // }
-
+    },
+    saveMeals: function saveMeals() {
+      this.$store.dispatch('saveMeals');
+    }
   },
   mounted: function mounted() {},
   props: {},
@@ -547,11 +511,13 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("TheNav"),
+      _c("TheNav", { staticClass: "m-3" }),
       _vm._v(" "),
-      _vm.showExisting ? _c("the-existing") : _vm._e(),
+      _vm.showExisting
+        ? _c("the-existing", { staticClass: "m-3 p-3" })
+        : _vm._e(),
       _vm._v(" "),
-      _c("the-meal-plan"),
+      !_vm.showExisting ? _c("the-meal-plan") : _vm._e(),
       _vm._v(" "),
       _c("the-instacart")
     ],
