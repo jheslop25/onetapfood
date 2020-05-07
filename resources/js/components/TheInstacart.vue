@@ -61,6 +61,10 @@ export default {
       
       //lets build an array of query strings
       let queries = [];
+      let ingred = this.$store.state.ingredients;
+      for( let i = 0; i < ingred.length; i++){
+        queries.push(ingred[i].name);
+      }
       
       //lets send the bulk queries to the api wrapper and let it do the heavy lifting.
       axios

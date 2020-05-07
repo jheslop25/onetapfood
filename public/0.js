@@ -142,7 +142,13 @@ __webpack_require__.r(__webpack_exports__);
       };
       console.log("youve decided to tempt your fate"); //lets build an array of query strings
 
-      var queries = []; //lets send the bulk queries to the api wrapper and let it do the heavy lifting.
+      var queries = [];
+      var ingred = this.$store.state.ingredients;
+
+      for (var i = 0; i < ingred.length; i++) {
+        queries.push(ingred[i].name);
+      } //lets send the bulk queries to the api wrapper and let it do the heavy lifting.
+
 
       axios.post("api/v1/instacart/search", {
         input: {
