@@ -57,12 +57,20 @@ export default {
         }
       };
       console.log("youve decided to tempt your fate");
+      //lets get the ingredients array from store
+      let ingred = this.$store.state.ingredients;
+      //lets build an array of query strings
+      let queries = [];
+      for( let i = 0; i < ingred.length; i++){
+        queries.push(ingred[i].name);
+      }
+      //lets send the bulk queries to the api wrapper and let it do the heavy lifting.
       axios
         .post(
           "api/v1/instacart/search",
           {
             input: {
-              query: this.query,
+              query: queries,
               cookie: localStorage["_instacart_session"]
             }
           },

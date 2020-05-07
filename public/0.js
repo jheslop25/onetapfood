@@ -139,10 +139,20 @@ __webpack_require__.r(__webpack_exports__);
           Authorization: "Bearer " + localStorage.getItem("user-token")
         }
       };
-      console.log("youve decided to tempt your fate");
+      console.log("youve decided to tempt your fate"); //lets get the ingredients array from store
+
+      var ingred = this.$store.state.ingredients; //lets build an array of query strings
+
+      var queries = [];
+
+      for (var i = 0; i < ingred.length; i++) {
+        queries.push(ingred[i].name);
+      } //lets send the bulk queries to the api wrapper and let it do the heavy lifting.
+
+
       axios.post("api/v1/instacart/search", {
         input: {
-          query: this.query,
+          query: queries,
           cookie: localStorage["_instacart_session"]
         }
       }, config).then(function (result) {
