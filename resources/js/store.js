@@ -158,13 +158,13 @@ const store = new Vuex.Store({
         .then(result => {
           console.log(result.data.results);
           context.commit('storeBreakfast', result.data.results);
-          // let b = result.data.results;
-          // for (let i = 0; i < b.length; i++) {
-          //   let c = b[i].missedIngredients;
-          //   for (let i = 0; i < c.length; i++) {
-          //     context.state.ingredients.push(c[i]);
-          //   }
-          // }
+          let b = result.data.results;
+          for (let i = 0; i < b.length; i++) {
+            let c = b[i].missedIngredients;
+            for (let i = 0; i < c.length; i++) {
+              context.state.ingredients.push(c[i]);
+            }
+          }
           axios
             .get(
               spoonUrl + spoonApi + type2 + diet + options
@@ -172,13 +172,13 @@ const store = new Vuex.Store({
             .then(result => {
               console.log(result.data.results);
               context.commit('storeLunch', result.data.results);
-              // let b = result.data.results;
-              // for (let i = 0; i < b.length; i++) {
-              //   let c = b[i].missedIngredients;
-              //   for (let i = 0; i < c.length; i++) {
-              //     context.state.ingredients.push(c[i]);
-              //   }
-              // }
+              let b = result.data.results;
+              for (let i = 0; i < b.length; i++) {
+                let c = b[i].missedIngredients;
+                for (let i = 0; i < c.length; i++) {
+                  context.state.ingredients.push(c[i]);
+                }
+              }
               axios
                 .get(
                   spoonUrl +
@@ -191,13 +191,13 @@ const store = new Vuex.Store({
                 .then(result => {
                   console.log(result.data.results);
                   context.commit('storeSupper', result.data.results);
-                  // let b = result.data.results;
-                  // for (let i = 0; i < b.length; i++) {
-                  //   let c = b[i].missedIngredients;
-                  //   for (let i = 0; i < c.length; i++) {
-                  //     context.state.ingredients.push(c[i]);
-                  //   }
-                  // }
+                  let b = result.data.results;
+                  for (let i = 0; i < b.length; i++) {
+                    let c = b[i].missedIngredients;
+                    for (let i = 0; i < c.length; i++) {
+                      context.state.ingredients.push(c[i]);
+                    }
+                  }
                   context.dispatch('saveMeals');
                   context.dispatch('saveIngredients');
                   console.log(context.state.ingredients);

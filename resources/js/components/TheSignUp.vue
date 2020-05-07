@@ -50,7 +50,7 @@ export default {
       paymentMethods: [],
       paymentMethodsLoadStatus: 0,
       paymentMethodSelected: {},
-      selectedPlan: "",
+      selectedPlan: "plan_HC7gOF85Bn5CfQ",
       selectedColorOne: "green accent-2",
       selectedColorTwo: "white"
     };
