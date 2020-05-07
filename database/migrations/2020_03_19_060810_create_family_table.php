@@ -18,7 +18,7 @@ class CreateFamilyTable extends Migration
             $table->bigInteger('user_id');
             $table->string('member_age_group');
             $table->string('member_diet');
-            $table->string('member_pref');
+            $table->string('member_pref')->nullable();
             $table->boolean('is_user');
             $table->timestamps();
         });

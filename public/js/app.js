@@ -98368,13 +98368,6 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'onboard',
     component: function component() {
       return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./MainApp/views/Onboard.vue */ "./resources/js/MainApp/views/Onboard.vue"));
-    },
-    beforeEnter: function beforeEnter(to, from, next) {
-      if (from != 'register') {
-        next({
-          name: 'main'
-        });
-      }
     }
   }, {
     path: '/login',

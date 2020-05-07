@@ -11,22 +11,6 @@
                     outlined
                     append-icon="menu-down"
                 ></v-select>
-                <v-card-subtitle>Select a diet...</v-card-subtitle>
-                <v-select
-                    class="mx-3"
-                    v-model="diet"
-                    label="Diet"
-                    :items="dietNames"
-                    outlined
-                    append-icon="menu-down"
-                ></v-select>
-                <v-card-subtitle>Are there any foods you can't eat?</v-card-subtitle>
-                <v-textarea
-                    class="mx-3"
-                    v-model="pref"
-                    label="Preferences"
-                    outlined
-                ></v-textarea>
                 <v-btn v-if="show" color="primary" class="mx-3 mb-3" @click="goToSub">Finish</v-btn>
                 <v-btn v-if="show" class="mx-3 mb-3" @click="addMOAR">Add Family Member</v-btn>
             </v-form>
@@ -67,7 +51,7 @@
                 axios.post('/api/v1/family/create', {
                         'ageGroup' : this.age,
                         'diet' : this.diet,
-                        'pref' : this.pref,
+                        'pref' : 'null',
                         'isUser' : false
                 }, config).then((result) => {
                     console.log(result.data.msg);

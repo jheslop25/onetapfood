@@ -15,7 +15,6 @@ class familyController extends Controller
         if ($request->validate([
             'ageGroup' => 'required',
             'diet' => 'required',
-            'pref' => 'alpha',
             'isUser' => 'required'
         ])) {
             if (Auth::check()) {
@@ -41,7 +40,6 @@ class familyController extends Controller
         if ($request->validate([
             'ageGroup' => 'required|numeric',
             'diet' => 'required|alpha_num',
-            'pref' => 'alpha',
             'isUser' => 'required|boolean'
         ])) {
             if (Auth::check()) {

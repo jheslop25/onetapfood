@@ -36,12 +36,7 @@ const router = new VueRouter({
         {
             path: '/onboard',
             name: 'onboard',
-            component: () => import('./MainApp/views/Onboard.vue'),
-            beforeEnter: (to, from, next) => {
-                if(from != 'register'){
-                    next({name: 'main'});
-                }
-            }
+            component: () => import('./MainApp/views/Onboard.vue')
         },
         {
             path: '/login',

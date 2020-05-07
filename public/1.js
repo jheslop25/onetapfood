@@ -108,22 +108,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'FamSubForm',
   data: function data() {
@@ -157,7 +141,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/v1/family/create', {
         'ageGroup': this.age,
         'diet': this.diet,
-        'pref': this.pref,
+        'pref': 'null',
         'isUser': false
       }, config).then(function (result) {
         console.log(result.data.msg);
@@ -501,7 +485,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       age: null,
       diet: null,
-      pref: null,
+      pref: ' ',
       isUser: true,
       ageGroups: ['Please Select...', '0-18', '19-30', '31-45', '46-65', '66+'],
       dietNames: ['Please Select...', 'Whole-30', 'Gluten-free', 'Ketogenic', 'Pescetarian', 'Vegetarian', 'Ovo-vegetarian', 'Lacto-vegetarian', 'vegan', 'paleo']
@@ -636,41 +620,6 @@ var render = function() {
                     _vm.age = $$v
                   },
                   expression: "age"
-                }
-              }),
-              _vm._v(" "),
-              _c("v-card-subtitle", [_vm._v("Select a diet...")]),
-              _vm._v(" "),
-              _c("v-select", {
-                staticClass: "mx-3",
-                attrs: {
-                  label: "Diet",
-                  items: _vm.dietNames,
-                  outlined: "",
-                  "append-icon": "menu-down"
-                },
-                model: {
-                  value: _vm.diet,
-                  callback: function($$v) {
-                    _vm.diet = $$v
-                  },
-                  expression: "diet"
-                }
-              }),
-              _vm._v(" "),
-              _c("v-card-subtitle", [
-                _vm._v("Are there any foods you can't eat?")
-              ]),
-              _vm._v(" "),
-              _c("v-textarea", {
-                staticClass: "mx-3",
-                attrs: { label: "Preferences", outlined: "" },
-                model: {
-                  value: _vm.pref,
-                  callback: function($$v) {
-                    _vm.pref = $$v
-                  },
-                  expression: "pref"
                 }
               }),
               _vm._v(" "),
@@ -1173,7 +1122,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 /* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
 /* harmony import */ var vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VSelect */ "./node_modules/vuetify/lib/components/VSelect/index.js");
-/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/index.js");
 
 
 
@@ -1199,8 +1147,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__["VForm"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_7__["VSelect"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_8__["VTextarea"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__["VForm"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_7__["VSelect"]})
 
 
 /* hot reload */

@@ -64,7 +64,7 @@
             return {
                 age: null,
                 diet: null,
-                pref: null,
+                pref: ' ',
                 isUser: true,
                 ageGroups: ['Please Select...', '0-18', '19-30', '31-45', '46-65', '66+'],
                 dietNames: ['Please Select...', 'Whole-30', 'Gluten-free', 'Ketogenic', 'Pescetarian', 'Vegetarian', 'Ovo-vegetarian', 'Lacto-vegetarian', 'vegan', 'paleo']

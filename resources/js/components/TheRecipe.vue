@@ -8,8 +8,12 @@
       <v-card-text>Ready In: {{readyTime}}</v-card-text>
       <v-btn class="m-3" @click="showDetails">Show Details</v-btn>
       <div v-if="show1">
+        <v-card-title v-if="show1">Ingredients</v-card-title>
+        <v-row v-for="item in ingredients" v-bind:key="item.id">
+          <v-col><v-text>{{item.original}}</v-text></v-col>
+        </v-row>
         <v-card-title v-if="show1">Instructions</v-card-title>
-        <div class="m-1 p-1" v-for="step in instruct" v-bind:key="step.step">
+        <div class="p-1" v-for="step in instruct" v-bind:key="step.step">
           <v-card-subtitle>{{step.step}}</v-card-subtitle>
         </div>
       </div>

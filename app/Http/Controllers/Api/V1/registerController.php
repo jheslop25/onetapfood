@@ -17,13 +17,12 @@ class registerController extends Controller
             'password' => 'required|min:6|string',
             'type' => 'required|string',
             'status' => 'required|string',
-            'location' => 'required|String'
         ])) {
             if ($user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'uesr_type' => $request->type,
+                'user_type' => $request->type,
                 'status' => $request->status,
                 'location' => $request->location
             ])){
