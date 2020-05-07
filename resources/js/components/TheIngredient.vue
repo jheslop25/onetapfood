@@ -16,7 +16,7 @@ export default {
     name: String,
     unit: String,
     quant: Number,
-    unitPrice: Number
+    unitPrice: String
   }
 };
 </script>

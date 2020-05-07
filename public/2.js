@@ -100,7 +100,7 @@ __webpack_require__.r(__webpack_exports__);
     name: String,
     unit: String,
     quant: Number,
-    unitPrice: Number
+    unitPrice: String
   }
 });
 
@@ -224,16 +224,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c(
-            "v-col",
-            [
-              _c("v-icon", { attrs: { left: "", color: "blue accent-4" } }, [
-                _vm._v("mdi-circle-small")
-              ]),
-              _vm._v(_vm._s(_vm.unit))
-            ],
-            1
-          ),
+          _c("v-col", [_vm._v(_vm._s(_vm.unit))]),
           _vm._v(" "),
           _c(
             "v-col",
