@@ -23,7 +23,14 @@ class ingredientsController extends Controller
 
             $queries = [];
             foreach($final as $spoon){
-                array_push($queries, $spoon[0]->ingredient_name);
+                $sum = 0;
+                $unit = $spoon[0]->unit;
+                foreach($spoon as $item){
+                    $sum += $item->quantity;
+                }
+                $total = ['name' => $spoon[0]->ingredient_name, 'amount' => $sum, 'unit' => $unit];
+                array_push($queries, $total);
+
             }
             return response()->json(['ingred' => $queries], 200);
         } else {

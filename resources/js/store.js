@@ -157,13 +157,13 @@ const store = new Vuex.Store({
         .then(result => {
           console.log(result.data.results);
           context.commit('storeBreakfast', result.data.results);
-          let b = result.data.results;
-          for (let i = 0; i < b.length; i++) {
-            let c = b[i].missedIngredients;
-            for (let i = 0; i < c.length; i++) {
-              context.state.ingredients.push(c[i]);
-            }
-          }
+          // let b = result.data.results;
+          // for (let i = 0; i < b.length; i++) {
+          //   let c = b[i].missedIngredients;
+          //   for (let i = 0; i < c.length; i++) {
+          //     context.state.ingredients.push(c[i]);
+          //   }
+          // }
           axios
             .get(
               spoonUrl + spoonApi + type2 + diet + options
@@ -171,13 +171,13 @@ const store = new Vuex.Store({
             .then(result => {
               console.log(result.data.results);
               context.commit('storeLunch', result.data.results);
-              let b = result.data.results;
-              for (let i = 0; i < b.length; i++) {
-                let c = b[i].missedIngredients;
-                for (let i = 0; i < c.length; i++) {
-                  context.state.ingredients.push(c[i]);
-                }
-              }
+              // let b = result.data.results;
+              // for (let i = 0; i < b.length; i++) {
+              //   let c = b[i].missedIngredients;
+              //   for (let i = 0; i < c.length; i++) {
+              //     context.state.ingredients.push(c[i]);
+              //   }
+              // }
               axios
                 .get(
                   spoonUrl +
@@ -190,13 +190,13 @@ const store = new Vuex.Store({
                 .then(result => {
                   console.log(result.data.results);
                   context.commit('storeSupper', result.data.results);
-                  let b = result.data.results;
-                  for (let i = 0; i < b.length; i++) {
-                    let c = b[i].missedIngredients;
-                    for (let i = 0; i < c.length; i++) {
-                      context.state.ingredients.push(c[i]);
-                    }
-                  }
+                  // let b = result.data.results;
+                  // for (let i = 0; i < b.length; i++) {
+                  //   let c = b[i].missedIngredients;
+                  //   for (let i = 0; i < c.length; i++) {
+                  //     context.state.ingredients.push(c[i]);
+                  //   }
+                  // }
                   context.dispatch('saveMeals');
                   context.dispatch('saveIngredients');
                   console.log(context.state.ingredients);
@@ -267,42 +267,10 @@ const store = new Vuex.Store({
       }, config)
         .then((result) => {
           console.log(result.data);
+          context.dispatch('getSavedIngred');
         }).catch((err) => {
           console.log(err);
         });
-    },
-    parseIngred(context) {
-      //lets get the ingredients array from store
-      let ingred = context.state.ingredients;
-      //lets build a search filter to parse the query strings. ideally we want only 1 query for each spoon_id rather than multiples.
-      //this will clean up the instacart search results drastically especially if there are a lot of repeated ingredients.
-      //we'll use elasticlunr
-      var index = elasticlunr();
-      index.addField('id');
-      index.addField('name');
-      // index.addField('amount');
-      index.setRef('name');
-      
-      //lets add each ingredient array to the search index
-      for (let i = 0; i < ingred.length; i++) {
-        index.addDoc(ingred[i]);
-      }
-      //lets search for each ingredient and see what happens
-      let resDub = []
-      let resSing = []
-      for (let i = 0; i < ingred.length; i++) {
-        let q = index.search(ingred[i].id)
-        if(q.length > 1){
-          resDub.push(q);
-        } else {
-          resSing.push(q);
-        }
-        
-        //this should return something interesting lol
-      }
-      console.log(resDub);
-      console.log(resSing);
-
     },
     getSavedIngred(context) {
       let config = {
