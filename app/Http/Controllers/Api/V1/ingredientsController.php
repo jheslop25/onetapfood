@@ -24,16 +24,18 @@ class ingredientsController extends Controller
     public function createIngredient(Request $request)
     {
         if (Auth::check()) {
-            $params = $request->input;
-            $ingredient = new \App\Ingredient();
-            //insert variables into ingredient model here
-            $ingredient->user_id = $request->user()->id;
-            $ingredient->ingredient_name = $params['name'];
-            $ingredient->unit = $params['unit'];
-            $ingredient->quantity = $params['quantity'];
-            $ingredient->photo_URL = $params['photo'];
-            $ingredient->save();
-            return response()->json(['status' => $params], 200);
+            $ingredients = $request->input;
+            foreach ($ingredients as $item) {
+                $ingredient = new \App\Ingredient();
+                //insert variables into ingredient model here
+                $ingredient->user_id = $request->user()->id;
+                $ingredient->ingredient_name = $item['name'];
+                $ingredient->unit = $item['unit'];
+                $ingredient->quantity = $item['quantity'];
+                $ingredient->photo_URL = $item['photo'];
+                $ingredient->save();
+            }
+            return response()->json(['status' => 'it probably worked, but who knows...'], 200);
         } else {
             return response()->json(['msg' => 'please login'], 200);
         }

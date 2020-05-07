@@ -98450,7 +98450,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     breakfastExisting: null,
     lunchExisting: null,
     supperExisting: null,
-    loggedIn: null
+    loggedIn: null,
+    ingredients: []
   },
   mutations: {
     storeUser: function storeUser(state, data) {
@@ -98562,13 +98563,44 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       axios.get(spoonUrl + spoonApi + type1 + diet + options + exclude).then(function (result) {
         console.log(result.data.results);
         context.commit('storeBreakfast', result.data.results);
+        var b = result.data.results;
+
+        for (var i = 0; i < b.length; i++) {
+          var c = b[i].missedIngredients;
+
+          for (var _i3 = 0; _i3 < c.length; _i3++) {
+            context.state.ingredients.push(c[_i3]);
+          }
+        }
+
         axios.get(spoonUrl + spoonApi + type2 + diet + options).then(function (result) {
           console.log(result.data.results);
           context.commit('storeLunch', result.data.results);
+          var b = result.data.results;
+
+          for (var _i4 = 0; _i4 < b.length; _i4++) {
+            var _c = b[_i4].missedIngredients;
+
+            for (var _i5 = 0; _i5 < _c.length; _i5++) {
+              context.state.ingredients.push(_c[_i5]);
+            }
+          }
+
           axios.get(spoonUrl + spoonApi + type2 + diet + options + "&offset=50").then(function (result) {
             console.log(result.data.results);
             context.commit('storeSupper', result.data.results);
+            var b = result.data.results;
+
+            for (var _i6 = 0; _i6 < b.length; _i6++) {
+              var _c2 = b[_i6].missedIngredients;
+
+              for (var _i7 = 0; _i7 < _c2.length; _i7++) {
+                context.state.ingredients.push(_c2[_i7]);
+              }
+            }
+
             context.dispatch('saveMeals');
+            console.log(context.state.ingredients);
           })["catch"](function (err) {
             console.log(err);
           });
@@ -98597,25 +98629,25 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         });
       }
 
-      for (var _i3 = 0; _i3 < lunch.length; _i3++) {
+      for (var _i8 = 0; _i8 < lunch.length; _i8++) {
         var tomorrow = new Date();
 
-        var _sched = tomorrow.setDate(tomorrow.getDate() + _i3);
+        var _sched = tomorrow.setDate(tomorrow.getDate() + _i8);
 
         meals.push({
-          id: lunch[_i3].id,
+          id: lunch[_i8].id,
           type: "lunch",
           date: _sched
         });
       }
 
-      for (var _i4 = 0; _i4 < supper.length; _i4++) {
+      for (var _i9 = 0; _i9 < supper.length; _i9++) {
         var tomorrow = new Date();
 
-        var _sched2 = tomorrow.setDate(tomorrow.getDate() + _i4);
+        var _sched2 = tomorrow.setDate(tomorrow.getDate() + _i9);
 
         meals.push({
-          id: supper[_i4].id,
+          id: supper[_i9].id,
           type: "supper",
           date: _sched2
         });
@@ -98628,6 +98660,20 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       };
       axios.post("api/v1/meal-plan/make", {
         input: meals
+      }, config).then(function (result) {
+        console.log(result.data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    saveIngredients: function saveIngredients(context) {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.post('api/v1/ingredients/create', {
+        input: context.ingredients
       }, config).then(function (result) {
         console.log(result.data);
       })["catch"](function (err) {

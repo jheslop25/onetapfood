@@ -20,7 +20,7 @@ const store = new Vuex.Store({
     lunchExisting: null,
     supperExisting: null,
     loggedIn: null,
-
+    ingredients: [],
   },
   mutations: {
     storeUser: function (state, data) {
@@ -68,7 +68,7 @@ const store = new Vuex.Store({
                 console.log(result.data);
                 context.state.breakfastExisting = result.data;
                 let x = '';
-                
+
                 for (let i = 0; i < lunch.length; i++) {
                   x += lunch[i].spoon_id + ','
                 }
@@ -77,7 +77,7 @@ const store = new Vuex.Store({
                     console.log(result.data);
                     context.state.lunchExisting = result.data;
                     let z = '';
-                    
+
                     for (let i = 0; i < supper.length; i++) {
                       z += supper[i].spoon_id + ','
                     }
@@ -140,6 +140,13 @@ const store = new Vuex.Store({
         .then(result => {
           console.log(result.data.results);
           context.commit('storeBreakfast', result.data.results);
+          let b = result.data.results;
+          for (let i = 0; i < b.length; i++) {
+            let c = b[i].missedIngredients;
+            for (let i = 0; i < c.length; i++) {
+              context.state.ingredients.push(c[i]);
+            }
+          }
           axios
             .get(
               spoonUrl + spoonApi + type2 + diet + options
@@ -147,6 +154,13 @@ const store = new Vuex.Store({
             .then(result => {
               console.log(result.data.results);
               context.commit('storeLunch', result.data.results);
+              let b = result.data.results;
+              for (let i = 0; i < b.length; i++) {
+                let c = b[i].missedIngredients;
+                for (let i = 0; i < c.length; i++) {
+                  context.state.ingredients.push(c[i]);
+                }
+              }
               axios
                 .get(
                   spoonUrl +
@@ -159,7 +173,15 @@ const store = new Vuex.Store({
                 .then(result => {
                   console.log(result.data.results);
                   context.commit('storeSupper', result.data.results);
+                  let b = result.data.results;
+                  for (let i = 0; i < b.length; i++) {
+                    let c = b[i].missedIngredients;
+                    for (let i = 0; i < c.length; i++) {
+                      context.state.ingredients.push(c[i]);
+                    }
+                  }
                   context.dispatch('saveMeals');
+                  console.log(context.state.ingredients);
                 })
                 .catch(err => {
                   console.log(err);
@@ -213,6 +235,21 @@ const store = new Vuex.Store({
           console.log(result.data);
         })
         .catch(err => {
+          console.log(err);
+        });
+    },
+    saveIngredients(context) {
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.post('api/v1/ingredients/create', {
+        input: context.ingredients
+      }, config)
+        .then((result) => {
+          console.log(result.data);
+        }).catch((err) => {
           console.log(err);
         });
     }

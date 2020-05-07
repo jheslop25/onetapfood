@@ -806,13 +806,38 @@ var render = function() {
           _vm._v(" "),
           _c("v-img", { attrs: { "max-width": "200", src: _vm.imgURL } }),
           _vm._v(" "),
-          _c("v-card-text", [_vm._v("Prep Time: " + _vm._s(_vm.prepTime))]),
+          _c(
+            "v-card-text",
+            [
+              _c("v-icon", { attrs: { left: "", color: "blue accent-4" } }, [
+                _vm._v("mdi-clock-outline")
+              ]),
+              _vm._v("Prep: " + _vm._s(_vm.prepTime))
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("v-card-text", [
-            _vm._v("Cooking Time: " + _vm._s(_vm.cookingTime))
-          ]),
+          _c(
+            "v-card-text",
+            [
+              _c("v-icon", { attrs: { left: "", color: "blue accent-4" } }, [
+                _vm._v("mdi-clock-outline")
+              ]),
+              _vm._v("Cooking: " + _vm._s(_vm.cookingTime))
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("v-card-text", [_vm._v("Ready In: " + _vm._s(_vm.readyTime))]),
+          _c(
+            "v-card-text",
+            [
+              _c("v-icon", { attrs: { left: "", color: "blue accent-4" } }, [
+                _vm._v("mdi-clock-outline")
+              ]),
+              _vm._v("Ready In: " + _vm._s(_vm.readyTime))
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("v-btn", { staticClass: "m-3", on: { click: _vm.showDetails } }, [
             _vm._v("Show Details")
@@ -833,7 +858,22 @@ var render = function() {
                       [
                         _c(
                           "v-col",
-                          [_c("v-text", [_vm._v(_vm._s(item.original))])],
+                          [
+                            _c(
+                              "v-card-text",
+                              [
+                                _c(
+                                  "v-icon",
+                                  {
+                                    attrs: { left: "", color: "blue accent-4" }
+                                  },
+                                  [_vm._v("mdi-circle-small")]
+                                ),
+                                _vm._v(_vm._s(item.original))
+                              ],
+                              1
+                            )
+                          ],
                           1
                         )
                       ],
@@ -849,7 +889,20 @@ var render = function() {
                     return _c(
                       "div",
                       { key: step.step, staticClass: "p-1" },
-                      [_c("v-card-subtitle", [_vm._v(_vm._s(step.step))])],
+                      [
+                        _c(
+                          "v-card-text",
+                          [
+                            _c(
+                              "v-icon",
+                              { attrs: { left: "", color: "blue accent-4" } },
+                              [_vm._v("mdi-circle-small")]
+                            ),
+                            _vm._v(_vm._s(step.step))
+                          ],
+                          1
+                        )
+                      ],
                       1
                     )
                   })
@@ -1224,7 +1277,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/index.js");
 
 
 
@@ -1253,7 +1307,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_7__["VImg"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_7__["VIcon"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_8__["VImg"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"]})
 
 
 /* hot reload */
