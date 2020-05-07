@@ -1,27 +1,38 @@
 <template>
   <div>
-    <v-card class="m-3 p-3">
-        <v-card-title>Choose a subscription</v-card-title>
-      <v-card class="m-3 row" @click="selectedPlan = 'plan_HC7gOF85Bn5CfQ'">
-        <v-card-subtitle class="col-6">Basic</v-card-subtitle>
-        <v-card-subtitle class="col-6">15 days free, then $7/mo.</v-card-subtitle>
+    <v-card class="p-3">
+      <v-card :color="selectedColorOne" class="my-3" @click="selectPlanOne">
+        <v-row class="px-3">
+          <v-card-subtitle class="col-6">Basic</v-card-subtitle>
+          <v-card-subtitle class="col-6">15 days free, then $7/mo.</v-card-subtitle>
+        </v-row>
       </v-card>
-      <v-card class="m-3 row" @click="selectedPlan = 'plan_HC7myo3NX0wgfx'">
-        <v-card-subtitle class="col-6">Premium</v-card-subtitle>
-        <v-card-subtitle class="col-6">15 days free, then $15/mo.</v-card-subtitle>
+      <v-card :color="selectedColorTwo" class="my-3" @click="selectPlanTwo">
+        <v-row class="px-3">
+          <v-card-subtitle class="col-6">Premium</v-card-subtitle>
+          <v-card-subtitle class="col-6">15 days free, then $15/mo.</v-card-subtitle>
+        </v-row>
       </v-card>
-      <v-card class="m-3 p-3">
-          <v-text-field class="m-3" id="card-holder-name" v-model="name" label="Card Holder Name"></v-text-field>
-      <div class="m-3" id="card-element"></div>
-      <!-- <v-btn id="add-card-button" class="m-3" @click="submitPaymentMethod()">Save Payment Method</v-btn> -->
+      <v-card class="p-3">
+        <v-text-field
+          autofocus
+          prepend-icon="mdi-card-account-details-outline"
+          class="m-3"
+          id="card-holder-name"
+          v-model="name"
+          label="Card Holder Name"
+        ></v-text-field>
+        <div class="m-3" id="card-element"></div>
+        <!-- <v-btn id="add-card-button" class="m-3" @click="submitPaymentMethod()">Save Payment Method</v-btn> -->
       </v-card>
-      <v-btn class="m-3" @click="submitPaymentMethod()">Subscribe</v-btn>
+      <v-btn color="blue accent-4 white--text" class="m-3" @click="submitPaymentMethod()">
+        <v-icon left color="white">mdi-arrow-right-circle-outline</v-icon>Subscribe
+      </v-btn>
     </v-card>
   </div>
 </template>
 
 <script>
-
 //this component was created in part by following an excellent
 //tutorial from Dan Pastori https://serversideup.net/creating-a-stripe-subscription-with-laravel-cashier-laravel-passport/.
 export default {
@@ -39,7 +50,9 @@ export default {
       paymentMethods: [],
       paymentMethodsLoadStatus: 0,
       paymentMethodSelected: {},
-      selectedPlan: ""
+      selectedPlan: "",
+      selectedColorOne: "green accent-2",
+      selectedColorTwo: "white"
     };
   },
   mounted() {
@@ -53,6 +66,16 @@ export default {
     this.loadPaymentMethods();
   },
   methods: {
+    selectPlanOne: function() {
+      this.selectedPlan = "plan_HC7gOF85Bn5CfQ";
+      this.selectedColorOne = "green accent-2";
+      this.selectedColorTwo = "white";
+    },
+    selectPlanTwo: function() {
+      this.selectedPlan = "plan_HC7myo3NX0wgfx";
+      this.selectedColorTwo = "green accent-2";
+      this.selectedColorOne = "white";
+    },
     includeStripe(URL, callback) {
       let documentTag = document,
         tag = "script",
@@ -189,7 +212,7 @@ export default {
           function(response) {
             alert("You Are Subscribed!");
           }.bind(this),
-          this.$router.push('/main')
+          this.$router.push("/main")
         );
     }
   }

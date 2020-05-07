@@ -23,12 +23,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Onboard',
+  name: "Onboard",
   components: {
     TheNav: _components_TheNavigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     UserOB: _components_TheUserOB_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -39,22 +56,25 @@ __webpack_require__.r(__webpack_exports__);
     return {
       show: false,
       showFam: false,
-      showSub: false
+      showSub: false,
+      step: "Step 1: Tell us about yourself."
     };
   },
   methods: {
     showNext: function showNext() {
       this.show = true;
       this.showFam = true;
+      this.step = "Step 2: Tell us how many people you shop for.";
     },
     showSubBox: function showSubBox() {
       this.showSub = true;
       this.showFam = false;
+      this.step = "Step 3: Choose your plan.";
     }
   },
   mounted: function mounted() {
-    this.$root.$on('user-next', this.showNext);
-    this.$root.$on('subscription', this.showSubBox);
+    this.$root.$on("user-next", this.showNext);
+    this.$root.$on("subscription", this.showSubBox);
   }
 });
 
@@ -175,9 +195,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'FamilyOB',
+  name: "FamilyOB",
   data: function data() {
     return {
       show: true,
@@ -191,10 +226,13 @@ __webpack_require__.r(__webpack_exports__);
     addFam: function addFam() {
       this.count++;
       this.show = false;
+    },
+    goToSub: function goToSub() {
+      this.$root.$emit("subscription");
     }
   },
   mounted: function mounted() {
-    this.$root.$on('addMOAR', this.addFam);
+    this.$root.$on("addMOAR", this.addFam);
   }
 });
 
@@ -209,6 +247,18 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -248,7 +298,9 @@ __webpack_require__.r(__webpack_exports__);
       paymentMethods: [],
       paymentMethodsLoadStatus: 0,
       paymentMethodSelected: {},
-      selectedPlan: ""
+      selectedPlan: "",
+      selectedColorOne: "green accent-2",
+      selectedColorTwo: "white"
     };
   },
   mounted: function mounted() {
@@ -259,6 +311,16 @@ __webpack_require__.r(__webpack_exports__);
     this.loadPaymentMethods();
   },
   methods: {
+    selectPlanOne: function selectPlanOne() {
+      this.selectedPlan = "plan_HC7gOF85Bn5CfQ";
+      this.selectedColorOne = "green accent-2";
+      this.selectedColorTwo = "white";
+    },
+    selectPlanTwo: function selectPlanTwo() {
+      this.selectedPlan = "plan_HC7myo3NX0wgfx";
+      this.selectedColorTwo = "green accent-2";
+      this.selectedColorOne = "white";
+    },
     includeStripe: function includeStripe(URL, callback) {
       var documentTag = document,
           tag = "script",
@@ -358,7 +420,7 @@ __webpack_require__.r(__webpack_exports__);
         payment: this.paymentMethodSelected
       }, config).then(function (response) {
         alert("You Are Subscribed!");
-      }.bind(this), this.$router.push('/main'));
+      }.bind(this), this.$router.push("/main"));
     }
   }
 });
@@ -374,7 +436,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -442,7 +503,7 @@ __webpack_require__.r(__webpack_exports__);
       diet: null,
       pref: null,
       isUser: true,
-      ageGroups: ['Please Select...', '14-18', '19-30', '31-45', '46-65', '66+'],
+      ageGroups: ['Please Select...', '0-18', '19-30', '31-45', '46-65', '66+'],
       dietNames: ['Please Select...', 'Whole-30', 'Gluten-free', 'Ketogenic', 'Pescetarian', 'Vegetarian', 'Ovo-vegetarian', 'Lacto-vegetarian', 'vegan', 'paleo']
     };
   }
@@ -465,20 +526,68 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { attrs: { id: "onboard-container" } },
-      [
-        !_vm.show ? _c("user-o-b") : _vm._e(),
-        _vm._v(" "),
-        _vm.showFam ? _c("family-o-b") : _vm._e(),
-        _vm._v(" "),
-        _vm.showSub ? _c("the-sign-up", { staticClass: "m-3" }) : _vm._e()
-      ],
-      1
-    )
-  ])
+  return _c(
+    "div",
+    [
+      _c(
+        "v-row",
+        { attrs: { justify: "center" } },
+        [
+          _c(
+            "v-col",
+            { attrs: { md: "5", lg: "5" } },
+            [
+              _c(
+                "v-alert",
+                {
+                  staticClass: "my-3",
+                  attrs: {
+                    border: "left",
+                    "colored-border": "",
+                    color: "blue accent-4",
+                    elevation: "1"
+                  }
+                },
+                [_vm._v(_vm._s(_vm.step))]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { attrs: { id: "onboard-container", justify: "center" } },
+        [
+          !_vm.show
+            ? _c("v-col", { attrs: { md: "5", lg: "5" } }, [_c("user-o-b")], 1)
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showFam
+            ? _c(
+                "v-col",
+                { attrs: { md: "5", lg: "5" } },
+                [_c("family-o-b")],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showSub
+            ? _c(
+                "v-col",
+                { attrs: { md: "5", lg: "5" } },
+                [_c("the-sign-up", { staticClass: "m-3" })],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -620,27 +729,100 @@ var render = function() {
     [
       _c(
         "v-card",
-        { staticClass: "mx-auto mt-3 p-2", attrs: { "max-width": "600" } },
+        { attrs: { "max-width": "600" } },
         [
-          _c("v-card-title", [_vm._v("Family Profile")]),
-          _vm._v(" "),
-          _c("v-card-text", [
-            _vm._v(
-              "Tell us about your family or anyone whom you'll be cooking for..."
-            )
-          ]),
-          _vm._v(" "),
-          _vm._l(this.count, function(n) {
-            return _c("fam-form", { key: n, attrs: { num: n } })
-          }),
-          _vm._v(" "),
-          _vm.show
-            ? _c("v-btn", { on: { click: _vm.addFam } }, [
-                _vm._v("Add Family Member")
-              ])
-            : _vm._e()
+          _c(
+            "v-row",
+            { attrs: { justify: "center" } },
+            [
+              _vm._l(this.count, function(n) {
+                return _c(
+                  "v-col",
+                  { key: n, attrs: { num: n, md: "12" } },
+                  [_c("fam-form")],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                [
+                  _c(
+                    "v-row",
+                    { attrs: { justify: "center" } },
+                    [
+                      _c(
+                        "v-col",
+                        { attrs: { sm: "8", md: "6" } },
+                        [
+                          _vm.show
+                            ? _c(
+                                "v-btn",
+                                {
+                                  staticClass: "mx-4",
+                                  on: { click: _vm.addFam }
+                                },
+                                [
+                                  _c(
+                                    "v-icon",
+                                    {
+                                      attrs: {
+                                        left: "",
+                                        color: "blue accent-4"
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "mdi-account-multiple-plus-outline"
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v("Add Family Member\n            ")
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { attrs: { sm: "8", md: "6" } },
+                        [
+                          _vm.show
+                            ? _c(
+                                "v-btn",
+                                {
+                                  staticClass: "mx-4",
+                                  attrs: { color: "primary" },
+                                  on: { click: _vm.goToSub }
+                                },
+                                [
+                                  _c(
+                                    "v-icon",
+                                    { attrs: { left: "", color: "white" } },
+                                    [_vm._v("mdi-account-check-outline")]
+                                  ),
+                                  _vm._v("Next\n            ")
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            2
+          )
         ],
-        2
+        1
       )
     ],
     1
@@ -673,28 +855,30 @@ var render = function() {
     [
       _c(
         "v-card",
-        { staticClass: "m-3 p-3" },
+        { staticClass: "p-3" },
         [
-          _c("v-card-title", [_vm._v("Choose a subscription")]),
-          _vm._v(" "),
           _c(
             "v-card",
             {
-              staticClass: "m-3 row",
-              on: {
-                click: function($event) {
-                  _vm.selectedPlan = "plan_HC7gOF85Bn5CfQ"
-                }
-              }
+              staticClass: "my-3",
+              attrs: { color: _vm.selectedColorOne },
+              on: { click: _vm.selectPlanOne }
             },
             [
-              _c("v-card-subtitle", { staticClass: "col-6" }, [
-                _vm._v("Basic")
-              ]),
-              _vm._v(" "),
-              _c("v-card-subtitle", { staticClass: "col-6" }, [
-                _vm._v("15 days free, then $7/mo.")
-              ])
+              _c(
+                "v-row",
+                { staticClass: "px-3" },
+                [
+                  _c("v-card-subtitle", { staticClass: "col-6" }, [
+                    _vm._v("Basic")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-card-subtitle", { staticClass: "col-6" }, [
+                    _vm._v("15 days free, then $7/mo.")
+                  ])
+                ],
+                1
+              )
             ],
             1
           ),
@@ -702,32 +886,41 @@ var render = function() {
           _c(
             "v-card",
             {
-              staticClass: "m-3 row",
-              on: {
-                click: function($event) {
-                  _vm.selectedPlan = "plan_HC7myo3NX0wgfx"
-                }
-              }
+              staticClass: "my-3",
+              attrs: { color: _vm.selectedColorTwo },
+              on: { click: _vm.selectPlanTwo }
             },
             [
-              _c("v-card-subtitle", { staticClass: "col-6" }, [
-                _vm._v("Premium")
-              ]),
-              _vm._v(" "),
-              _c("v-card-subtitle", { staticClass: "col-6" }, [
-                _vm._v("15 days free, then $15/mo.")
-              ])
+              _c(
+                "v-row",
+                { staticClass: "px-3" },
+                [
+                  _c("v-card-subtitle", { staticClass: "col-6" }, [
+                    _vm._v("Premium")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-card-subtitle", { staticClass: "col-6" }, [
+                    _vm._v("15 days free, then $15/mo.")
+                  ])
+                ],
+                1
+              )
             ],
             1
           ),
           _vm._v(" "),
           _c(
             "v-card",
-            { staticClass: "m-3 p-3" },
+            { staticClass: "p-3" },
             [
               _c("v-text-field", {
                 staticClass: "m-3",
-                attrs: { id: "card-holder-name", label: "Card Holder Name" },
+                attrs: {
+                  autofocus: "",
+                  "prepend-icon": "mdi-card-account-details-outline",
+                  id: "card-holder-name",
+                  label: "Card Holder Name"
+                },
                 model: {
                   value: _vm.name,
                   callback: function($$v) {
@@ -746,13 +939,20 @@ var render = function() {
             "v-btn",
             {
               staticClass: "m-3",
+              attrs: { color: "blue accent-4 white--text" },
               on: {
                 click: function($event) {
                   return _vm.submitPaymentMethod()
                 }
               }
             },
-            [_vm._v("Subscribe")]
+            [
+              _c("v-icon", { attrs: { left: "", color: "white" } }, [
+                _vm._v("mdi-arrow-right-circle-outline")
+              ]),
+              _vm._v("Subscribe\n    ")
+            ],
+            1
           )
         ],
         1
@@ -790,26 +990,19 @@ var render = function() {
         "v-card",
         { staticClass: "mx-auto mt-3 p-2", attrs: { "max-width": "600" } },
         [
-          _c("v-card-title", [_vm._v("Fill in your profile...")]),
-          _vm._v(" "),
-          _c("v-card-text", [
-            _vm._v(
-              "Tell us about yourself so we can prepare a custom meal plan for you"
-            )
-          ]),
-          _vm._v(" "),
           _c(
             "v-form",
             [
-              _c("v-card-subtitle", [_vm._v("Select an age group")]),
+              _c("v-card-title", [_vm._v("Select an age group")]),
               _vm._v(" "),
               _c("v-select", {
                 staticClass: "mx-3",
                 attrs: {
-                  label: "Age group",
+                  autofocus: "",
+                  label: "Please Select",
                   items: _vm.ageGroups,
                   outlined: "",
-                  "append-icon": "menu-down"
+                  "append-icon": "mdi-menu-down"
                 },
                 model: {
                   value: _vm.age,
@@ -820,15 +1013,15 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("v-card-subtitle", [_vm._v("Select a diet...")]),
+              _c("v-card-title", [_vm._v("Select a diet...")]),
               _vm._v(" "),
               _c("v-select", {
                 staticClass: "mx-3",
                 attrs: {
-                  label: "Diet",
+                  label: "Please Select",
                   items: _vm.dietNames,
                   outlined: "",
-                  "append-icon": "menu-down"
+                  "append-icon": "mdi-menu-down"
                 },
                 model: {
                   value: _vm.diet,
@@ -839,7 +1032,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("v-card-subtitle", [
+              _c("p", { staticClass: "text-wrap h5 mx-3" }, [
                 _vm._v("Are there any foods you can't eat?")
               ]),
               _vm._v(" "),
@@ -893,6 +1086,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Onboard_vue_vue_type_template_id_4c600251_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Onboard.vue?vue&type=template&id=4c600251&scoped=true& */ "./resources/js/MainApp/views/Onboard.vue?vue&type=template&id=4c600251&scoped=true&");
 /* harmony import */ var _Onboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Onboard.vue?vue&type=script&lang=js& */ "./resources/js/MainApp/views/Onboard.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuetify_lib_components_VAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VAlert */ "./node_modules/vuetify/lib/components/VAlert/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 
 
 
@@ -910,6 +1107,14 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null
   
 )
+
+/* vuetify-loader */
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VAlert: vuetify_lib_components_VAlert__WEBPACK_IMPORTED_MODULE_4__["VAlert"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["VCol"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["VRow"]})
+
 
 /* hot reload */
 if (false) { var api; }
@@ -1053,6 +1258,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 
 
 
@@ -1077,7 +1284,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_7__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"]})
 
 
 /* hot reload */
@@ -1135,7 +1343,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -1161,7 +1371,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_6__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_6__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__["VTextField"]})
 
 
 /* hot reload */
@@ -1248,9 +1459,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__["VForm"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_7__["VSelect"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_8__["VTextarea"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__["VForm"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_7__["VSelect"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_8__["VTextarea"]})
 
 
 /* hot reload */

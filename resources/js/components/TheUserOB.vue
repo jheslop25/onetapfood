@@ -1,28 +1,27 @@
 <template>
     <div>
         <v-card max-width="600" class="mx-auto mt-3 p-2">
-            <v-card-title>Fill in your profile...</v-card-title>
-            <v-card-text>Tell us about yourself so we can prepare a custom meal plan for you</v-card-text>
             <v-form>
-                <v-card-subtitle>Select an age group</v-card-subtitle>
+                <v-card-title>Select an age group</v-card-title>
                 <v-select 
+                    autofocus
                     class="mx-3"
                     v-model="age" 
-                    label="Age group"
+                    label="Please Select"
                     :items="ageGroups"
                     outlined
-                    append-icon="menu-down"
+                    append-icon="mdi-menu-down"
                 ></v-select>
-                <v-card-subtitle>Select a diet...</v-card-subtitle>
+                <v-card-title>Select a diet...</v-card-title>
                 <v-select 
                     class="mx-3"
                     v-model="diet" 
-                    label="Diet"
+                    label="Please Select"
                     :items="dietNames"
                     outlined
-                    append-icon="menu-down"
+                    append-icon="mdi-menu-down"
                 ></v-select>
-                <v-card-subtitle>Are there any foods you can't eat?</v-card-subtitle>
+                <p class="text-wrap h5 mx-3">Are there any foods you can't eat?</p>
                 <v-textarea 
                     class="mx-3"
                     v-model="pref" 
@@ -67,7 +66,7 @@
                 diet: null,
                 pref: null,
                 isUser: true,
-                ageGroups: ['Please Select...', '14-18', '19-30', '31-45', '46-65', '66+'],
+                ageGroups: ['Please Select...', '0-18', '19-30', '31-45', '46-65', '66+'],
                 dietNames: ['Please Select...', 'Whole-30', 'Gluten-free', 'Ketogenic', 'Pescetarian', 'Vegetarian', 'Ovo-vegetarian', 'Lacto-vegetarian', 'vegan', 'paleo']
             }
         }
