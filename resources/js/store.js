@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import elasticlunr from 'elasticlunr';
+elasticlunr.addStopWords(['cooked', 'chopped', 'diced', 'red', 'blue', 'green','fresh','dried', 'yellow', 'black', 'white', 'fillet']);
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -279,19 +280,29 @@ const store = new Vuex.Store({
       var index = elasticlunr();
       index.addField('id');
       index.addField('name');
-      index.addField('amount');
-      index.addField('aisle');
+      // index.addField('amount');
       index.setRef('name');
-      elasticlunr.addStopWords(['cooked', 'chopped', 'diced']);
+      
       //lets add each ingredient array to the search index
       for (let i = 0; i < ingred.length; i++) {
         index.addDoc(ingred[i]);
       }
       //lets search for each ingredient and see what happens
+      let resDub = []
+      let resSing = []
       for (let i = 0; i < ingred.length; i++) {
-        console.log(index.search(ingred[i].name));
+        let q = index.search(ingred[i].id)
+        if(q.length > 1){
+          resDub.push(q);
+        } else {
+          resSing.push(q);
+        }
+        
         //this should return something interesting lol
       }
+      console.log(resDub);
+      console.log(resSing);
+
     },
     getSavedIngred(context) {
       let config = {
@@ -302,6 +313,7 @@ const store = new Vuex.Store({
       axios.post('api/v1/ingredients/all', {}, config)
         .then((result) => {
           console.log(result.data.ingred);
+          context.state.ingredients = result.data.ingred;
         }).catch((err) => {
 
         });

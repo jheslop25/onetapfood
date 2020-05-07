@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Api\V1;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Collection;
+use App\Ingredient;
 
 class ingredientsController extends Controller
 {
@@ -14,8 +16,16 @@ class ingredientsController extends Controller
         
         // // a function that returns a list of all ingredients in storage for the logged in user
         if (Auth::check()) {
-            $storage = \App\Ingredient::where('user_id', $request->user()->id)->get();
-            return response()->json(['ingred' => $storage], 200);
+            $ingredients = \App\Ingredient::where('user_id', $request->user()->id)->get();
+
+
+            $final = $ingredients->groupBy('spoon_id');
+
+            $queries = [];
+            foreach($final as $spoon){
+                array_push($queries, $spoon[0]->ingredient_name);
+            }
+            return response()->json(['ingred' => $queries], 200);
         } else {
             return response()->json(['msg' => 'please login'], 200);
         }
@@ -24,6 +34,8 @@ class ingredientsController extends Controller
     public function createIngredient(Request $request)
     {
         if (Auth::check()) {
+            Ingredient::where('user_id', $request->user()->id)->delete();
+
             $ingredients = $request->input[0];
             foreach ($ingredients as $item) {
                 $ingredient = new \App\Ingredient();
