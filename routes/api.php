@@ -73,6 +73,9 @@ Route::post('/meal-plan/make', 'Api\V1\mealPlanController@storeMealPlan');
 
 Route::post('/meal-plan/update', 'Api\V1\mealPlanController@updateMealPlan');
 
+Route::post('/meal-plan/status', 'Api\V1\mealPlanController@updateStatus');
+
+Route::get('/meal-plan/get-new', 'Api\V1\mealPlanController@getNewMeals');
 
 // family controller
 

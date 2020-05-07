@@ -42,6 +42,7 @@ export default {
   mounted() {
     this.$store.dispatch("getProfile");
     this.$store.dispatch('getMealPlan');
+    this.$store.dispatch('getSpoonIDs');
     if(localStorage.getItem('user-token')){
       this.$store.state.loggedIn = true;
     } else {

@@ -21,6 +21,7 @@ const store = new Vuex.Store({
     supperExisting: null,
     loggedIn: null,
     ingredients: [],
+    spoonIDs: [],
   },
   mutations: {
     storeUser: function (state, data) {
@@ -44,6 +45,20 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    getSpoonIDs(context) {
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.get('api/v1/meal-plan/get-new', config)
+      .then((result) => {
+        context.state.spoonIDs = result.data.meals;
+        console.log(context.state.spoonIDs);
+      }).catch((err) => {
+        console.log(err); 
+      });
+    },
     getMealPlan(context) {
       let config = {
         headers: {

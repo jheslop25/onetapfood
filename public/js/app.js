@@ -2152,6 +2152,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.$store.dispatch("getProfile");
     this.$store.dispatch('getMealPlan');
+    this.$store.dispatch('getSpoonIDs');
 
     if (localStorage.getItem('user-token')) {
       this.$store.state.loggedIn = true;
@@ -98451,7 +98452,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     lunchExisting: null,
     supperExisting: null,
     loggedIn: null,
-    ingredients: []
+    ingredients: [],
+    spoonIDs: []
   },
   mutations: {
     storeUser: function storeUser(state, data) {
@@ -98474,6 +98476,19 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     }
   },
   actions: {
+    getSpoonIDs: function getSpoonIDs(context) {
+      var config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.get('api/v1/meal-plan/get-new', config).then(function (result) {
+        context.state.spoonIDs = result.data.meals;
+        console.log(context.state.spoonIDs);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
     getMealPlan: function getMealPlan(context) {
       var config = {
         headers: {

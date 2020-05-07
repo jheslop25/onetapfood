@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Meal;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -33,6 +34,18 @@ class mealPlanController extends Controller
         }
     }
 
+    public function getNewMeals(Request $request){
+        $meals = [];
+        
+        $colection = Meal::where('user_id', $request->user()->id)->where('status', 'new')->get();
+
+        foreach($colection as $item){
+            array_push($meals, $item->spoon_id);
+        }
+
+        return response()->json(['meals' => $meals], 200);
+    }
+
     public function storeMealPlan(Request $request)
     {
         // a function that stores a meal plan in the DB. we'll build the meal plan with js on client.
@@ -58,8 +71,16 @@ class mealPlanController extends Controller
         }
     }
 
-    public function mealStatus(Request $request){
+    public function updateStatus(Request $request){
         //a function to update the status of a meal plan
+        $meals = $request->meals; // an array of spoon_ids
+        foreach($meals as $item){
+            $meal = Meal::where('user_id', $request->user()->id)->where('spoon_id', $item['id'])->get();
+            $meal->status = $request->status;
+            $meal->save();
+        }
+
+        return response()->json(['msg' => 'meal status updated'], 200);
     }
 
     public function updateMealPlan(Request $request)
