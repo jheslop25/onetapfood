@@ -163,8 +163,10 @@ class instacartController extends Controller
             ])->post($this->baseURL . '/v3/users/' . $userID . '/track_segment',[
                 'adblock_presence' => 'false'
             ]);
-
-            return response()->json(['user' => $response->body()], 200);
+            $regCart = '/"personal_cart_id":"(.*)","l/m';;
+            $s = $response->body();
+            preg_match_all($regCart, $s, $matches2, PREG_SET_ORDER, 0);
+            return response()->json(['user' => $matches2], 200);
         } else {
             return response(['msg' => 'no userID was returned'], 400);
         }

@@ -1,14 +1,17 @@
 <template>
-  <div class="py-3" v-if="!Authenticated">
-    <v-btn class="mx-3" v-if="!show" @click="showForm">Add to Instacart</v-btn>
-    <v-btn @click="parseIngred">parse</v-btn>
-    <v-card-title v-if="show">Please Login to Instacart</v-card-title>
-    <v-card-subtitle color="red--text">{{errorLogin}}</v-card-subtitle>
-    <v-form class="m-3">
-      <v-text-field v-if="show" v-model="email" label="Instacart Email"></v-text-field>
-      <v-text-field v-if="show" v-model="password" label="Instacart Password"></v-text-field>
-      <v-btn v-if="show" @click="instaLogin">Login</v-btn>
-    </v-form>
+  <div class="py-3" >
+    <v-row v-if="!Authenticated">
+      <v-btn class="mx-3" v-if="!show" @click="showForm">Add to Instacart</v-btn>
+      <v-card-title v-if="show">Please Login to Instacart</v-card-title>
+      <v-card-subtitle color="red--text">{{errorLogin}}</v-card-subtitle>
+      <v-form class="m-3">
+        <v-text-field v-if="show" v-model="email" label="Instacart Email"></v-text-field>
+        <v-text-field v-if="show" v-model="password" label="Instacart Password"></v-text-field>
+        <v-btn v-if="show" @click="instaLogin">Login</v-btn>
+      </v-form>
+    </v-row>
+    <v-btn @click="searchInsta">Search</v-btn>
+    <v-btn @click="getUserCart">cartID</v-btn>
   </div>
 </template>
 
@@ -57,15 +60,15 @@ export default {
           Authorization: "Bearer " + localStorage.getItem("user-token")
         }
       };
-      console.log("youve decided to tempt your fate");
-      
+      console.log("youve decided to tempt your fate... good luck");
+
       //lets build an array of query strings
       let queries = [];
       let ingred = this.$store.state.ingredients;
-      for( let i = 0; i < ingred.length; i++){
+      for (let i = 0; i < ingred.length; i++) {
         queries.push(ingred[i].name);
       }
-      
+
       //lets send the bulk queries to the api wrapper and let it do the heavy lifting.
       axios
         .post(
@@ -106,8 +109,8 @@ export default {
         )
         .then(result => {
           console.log(result.data);
-          let user = JSON.parse(result.data.user);
-          this.cartID = user.active_cart.id;
+          this.cartID = result.data.user[0][1];
+          console.log(this.cartID);
         })
         .catch(err => {
           console.log(err);
@@ -151,10 +154,14 @@ export default {
         }
       };
       axios
-        .post("api/v1/meal-plan/status", {
-          meals: this.$store.state.spoonIDs,
-          status: 'active',
-        }, config)
+        .post(
+          "api/v1/meal-plan/status",
+          {
+            meals: this.$store.state.spoonIDs,
+            status: "active"
+          },
+          config
+        )
         .then(result => {
           console.log(result.data.msg);
         })
@@ -162,8 +169,8 @@ export default {
           console.log(err);
         });
     },
-    parseIngred(){
-      this.$store.dispatch('parseIngred');
+    parseIngred() {
+      this.$store.dispatch("parseIngred");
     }
   },
   data() {

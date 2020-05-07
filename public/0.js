@@ -103,6 +103,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheInstacart",
   methods: {
@@ -140,7 +143,7 @@ __webpack_require__.r(__webpack_exports__);
           Authorization: "Bearer " + localStorage.getItem("user-token")
         }
       };
-      console.log("youve decided to tempt your fate"); //lets build an array of query strings
+      console.log("youve decided to tempt your fate... good luck"); //lets build an array of query strings
 
       var queries = [];
       var ingred = this.$store.state.ingredients;
@@ -178,8 +181,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       }, config).then(function (result) {
         console.log(result.data);
-        var user = JSON.parse(result.data.user);
-        _this2.cartID = user.active_cart.id;
+        _this2.cartID = result.data.user[0][1];
+        console.log(_this2.cartID);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -217,7 +220,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios.post("api/v1/meal-plan/status", {
         meals: this.$store.state.spoonIDs,
-        status: 'active'
+        status: "active"
       }, config).then(function (result) {
         console.log(result.data.msg);
       })["catch"](function (err) {
@@ -225,7 +228,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     parseIngred: function parseIngred() {
-      this.$store.dispatch('parseIngred');
+      this.$store.dispatch("parseIngred");
     }
   },
   data: function data() {
@@ -616,71 +619,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return !_vm.Authenticated
-    ? _c(
-        "div",
-        { staticClass: "py-3" },
-        [
-          !_vm.show
-            ? _c(
-                "v-btn",
-                { staticClass: "mx-3", on: { click: _vm.showForm } },
-                [_vm._v("Add to Instacart")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c("v-btn", { on: { click: _vm.parseIngred } }, [_vm._v("parse")]),
-          _vm._v(" "),
-          _vm.show
-            ? _c("v-card-title", [_vm._v("Please Login to Instacart")])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("v-card-subtitle", { attrs: { color: "red--text" } }, [
-            _vm._v(_vm._s(_vm.errorLogin))
-          ]),
-          _vm._v(" "),
-          _c(
-            "v-form",
-            { staticClass: "m-3" },
+  return _c(
+    "div",
+    { staticClass: "py-3" },
+    [
+      !_vm.Authenticated
+        ? _c(
+            "v-row",
             [
-              _vm.show
-                ? _c("v-text-field", {
-                    attrs: { label: "Instacart Email" },
-                    model: {
-                      value: _vm.email,
-                      callback: function($$v) {
-                        _vm.email = $$v
-                      },
-                      expression: "email"
-                    }
-                  })
+              !_vm.show
+                ? _c(
+                    "v-btn",
+                    { staticClass: "mx-3", on: { click: _vm.showForm } },
+                    [_vm._v("Add to Instacart")]
+                  )
                 : _vm._e(),
               _vm._v(" "),
               _vm.show
-                ? _c("v-text-field", {
-                    attrs: { label: "Instacart Password" },
-                    model: {
-                      value: _vm.password,
-                      callback: function($$v) {
-                        _vm.password = $$v
-                      },
-                      expression: "password"
-                    }
-                  })
+                ? _c("v-card-title", [_vm._v("Please Login to Instacart")])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.show
-                ? _c("v-btn", { on: { click: _vm.instaLogin } }, [
-                    _vm._v("Login")
-                  ])
-                : _vm._e()
+              _c("v-card-subtitle", { attrs: { color: "red--text" } }, [
+                _vm._v(_vm._s(_vm.errorLogin))
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-form",
+                { staticClass: "m-3" },
+                [
+                  _vm.show
+                    ? _c("v-text-field", {
+                        attrs: { label: "Instacart Email" },
+                        model: {
+                          value: _vm.email,
+                          callback: function($$v) {
+                            _vm.email = $$v
+                          },
+                          expression: "email"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.show
+                    ? _c("v-text-field", {
+                        attrs: { label: "Instacart Password" },
+                        model: {
+                          value: _vm.password,
+                          callback: function($$v) {
+                            _vm.password = $$v
+                          },
+                          expression: "password"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.show
+                    ? _c("v-btn", { on: { click: _vm.instaLogin } }, [
+                        _vm._v("Login")
+                      ])
+                    : _vm._e()
+                ],
+                1
+              )
             ],
             1
           )
-        ],
-        1
-      )
-    : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _c("v-btn", { on: { click: _vm.searchInsta } }, [_vm._v("Search")]),
+      _vm._v(" "),
+      _c("v-btn", { on: { click: _vm.getUserCart } }, [_vm._v("cartID")])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1230,7 +1241,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 /* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -1256,7 +1268,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__["VForm"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_7__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__["VForm"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__["VTextField"]})
 
 
 /* hot reload */
