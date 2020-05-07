@@ -15,27 +15,36 @@
         <v-icon left color="blue accent-4">mdi-clock-outline</v-icon>
         Ready In: {{readyTime}}
       </v-card-text>
-      <v-btn class="m-3" @click="showDetails">Show Details</v-btn>
-      <div v-if="show1">
+      <v-dialog v-model="dialog" max-width="600px">
+        <template v-slot:activator="{ on }">
+          <v-btn color="primary" dark v-on="on">Details</v-btn>
+        </template>
+
         <v-card>
-          <v-card-title v-if="show1">Ingredients</v-card-title>
+          <v-card-title color="blue accent-4">Ingredients</v-card-title>
           <v-row v-for="item in ingredients" v-bind:key="item.id">
             <v-col>
+              <v-icon left color="blue accent-4">mdi-circle-small</v-icon>
               <v-card-text>
-                <v-icon left color="blue accent-4">mdi-circle-small</v-icon>
                 {{item.original}}
               </v-card-text>
             </v-col>
           </v-row>
-        </v-card>
-        <v-card-title v-if="show1">Instructions</v-card-title>
-        <div class="p-1" v-for="step in instruct" v-bind:key="step.step">
-          <v-card-text>
+
+          <v-card-title color="blue accent-4">Instructions</v-card-title>
+          <div class="p-1" v-for="step in instruct" v-bind:key="step.step">
             <v-icon left color="blue accent-4">mdi-circle-small</v-icon>
-            {{step.step}}
-          </v-card-text>
-        </div>
-      </div>
+            <v-card-text>
+              {{step.step}}
+            </v-card-text>
+          </div>
+          <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue accent-4" text @click="dialog = false">Close</v-btn>
+          <!-- <v-btn color="green darken-1" text @click="dialog = false">Agree</v-btn> -->
+        </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-card>
   </div>
 </template>
@@ -45,7 +54,8 @@ export default {
   name: "TheRecipe",
   data() {
     return {
-      show1: false
+      show1: false,
+      dialog: false
     };
   },
   methods: {

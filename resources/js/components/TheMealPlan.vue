@@ -1,15 +1,21 @@
 <template>
-  <div class="mb-3">
+  <v-row justify="center">
     <!-- a place to display a meal plan from spoonacular -->
-    <v-card-title>My Meal Plan</v-card-title>
     <v-btn v-if="show1" @click="createMealPlan">Create Meal Plan</v-btn>
-    <v-btn v-if="!show1" @click="showBreakfast">Breakfast</v-btn>
-    <v-btn v-if="!show1" @click="showLunch">Lunch</v-btn>
-    <v-btn v-if="!show1" @click="showSupper">Supper</v-btn>
-    <v-btn v-if="!show1" @click="saveMeals">Save Meal Plan</v-btn>
-    <v-btn @click="saveIngred">save ingred</v-btn>
-    <div class="row justify-content-center" v-if="show2">
-      <the-recipe class="col-md-4"
+    <v-row v-if="!show1" justify="center">
+      <v-col class="p-4" sm="4" md="3">
+        <v-btn v-if="!show1" @click="showBreakfast">Breakfast</v-btn>
+      </v-col>
+      <v-col class="p-4" sm="4" md="3">
+        <v-btn v-if="!show1" @click="showLunch">Lunch</v-btn>
+      </v-col>
+      <v-col class="p-4" sm="4" md="3">
+        <v-btn v-if="!show1" @click="showSupper">Supper</v-btn>
+      </v-col>
+    </v-row>
+    <v-row justify="center" v-if="show2">
+      <the-recipe
+        class="col-md-4"
         v-for="meal in breakfast"
         v-bind:key="meal.id"
         :title="meal.title"
@@ -20,9 +26,10 @@
         :instruct="meal.analyzedInstructions[0].steps"
         :cookingTime="meal.cookingMinutes"
       ></the-recipe>
-    </div>
-    <div class="row justify-content-center" v-if="show3">
-      <the-recipe class="col-md-4"
+    </v-row>
+    <v-row justify="center" v-if="show3">
+      <the-recipe
+        class="col-md-4"
         v-for="meal in lunch"
         v-bind:key="meal.id"
         :title="meal.title"
@@ -33,9 +40,10 @@
         :instruct="meal.analyzedInstructions[0].steps"
         :cookingTime="meal.cookingMinutes"
       ></the-recipe>
-    </div>
-    <div class="row justify-content-center" v-if="show4">
-      <the-recipe class="col-md-4"
+    </v-row>
+    <v-row justify="center" v-if="show4">
+      <the-recipe
+        class="col-md-4"
         v-for="meal in supper"
         v-bind:key="meal.id"
         :title="meal.title"
@@ -46,8 +54,8 @@
         :instruct="meal.analyzedInstructions[0].steps"
         :cookingTime="meal.cookingMinutes"
       ></the-recipe>
-    </div>
-  </div>
+    </v-row>
+  </v-row>
 </template>
 
 <script>
@@ -75,8 +83,8 @@ export default {
     }
   },
   methods: {
-    saveIngred(){
-      this.$store.dispatch('saveIngredients');
+    saveIngred() {
+      this.$store.dispatch("saveIngredients");
     },
     createMealPlan() {
       //a function to get a meal plan from spoon
@@ -112,7 +120,7 @@ export default {
       }
     },
     saveMeals() {
-      this.$store.dispatch('saveMeals'); 
+      this.$store.dispatch("saveMeals");
     }
   },
   mounted() {},
