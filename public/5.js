@@ -89,6 +89,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     login: function login() {
+      var _this2 = this;
+
       var context = this;
       axios.post("/api/user/login", {
         email: this.email,
@@ -96,7 +98,9 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         localStorage.setItem("user-token", result.data.access_token.accessToken);
         localStorage.setItem("user-id", result.data.user.id);
+        localStorage.setItem('user-sub-id', result.data.user.stripe_id);
         context.$router.push("/onboard");
+        _this2.$store.state.loggedIn = true;
       })["catch"](function (err) {
         console.log(err);
       });

@@ -19,24 +19,29 @@ const router = new VueRouter({
             path: '/main',
             name: 'main',
             component: () => import('./MainApp/views/MainApp.vue'),
-            meta: {reqAuth: true}
+            meta: {reqAuth: true, reqSub: true}
         },
         {
             path: '/cooking',
             name: 'cooking',
             component: () => import('./MainApp/views/Cooking.vue'),
-            meta: {reqAuth: true}
+            meta: {reqAuth: true, reqSub: true}
         },
         {
             path: '/profile',
             name: 'profile',
             component: Profile,
-            meta: {reqAuth: true}
+            meta: {reqAuth: true, reqSub: true}
         },
         {
             path: '/onboard',
             name: 'onboard',
-            component: () => import('./MainApp/views/Onboard.vue')
+            component: () => import('./MainApp/views/Onboard.vue'),
+            beforeEnter: (to, from, next) => {
+                if(from != 'register'){
+                    next({name: 'main'});
+                }
+            }
         },
         {
             path: '/login',
@@ -52,7 +57,7 @@ const router = new VueRouter({
             path: '/pantry',
             name: 'pantry',
             component: () => import('./MainApp/views/Pantry.vue'),
-            meta: {reqAuth: true}
+            meta: {reqAuth: true, reqSub: true}
         }
 
     ]
@@ -61,7 +66,11 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.reqAuth)){
         if(localStorage['user-token']){
-            next();
+            if(localStorage['user-sub-id']){
+                next();
+            } else {
+                next({name: 'onboard'});
+            }
         } else {
             next({name: 'login'});
         }

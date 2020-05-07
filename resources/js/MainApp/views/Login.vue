@@ -38,6 +38,7 @@ export default {
             result.data.access_token.accessToken
           );
           localStorage.setItem("user-id", result.data.user.id);
+          localStorage.setItem('user-sub-id', result.data.user.stripe_id);
           context.$router.push("/main");
           this.$store.state.loggedIn = true;
         })

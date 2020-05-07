@@ -98342,7 +98342,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./MainApp/views/MainApp.vue */ "./resources/js/MainApp/views/MainApp.vue"));
     },
     meta: {
-      reqAuth: true
+      reqAuth: true,
+      reqSub: true
     }
   }, {
     path: '/cooking',
@@ -98351,20 +98352,29 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./MainApp/views/Cooking.vue */ "./resources/js/MainApp/views/Cooking.vue"));
     },
     meta: {
-      reqAuth: true
+      reqAuth: true,
+      reqSub: true
     }
   }, {
     path: '/profile',
     name: 'profile',
     component: _MainApp_views_Profile_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     meta: {
-      reqAuth: true
+      reqAuth: true,
+      reqSub: true
     }
   }, {
     path: '/onboard',
     name: 'onboard',
     component: function component() {
       return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./MainApp/views/Onboard.vue */ "./resources/js/MainApp/views/Onboard.vue"));
+    },
+    beforeEnter: function beforeEnter(to, from, next) {
+      if (from != 'register') {
+        next({
+          name: 'main'
+        });
+      }
     }
   }, {
     path: '/login',
@@ -98385,7 +98395,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./MainApp/views/Pantry.vue */ "./resources/js/MainApp/views/Pantry.vue"));
     },
     meta: {
-      reqAuth: true
+      reqAuth: true,
+      reqSub: true
     }
   }]
 });
@@ -98394,7 +98405,13 @@ router.beforeEach(function (to, from, next) {
     return record.meta.reqAuth;
   })) {
     if (localStorage['user-token']) {
-      next();
+      if (localStorage['user-sub-id']) {
+        next();
+      } else {
+        next({
+          name: 'onboard'
+        });
+      }
     } else {
       next({
         name: 'login'
