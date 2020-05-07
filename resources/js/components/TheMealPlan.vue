@@ -7,6 +7,7 @@
     <v-btn v-if="!show1" @click="showLunch">Lunch</v-btn>
     <v-btn v-if="!show1" @click="showSupper">Supper</v-btn>
     <v-btn v-if="!show1" @click="saveMeals">Save Meal Plan</v-btn>
+    <v-btn @click="saveIngred">save ingred</v-btn>
     <div class="row justify-content-center" v-if="show2">
       <the-recipe class="col-md-4"
         v-for="meal in breakfast"
@@ -74,6 +75,9 @@ export default {
     }
   },
   methods: {
+    saveIngred(){
+      this.$store.dispatch('saveIngredients');
+    },
     createMealPlan() {
       //a function to get a meal plan from spoon
       this.show1 = false;

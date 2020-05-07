@@ -181,6 +181,7 @@ const store = new Vuex.Store({
                     }
                   }
                   context.dispatch('saveMeals');
+                  context.dispatch('saveIngredients');
                   console.log(context.state.ingredients);
                 })
                 .catch(err => {
@@ -245,7 +246,7 @@ const store = new Vuex.Store({
         }
       };
       axios.post('api/v1/ingredients/create', {
-        input: context.ingredients
+        input: [context.state.ingredients]
       }, config)
         .then((result) => {
           console.log(result.data);

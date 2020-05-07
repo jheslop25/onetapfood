@@ -335,6 +335,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheMealPlan",
@@ -358,6 +359,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    saveIngred: function saveIngred() {
+      this.$store.dispatch('saveIngredients');
+    },
     createMealPlan: function createMealPlan() {
       //a function to get a meal plan from spoon
       this.show1 = false;
@@ -413,6 +417,25 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -701,6 +724,8 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
+      _c("v-btn", { on: { click: _vm.saveIngred } }, [_vm._v("save ingred")]),
+      _vm._v(" "),
       _vm.show2
         ? _c(
             "div",
@@ -802,7 +827,7 @@ var render = function() {
         "v-card",
         { staticClass: "m-3 p-3 row justify-content-center" },
         [
-          _c("v-card-title", [_vm._v(_vm._s(_vm.title))]),
+          _c("p", { staticClass: "h5" }, [_vm._v(_vm._s(_vm.title))]),
           _vm._v(" "),
           _c("v-img", { attrs: { "max-width": "200", src: _vm.imgURL } }),
           _vm._v(" "),
@@ -812,7 +837,7 @@ var render = function() {
               _c("v-icon", { attrs: { left: "", color: "blue accent-4" } }, [
                 _vm._v("mdi-clock-outline")
               ]),
-              _vm._v("Prep: " + _vm._s(_vm.prepTime))
+              _vm._v("\n      Prep: " + _vm._s(_vm.prepTime) + "\n    ")
             ],
             1
           ),
@@ -823,7 +848,7 @@ var render = function() {
               _c("v-icon", { attrs: { left: "", color: "blue accent-4" } }, [
                 _vm._v("mdi-clock-outline")
               ]),
-              _vm._v("Cooking: " + _vm._s(_vm.cookingTime))
+              _vm._v("\n      Cooking: " + _vm._s(_vm.cookingTime) + "\n    ")
             ],
             1
           ),
@@ -834,7 +859,7 @@ var render = function() {
               _c("v-icon", { attrs: { left: "", color: "blue accent-4" } }, [
                 _vm._v("mdi-clock-outline")
               ]),
-              _vm._v("Ready In: " + _vm._s(_vm.readyTime))
+              _vm._v("\n      Ready In: " + _vm._s(_vm.readyTime) + "\n    ")
             ],
             1
           ),
@@ -847,39 +872,52 @@ var render = function() {
             ? _c(
                 "div",
                 [
-                  _vm.show1
-                    ? _c("v-card-title", [_vm._v("Ingredients")])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm._l(_vm.ingredients, function(item) {
-                    return _c(
-                      "v-row",
-                      { key: item.id },
-                      [
-                        _c(
-                          "v-col",
+                  _c(
+                    "v-card",
+                    [
+                      _vm.show1
+                        ? _c("v-card-title", [_vm._v("Ingredients")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm._l(_vm.ingredients, function(item) {
+                        return _c(
+                          "v-row",
+                          { key: item.id },
                           [
                             _c(
-                              "v-card-text",
+                              "v-col",
                               [
                                 _c(
-                                  "v-icon",
-                                  {
-                                    attrs: { left: "", color: "blue accent-4" }
-                                  },
-                                  [_vm._v("mdi-circle-small")]
-                                ),
-                                _vm._v(_vm._s(item.original))
+                                  "v-card-text",
+                                  [
+                                    _c(
+                                      "v-icon",
+                                      {
+                                        attrs: {
+                                          left: "",
+                                          color: "blue accent-4"
+                                        }
+                                      },
+                                      [_vm._v("mdi-circle-small")]
+                                    ),
+                                    _vm._v(
+                                      "\n              " +
+                                        _vm._s(item.original) +
+                                        "\n            "
+                                    )
+                                  ],
+                                  1
+                                )
                               ],
                               1
                             )
                           ],
                           1
                         )
-                      ],
-                      1
-                    )
-                  }),
+                      })
+                    ],
+                    2
+                  ),
                   _vm._v(" "),
                   _vm.show1
                     ? _c("v-card-title", [_vm._v("Instructions")])
@@ -898,7 +936,9 @@ var render = function() {
                               { attrs: { left: "", color: "blue accent-4" } },
                               [_vm._v("mdi-circle-small")]
                             ),
-                            _vm._v(_vm._s(step.step))
+                            _vm._v(
+                              "\n          " + _vm._s(step.step) + "\n        "
+                            )
                           ],
                           1
                         )

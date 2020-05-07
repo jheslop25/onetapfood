@@ -98600,6 +98600,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
             }
 
             context.dispatch('saveMeals');
+            context.dispatch('saveIngredients');
             console.log(context.state.ingredients);
           })["catch"](function (err) {
             console.log(err);
@@ -98673,7 +98674,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         }
       };
       axios.post('api/v1/ingredients/create', {
-        input: context.ingredients
+        input: [context.state.ingredients]
       }, config).then(function (result) {
         console.log(result.data);
       })["catch"](function (err) {
