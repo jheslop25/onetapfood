@@ -93,7 +93,7 @@ Route::post('/family/profile', 'Api\V1\familyController@profile');
 
 Route::post('/cart/add', 'Api\V1\cartController@addList');
 
-Route::post('/cart/get', 'Api\V1\cartController@getCart');
+Route::get('/cart/get', 'Api\V1\cartController@getCart');
 
 Route::post('/cart/empty', 'Api\V1\cartController@emptyCart');
 

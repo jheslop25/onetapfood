@@ -24,6 +24,7 @@ const store = new Vuex.Store({
     loggedIn: null,
     ingredients: [],
     spoonIDs: [],
+    pantry: [],
   },
   mutations: {
     storeUser: function (state, data) {

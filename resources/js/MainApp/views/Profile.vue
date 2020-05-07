@@ -3,7 +3,7 @@
     <TheNav class="m-3"/>
     <div class="row justify-content-center">
       <v-card max-width="400" class="m-3 col-md-4">
-      <v-card-title>Hello {{this.username}}</v-card-title>
+      <p class="text-center h4">Hello {{this.username}}</p>
       <v-btn class="m-3" @click="showUser">My info</v-btn>
       <v-btn class="m-3" @click="showFamily">Family Info</v-btn>
       <v-btn class="m-3" @click="showSub">Manage Subscription</v-btn>
