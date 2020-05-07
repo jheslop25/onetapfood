@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import elasticlunr from 'elasticlunr';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -52,12 +53,12 @@ const store = new Vuex.Store({
         }
       };
       axios.get('api/v1/meal-plan/get-new', config)
-      .then((result) => {
-        context.state.spoonIDs = result.data.meals;
-        console.log(context.state.spoonIDs);
-      }).catch((err) => {
-        console.log(err); 
-      });
+        .then((result) => {
+          context.state.spoonIDs = result.data.meals;
+          console.log(context.state.spoonIDs);
+        }).catch((err) => {
+          console.log(err);
+        });
     },
     getMealPlan(context) {
       let config = {
@@ -267,6 +268,42 @@ const store = new Vuex.Store({
           console.log(result.data);
         }).catch((err) => {
           console.log(err);
+        });
+    },
+    parseIngred(context) {
+      //lets get the ingredients array from store
+      let ingred = context.state.ingredients;
+      //lets build a search filter to parse the query strings. ideally we want only 1 query for each spoon_id rather than multiples.
+      //this will clean up the instacart search results drastically especially if there are a lot of repeated ingredients.
+      //we'll use elasticlunr
+      var index = elasticlunr();
+      index.addField('id');
+      index.addField('name');
+      index.addField('amount');
+      index.addField('aisle');
+      index.setRef('name');
+      elasticlunr.addStopWords(['cooked', 'chopped', 'diced']);
+      //lets add each ingredient array to the search index
+      for (let i = 0; i < ingred.length; i++) {
+        index.addDoc(ingred[i]);
+      }
+      //lets search for each ingredient and see what happens
+      for (let i = 0; i < ingred.length; i++) {
+        console.log(index.search(ingred[i].name));
+        //this should return something interesting lol
+      }
+    },
+    getSavedIngred(context) {
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios.post('api/v1/ingredients/all', {}, config)
+        .then((result) => {
+          console.log(result.data.ingred);
+        }).catch((err) => {
+
         });
     }
   },

@@ -102,6 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheInstacart",
   methods: {
@@ -139,16 +140,9 @@ __webpack_require__.r(__webpack_exports__);
           Authorization: "Bearer " + localStorage.getItem("user-token")
         }
       };
-      console.log("youve decided to tempt your fate"); //lets get the ingredients array from store
+      console.log("youve decided to tempt your fate"); //lets build an array of query strings
 
-      var ingred = this.$store.state.ingredients; //lets build an array of query strings
-
-      var queries = [];
-
-      for (var i = 0; i < ingred.length; i++) {
-        queries.push(ingred[i].name);
-      } //lets send the bulk queries to the api wrapper and let it do the heavy lifting.
-
+      var queries = []; //lets send the bulk queries to the api wrapper and let it do the heavy lifting.
 
       axios.post("api/v1/instacart/search", {
         input: {
@@ -223,6 +217,9 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+    parseIngred: function parseIngred() {
+      this.$store.dispatch('parseIngred');
     }
   },
   data: function data() {
@@ -380,7 +377,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch("saveMeals");
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.$store.dispatch('getSavedIngred');
+  },
   props: {},
   components: {
     TheRecipe: _TheRecipe_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -623,6 +622,8 @@ var render = function() {
                 [_vm._v("Add to Instacart")]
               )
             : _vm._e(),
+          _vm._v(" "),
+          _c("v-btn", { on: { click: _vm.parseIngred } }, [_vm._v("parse")]),
           _vm._v(" "),
           _vm.show
             ? _c("v-card-title", [_vm._v("Please Login to Instacart")])

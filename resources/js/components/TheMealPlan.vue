@@ -123,7 +123,9 @@ export default {
       this.$store.dispatch("saveMeals");
     }
   },
-  mounted() {},
+  mounted() {
+    this.$store.dispatch('getSavedIngred');
+  },
   props: {},
   components: {
     TheRecipe

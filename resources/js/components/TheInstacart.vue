@@ -1,6 +1,7 @@
 <template>
   <div class="py-3" v-if="!Authenticated">
     <v-btn class="mx-3" v-if="!show" @click="showForm">Add to Instacart</v-btn>
+    <v-btn @click="parseIngred">parse</v-btn>
     <v-card-title v-if="show">Please Login to Instacart</v-card-title>
     <v-card-subtitle color="red--text">{{errorLogin}}</v-card-subtitle>
     <v-form class="m-3">
@@ -57,13 +58,10 @@ export default {
         }
       };
       console.log("youve decided to tempt your fate");
-      //lets get the ingredients array from store
-      let ingred = this.$store.state.ingredients;
+      
       //lets build an array of query strings
       let queries = [];
-      for( let i = 0; i < ingred.length; i++){
-        queries.push(ingred[i].name);
-      }
+      
       //lets send the bulk queries to the api wrapper and let it do the heavy lifting.
       axios
         .post(
@@ -159,6 +157,9 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    parseIngred(){
+      this.$store.dispatch('parseIngred');
     }
   },
   data() {
