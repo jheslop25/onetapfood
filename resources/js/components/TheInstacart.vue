@@ -8,14 +8,6 @@
       <v-text-field v-if="show" v-model="password" label="Instacart Password"></v-text-field>
       <v-btn v-if="show" @click="instaLogin">Login</v-btn>
     </v-form>
-
-    <!-- <v-card v-if="Authenticated" class="p-3">
-      <v-card-title>Searching for Ingredients...</v-card-title>
-      <v-form>
-        <v-text-field v-model="query" label="search"></v-text-field>
-        <v-btn @click="searchInsta">Search</v-btn>
-      </v-form>
-    </v-card>-->
   </div>
 </template>
 
