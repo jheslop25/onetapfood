@@ -128,6 +128,7 @@ export default {
             }
           }
           console.log(this.$store.state.order);
+          this.addToCart();
         })
         .catch(err => {
           console.log(err);
@@ -151,7 +152,7 @@ export default {
         )
         .then(result => {
           console.log(result.data);
-          this.cartID = result.data.user[0][1];
+          this.$store.state.cartID = result.data.user[0][1];
           console.log(this.cartID);
         })
         .catch(err => {
@@ -169,12 +170,7 @@ export default {
           "/api/v1/instacart/cart/add",
           {
             input: {
-              items: [
-                {
-                  item_id: "item_539228415",
-                  quantity: 3
-                }
-              ],
+              items: this.$store.state.order,
               cookie: localStorage["_instacart_session"],
               cartID: this.cartID
             }

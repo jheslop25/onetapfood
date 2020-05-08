@@ -216,6 +216,8 @@ search.setRef("id");
         }
 
         console.log(_this2.$store.state.order);
+
+        _this2.addToCart();
       })["catch"](function (err) {
         console.log(err);
       });
@@ -234,7 +236,7 @@ search.setRef("id");
         }
       }, config).then(function (result) {
         console.log(result.data);
-        _this3.cartID = result.data.user[0][1];
+        _this3.$store.state.cartID = result.data.user[0][1];
         console.log(_this3.cartID);
       })["catch"](function (err) {
         console.log(err);
@@ -250,10 +252,7 @@ search.setRef("id");
       };
       axios.post("/api/v1/instacart/cart/add", {
         input: {
-          items: [{
-            item_id: "item_539228415",
-            quantity: 3
-          }],
+          items: this.$store.state.order,
           cookie: localStorage["_instacart_session"],
           cartID: this.cartID
         }
