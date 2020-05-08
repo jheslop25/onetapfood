@@ -112,7 +112,7 @@ __webpack_require__.r(__webpack_exports__);
 var search = elasticlunr__WEBPACK_IMPORTED_MODULE_0___default()();
 search.addField("id");
 search.addField("name");
-search.setRef("name");
+search.setRef("id");
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheInstacart",
   methods: {
@@ -145,6 +145,8 @@ search.setRef("name");
       this.show = true;
     },
     searchInsta: function searchInsta() {
+      var _this2 = this;
+
       var config = {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("user-token")
@@ -171,8 +173,7 @@ search.setRef("name");
 
         for (var _i = 0; _i < res.length; _i++) {
           var set = JSON.parse(res[_i][0].result);
-          var q = res[_i][0].query; // console.log(q);
-
+          var q = res[_i][0].query;
           var itemsOne = set.container.modules[2].data.items;
           var itemsTwo = set.container.modules[3].data.items;
 
@@ -183,7 +184,16 @@ search.setRef("name");
 
             var match = search.search(q);
             console.log(q);
-            console.log(match[0]);
+            console.log(match);
+
+            if (match.length >= 1) {
+              var item = {
+                item_id: match[0].ref,
+                quantity: 2
+              };
+
+              _this2.$store.state.order.push(item);
+            }
           } else {
             for (var _i3 = 0; _i3 < itemsTwo.length; _i3++) {
               search.addDoc(itemsTwo[_i3]);
@@ -192,15 +202,26 @@ search.setRef("name");
             var _match = search.search(q);
 
             console.log(q);
-            console.log(_match[0]);
+            console.log(_match);
+
+            if (_match.length >= 1) {
+              var _item = {
+                item_id: _match[0].ref,
+                quantity: 2
+              };
+
+              _this2.$store.state.order.push(_item);
+            }
           }
         }
+
+        console.log(_this2.$store.state.order);
       })["catch"](function (err) {
         console.log(err);
       });
     },
     getUserCart: function getUserCart() {
-      var _this2 = this;
+      var _this3 = this;
 
       var config = {
         headers: {
@@ -213,14 +234,14 @@ search.setRef("name");
         }
       }, config).then(function (result) {
         console.log(result.data);
-        _this2.cartID = result.data.user[0][1];
-        console.log(_this2.cartID);
+        _this3.cartID = result.data.user[0][1];
+        console.log(_this3.cartID);
       })["catch"](function (err) {
         console.log(err);
       });
     },
     addToCart: function addToCart() {
-      var _this3 = this;
+      var _this4 = this;
 
       var config = {
         headers: {
@@ -239,7 +260,7 @@ search.setRef("name");
       }, config).then(function (result) {
         console.log(result.data.msg, result.data.body);
 
-        _this3.updateMP();
+        _this4.updateMP();
       })["catch"](function (err) {
         console.log(err, err.msg, err.err);
       });

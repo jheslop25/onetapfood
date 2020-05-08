@@ -21,7 +21,7 @@ import elasticlunr from "elasticlunr";
 var search = elasticlunr();
 search.addField("id");
 search.addField("name");
-search.setRef("name");
+search.setRef("id");
 
 export default {
   name: "TheInstacart",
@@ -95,7 +95,6 @@ export default {
           for (let i = 0; i < res.length; i++) {
             let set = JSON.parse(res[i][0].result);
             let q = res[i][0].query;
-            // console.log(q);
             let itemsOne = set.container.modules[2].data.items;
             let itemsTwo = set.container.modules[3].data.items;
             if (itemsOne != null) {
@@ -104,16 +103,31 @@ export default {
               }
               let match = search.search(q);
               console.log(q);
-              console.log(match[0]);
+              console.log(match);
+              if (match.length >= 1) {
+                let item = {
+                  item_id: match[0].ref,
+                  quantity: 2
+                };
+                this.$store.state.order.push(item);
+              }
             } else {
               for (let i = 0; i < itemsTwo.length; i++) {
                 search.addDoc(itemsTwo[i]);
               }
               let match = search.search(q);
               console.log(q);
-              console.log(match[0]);
+              console.log(match);
+              if (match.length >= 1) {
+                let item = {
+                  item_id: match[0].ref,
+                  quantity: 2
+                };
+                this.$store.state.order.push(item);
+              }
             }
           }
+          console.log(this.$store.state.order);
         })
         .catch(err => {
           console.log(err);
