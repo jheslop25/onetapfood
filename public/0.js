@@ -89,6 +89,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var elasticlunr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! elasticlunr */ "./node_modules/elasticlunr/elasticlunr.js");
+/* harmony import */ var elasticlunr__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(elasticlunr__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -106,6 +108,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+var search = elasticlunr__WEBPACK_IMPORTED_MODULE_0___default()();
+search.addField("id");
+search.addField("name");
+search.setRef("name");
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheInstacart",
   methods: {
@@ -164,10 +171,29 @@ __webpack_require__.r(__webpack_exports__);
 
         for (var _i = 0; _i < res.length; _i++) {
           var set = JSON.parse(res[_i][0].result);
-          var q = res[_i][0].query;
-          console.log(q);
-          console.log(set.container.modules[2].data.items);
-          console.log(set.container.modules[3].data.items);
+          var q = res[_i][0].query; // console.log(q);
+
+          var itemsOne = set.container.modules[2].data.items;
+          var itemsTwo = set.container.modules[3].data.items;
+
+          if (itemsOne != null) {
+            for (var _i2 = 0; _i2 < itemsOne.length; _i2++) {
+              search.addDoc(itemsOne[_i2]);
+            }
+
+            var match = search.search(q);
+            console.log(q);
+            console.log(match[0]);
+          } else {
+            for (var _i3 = 0; _i3 < itemsTwo.length; _i3++) {
+              search.addDoc(itemsTwo[_i3]);
+            }
+
+            var _match = search.search(q);
+
+            console.log(q);
+            console.log(_match[0]);
+          }
         }
       })["catch"](function (err) {
         console.log(err);

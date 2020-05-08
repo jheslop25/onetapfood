@@ -16,6 +16,13 @@
 </template>
 
 <script>
+import elasticlunr from "elasticlunr";
+
+var search = elasticlunr();
+search.addField("id");
+search.addField("name");
+search.setRef("name");
+
 export default {
   name: "TheInstacart",
   methods: {
@@ -88,9 +95,24 @@ export default {
           for (let i = 0; i < res.length; i++) {
             let set = JSON.parse(res[i][0].result);
             let q = res[i][0].query;
-            console.log(q);
-            console.log(set.container.modules[2].data.items);
-            console.log(set.container.modules[3].data.items);
+            // console.log(q);
+            let itemsOne = set.container.modules[2].data.items;
+            let itemsTwo = set.container.modules[3].data.items;
+            if (itemsOne != null) {
+              for (let i = 0; i < itemsOne.length; i++) {
+                search.addDoc(itemsOne[i]);
+              }
+              let match = search.search(q);
+              console.log(q);
+              console.log(match[0]);
+            } else {
+              for (let i = 0; i < itemsTwo.length; i++) {
+                search.addDoc(itemsTwo[i]);
+              }
+              let match = search.search(q);
+              console.log(q);
+              console.log(match[0]);
+            }
           }
         })
         .catch(err => {
