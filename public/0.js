@@ -159,10 +159,11 @@ __webpack_require__.r(__webpack_exports__);
           cookie: localStorage["_instacart_session"]
         }
       }, config).then(function (result) {
-        console.log(result.data);
-        var searchRes = JSON.parse(result.data.res);
-        console.log(searchRes.container.modules[3].data.items);
-        console.log(searchRes.container.modules);
+        var res = result.data.res;
+        console.log(res);
+        var set = JSON.parse(res[1][0].result);
+        console.log(set.container.modules); // for( let i = 0; i < result.data.length; i++){
+        // }
       })["catch"](function (err) {
         console.log(err);
       });

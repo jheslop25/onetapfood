@@ -82,10 +82,14 @@ export default {
           config
         )
         .then(result => {
-          console.log(result.data);
-          let searchRes = JSON.parse(result.data.res);
-          console.log(searchRes.container.modules[3].data.items);
-          console.log(searchRes.container.modules);
+          let res = result.data.res;
+          console.log(res);
+          let set = JSON.parse(res[1][0].result)
+          console.log(set.container.modules);
+
+          // for( let i = 0; i < result.data.length; i++){
+
+          // }
         })
         .catch(err => {
           console.log(err);
