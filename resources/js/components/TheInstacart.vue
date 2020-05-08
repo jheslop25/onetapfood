@@ -1,5 +1,5 @@
 <template>
-  <div class="py-3" >
+  <div class="py-3">
     <v-row v-if="!Authenticated">
       <v-btn class="mx-3" v-if="!show" @click="showForm">Add to Instacart</v-btn>
       <v-card-title v-if="show">Please Login to Instacart</v-card-title>
@@ -84,12 +84,14 @@ export default {
         .then(result => {
           let res = result.data.res;
           console.log(res);
-          let set = JSON.parse(res[1][0].result)
-          console.log(set.container.modules);
 
-          // for( let i = 0; i < result.data.length; i++){
-
-          // }
+          for (let i = 0; i < res.length; i++) {
+            let set = JSON.parse(res[i][0].result);
+            let q = res[i][0].query;
+            console.log(q);
+            console.log(set.container.modules[2].data.items);
+            console.log(set.container.modules[3].data.items);
+          }
         })
         .catch(err => {
           console.log(err);

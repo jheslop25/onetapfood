@@ -161,9 +161,14 @@ __webpack_require__.r(__webpack_exports__);
       }, config).then(function (result) {
         var res = result.data.res;
         console.log(res);
-        var set = JSON.parse(res[1][0].result);
-        console.log(set.container.modules); // for( let i = 0; i < result.data.length; i++){
-        // }
+
+        for (var _i = 0; _i < res.length; _i++) {
+          var set = JSON.parse(res[_i][0].result);
+          var q = res[_i][0].query;
+          console.log(q);
+          console.log(set.container.modules[2].data.items);
+          console.log(set.container.modules[3].data.items);
+        }
       })["catch"](function (err) {
         console.log(err);
       });
