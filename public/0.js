@@ -207,7 +207,7 @@ search.setRef("id");
             if (_match.length >= 1) {
               var _item = {
                 item_id: _match[0].ref,
-                quantity: 2
+                quantity: 0
               };
 
               _this2.$store.state.order.push(_item);
@@ -236,7 +236,7 @@ search.setRef("id");
         }
       }, config).then(function (result) {
         console.log(result.data);
-        _this3.$store.state.cartID = result.data.user[0][1];
+        localStorage.setItem('card-id', result.data.user[0][1]);
         console.log(_this3.cartID);
       })["catch"](function (err) {
         console.log(err);
@@ -254,7 +254,7 @@ search.setRef("id");
         input: {
           items: this.$store.state.order,
           cookie: localStorage["_instacart_session"],
-          cartID: this.cartID
+          cartID: localStorage['card-id']
         }
       }, config).then(function (result) {
         console.log(result.data.msg, result.data.body);

@@ -121,7 +121,7 @@ export default {
               if (match.length >= 1) {
                 let item = {
                   item_id: match[0].ref,
-                  quantity: 2
+                  quantity: 0
                 };
                 this.$store.state.order.push(item);
               }
@@ -152,7 +152,7 @@ export default {
         )
         .then(result => {
           console.log(result.data);
-          this.$store.state.cartID = result.data.user[0][1];
+          localStorage.setItem('card-id' ,result.data.user[0][1]);
           console.log(this.cartID);
         })
         .catch(err => {
@@ -172,7 +172,7 @@ export default {
             input: {
               items: this.$store.state.order,
               cookie: localStorage["_instacart_session"],
-              cartID: this.cartID
+              cartID: localStorage['card-id'],
             }
           },
           config
