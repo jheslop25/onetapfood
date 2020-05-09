@@ -111,8 +111,15 @@ class instacartController extends Controller
             $queries = $request->input['query'];
             $results = [];
             foreach($queries as $query){
-                if(sizeof($q = \App\InstaSearch::where('query', $query)->get()) > 0){
-                    array_push($results, $q);
+                if(sizeof($q = \App\InstaSearch::where('query', $query['name'])->get()) > 0){
+                    $f = [
+                        'query' => $q[0]->query,
+                        'result' => $q[0]->result,
+                        'amount' => $query['amount'],
+                        'unit' => $query['unit']
+                    ];
+                   
+                    array_push($results, $f);
                 } else {
                     $client = Http::withHeaders([
                         'cookie' => '_instacart_session=' . $cookie,
@@ -122,10 +129,12 @@ class instacartController extends Controller
                         'Sec-Fetch-dest' => 'empty',
                         'Accept' => 'application/json',
                         'Accept-Language' => 'en-US,en;q=0.9'
-                    ])->get($this->baseURL . '/v3/containers/real-canadian-superstore/search_v3/' . $query);
+                    ])->get($this->baseURL . '/v3/containers/real-canadian-superstore/search_v3/' . $query['name']);
                     $result = [
                         'query' => $query,
-                        'result' => $client->body()
+                        'result' => $client->body(),
+                        'amount' => $query['amount'],
+                        'unit' => $query['unit']
                     ];
 
                     $s = new \App\InstaSearch();

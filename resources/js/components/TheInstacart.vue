@@ -17,11 +17,14 @@
 
 <script>
 import elasticlunr from "elasticlunr";
+import convertUnits from 'convert-units';
 
 var search = elasticlunr();
 search.addField("id");
 search.addField("name");
 search.setRef("id");
+
+var convert = convertUnits();
 
 export default {
   name: "TheInstacart",
@@ -70,19 +73,19 @@ export default {
       console.log("youve decided to tempt your fate... good luck");
 
       //lets build an array of query strings
-      let queries = [];
-      let ingred = this.$store.state.ingredients;
-      for (let i = 0; i < ingred.length; i++) {
-        queries.push(ingred[i].name);
-      }
-
+      // let queries = [];
+      // let ingred = this.$store.state.ingredients;
+      // for (let i = 0; i < ingred.length; i++) {
+      //   queries.push(ingred[i].name);
+      // }
+      // console.log(ingred);
       //lets send the bulk queries to the api wrapper and let it do the heavy lifting.
       axios
         .post(
           "api/v1/instacart/search",
           {
             input: {
-              query: queries,
+              query: this.$store.state.ingredients,
               cookie: localStorage["_instacart_session"]
             }
           },
@@ -90,45 +93,61 @@ export default {
         )
         .then(result => {
           let res = result.data.res;
-          console.log(res);
+          console.log(res[0].result);
 
           for (let i = 0; i < res.length; i++) {
-            let set = JSON.parse(res[i][0].result);
-            let q = res[i][0].query;
+            let set = JSON.parse(res[i].result);
+            let q = res[i].query;
+            let amount = res[i].amount;
+            let unit = res[i].unit;
+            // console.log(q);
+            // console.log( 'amount: ' + amount);
+            // console.log('unit: ' + unit);
+            
+            
+            
             let itemsOne = set.container.modules[2].data.items;
             let itemsTwo = set.container.modules[3].data.items;
+            
+            
+            
             if (itemsOne != null) {
+              //console.log(itemsOne[0].unit);
+              //console.log(itemsOne[0].size);
               for (let i = 0; i < itemsOne.length; i++) {
                 search.addDoc(itemsOne[i]);
               }
               let match = search.search(q);
-              console.log(q);
-              console.log(match);
+              //console.log(q);
+              //console.log('match :' + match[0].ref);
               if (match.length >= 1) {
                 let item = {
                   item_id: match[0].ref,
-                  quantity: 2
+                  quantity: amount
                 };
                 this.$store.state.order.push(item);
               }
             } else {
+              //console.log(itemsTwo[0].unit);
+              //console.log(itemsTwo[0].size);
               for (let i = 0; i < itemsTwo.length; i++) {
                 search.addDoc(itemsTwo[i]);
               }
               let match = search.search(q);
-              console.log(q);
-              console.log(match);
+              //console.log('match :' + match[0].ref);
+              //console.log(q);
+              //console.log(match);
               if (match.length >= 1) {
                 let item = {
                   item_id: match[0].ref,
-                  quantity: 0
+                  quantity: amount
                 };
                 this.$store.state.order.push(item);
               }
             }
           }
           console.log(this.$store.state.order);
-          this.addToCart();
+          //this.addToCart();
         })
         .catch(err => {
           console.log(err);
