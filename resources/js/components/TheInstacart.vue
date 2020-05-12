@@ -1,17 +1,22 @@
 <template>
-  <div class="py-3">
-    <v-row v-if="!Authenticated">
-      <v-btn class="mx-3" v-if="!show" @click="showForm">Add to Instacart</v-btn>
-      <v-card-title v-if="show">Please Login to Instacart</v-card-title>
-      <v-card-subtitle color="red--text">{{errorLogin}}</v-card-subtitle>
-      <v-form class="m-3">
-        <v-text-field v-if="show" v-model="email" label="Instacart Email"></v-text-field>
-        <v-text-field v-if="show" v-model="password" label="Instacart Password"></v-text-field>
-        <v-btn v-if="show" @click="instaLogin">Login</v-btn>
-      </v-form>
+  <div>
+    <v-row justify="center">
+      
+        <v-btn v-if="!show" @click="showForm">Add to Instacart</v-btn>
+      
     </v-row>
-    <v-btn @click="searchInsta">Search</v-btn>
-    <v-btn @click="getUserCart">cartID</v-btn>
+    <v-row v-if="!Authenticated" justify="center">
+      <v-col md="5">
+        <v-card-title v-if="show">Please Login to Instacart</v-card-title>
+        <v-card-subtitle color="red--text">{{errorLogin}}</v-card-subtitle>
+        <v-form class="m-3">
+          <v-text-field v-if="show" v-model="email" label="Instacart Email"></v-text-field>
+          <v-text-field v-if="show" v-model="password" label="Instacart Password"></v-text-field>
+          <v-btn v-if="show" @click="instaLogin">Login</v-btn>
+        </v-form>
+        <v-btn v-if="showInstaLink" href="https://instacart.ca">Go to Instacart</v-btn>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -29,6 +34,9 @@ var convert = convertUnits();
 export default {
   name: "TheInstacart",
   methods: {
+    showLink() {
+      this.showInstaLink = true;
+    },
     instaLogin: function() {
       let config = {
         headers: {
@@ -166,9 +174,8 @@ export default {
           config
         )
         .then(result => {
-          console.log(result.data);
           localStorage.setItem("card-id", result.data.user[0][1]);
-          console.log(this.cartID);
+          this.searchInsta();
         })
         .catch(err => {
           console.log(err);
@@ -229,9 +236,13 @@ export default {
         }
       };
       axios
-        .post("api/v1/cart/add", {
-          input: this.$store.state.ingredients
-        }, config)
+        .post(
+          "api/v1/cart/add",
+          {
+            input: this.$store.state.ingredients
+          },
+          config
+        )
         .then(result => {
           console.log(result.data.msg);
         })
@@ -248,7 +259,8 @@ export default {
       errorLogin: null,
       Authenticated: false,
       query: null,
-      cartID: null
+      cartID: null,
+      showInstaLink: false
     };
   },
   mounted() {

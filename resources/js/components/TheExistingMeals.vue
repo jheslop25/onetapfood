@@ -17,6 +17,16 @@ import TheSavedMeal from './TheSavedMeal.vue';
             getMeals(){
                 
             }
+        },
+        mounted(){
+            this.$store.dispatch('getMealPlan');
+        },
+        data(){
+            return {
+                breakfast: this.$store.state.breakfastExisting,
+                lunch: this.$store.state.lunchExisting,
+                supper: this.$store.state.supperExisting,
+            }
         }
     }
 </script>

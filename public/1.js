@@ -28,6 +28,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -75,6 +79,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getMeals: function getMeals() {}
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('getMealPlan');
+  },
+  data: function data() {
+    return {
+      breakfast: this.$store.state.breakfastExisting,
+      lunch: this.$store.state.lunchExisting,
+      supper: this.$store.state.supperExisting
+    };
   }
 });
 
@@ -110,6 +124,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 var search = elasticlunr__WEBPACK_IMPORTED_MODULE_0___default()();
@@ -120,6 +139,9 @@ var convert = convert_units__WEBPACK_IMPORTED_MODULE_1___default()();
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheInstacart",
   methods: {
+    showLink: function showLink() {
+      this.showInstaLink = true;
+    },
     instaLogin: function instaLogin() {
       var _this = this;
 
@@ -246,9 +268,9 @@ var convert = convert_units__WEBPACK_IMPORTED_MODULE_1___default()();
           cookie: localStorage["_instacart_session"]
         }
       }, config).then(function (result) {
-        console.log(result.data);
         localStorage.setItem("card-id", result.data.user[0][1]);
-        console.log(_this3.cartID);
+
+        _this3.searchInsta();
       })["catch"](function (err) {
         console.log(err);
       });
@@ -313,7 +335,8 @@ var convert = convert_units__WEBPACK_IMPORTED_MODULE_1___default()();
       errorLogin: null,
       Authenticated: false,
       query: null,
-      cartID: null
+      cartID: null,
+      showInstaLink: false
     };
   },
   mounted: function mounted() {
@@ -631,7 +654,12 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("the-instacart")
+      _c(
+        "v-row",
+        { attrs: { justify: "center" } },
+        [_c("v-col", { attrs: { md: "10" } }, [_c("the-instacart")], 1)],
+        1
+      )
     ],
     1
   )
@@ -703,61 +731,79 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "py-3" },
     [
+      _c(
+        "v-row",
+        { attrs: { justify: "center" } },
+        [
+          !_vm.show
+            ? _c("v-btn", { on: { click: _vm.showForm } }, [
+                _vm._v("Add to Instacart")
+              ])
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
       !_vm.Authenticated
         ? _c(
             "v-row",
+            { attrs: { justify: "center" } },
             [
-              !_vm.show
-                ? _c(
-                    "v-btn",
-                    { staticClass: "mx-3", on: { click: _vm.showForm } },
-                    [_vm._v("Add to Instacart")]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.show
-                ? _c("v-card-title", [_vm._v("Please Login to Instacart")])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("v-card-subtitle", { attrs: { color: "red--text" } }, [
-                _vm._v(_vm._s(_vm.errorLogin))
-              ]),
-              _vm._v(" "),
               _c(
-                "v-form",
-                { staticClass: "m-3" },
+                "v-col",
+                { attrs: { md: "5" } },
                 [
                   _vm.show
-                    ? _c("v-text-field", {
-                        attrs: { label: "Instacart Email" },
-                        model: {
-                          value: _vm.email,
-                          callback: function($$v) {
-                            _vm.email = $$v
-                          },
-                          expression: "email"
-                        }
-                      })
+                    ? _c("v-card-title", [_vm._v("Please Login to Instacart")])
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.show
-                    ? _c("v-text-field", {
-                        attrs: { label: "Instacart Password" },
-                        model: {
-                          value: _vm.password,
-                          callback: function($$v) {
-                            _vm.password = $$v
-                          },
-                          expression: "password"
-                        }
-                      })
-                    : _vm._e(),
+                  _c("v-card-subtitle", { attrs: { color: "red--text" } }, [
+                    _vm._v(_vm._s(_vm.errorLogin))
+                  ]),
                   _vm._v(" "),
-                  _vm.show
-                    ? _c("v-btn", { on: { click: _vm.instaLogin } }, [
-                        _vm._v("Login")
+                  _c(
+                    "v-form",
+                    { staticClass: "m-3" },
+                    [
+                      _vm.show
+                        ? _c("v-text-field", {
+                            attrs: { label: "Instacart Email" },
+                            model: {
+                              value: _vm.email,
+                              callback: function($$v) {
+                                _vm.email = $$v
+                              },
+                              expression: "email"
+                            }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.show
+                        ? _c("v-text-field", {
+                            attrs: { label: "Instacart Password" },
+                            model: {
+                              value: _vm.password,
+                              callback: function($$v) {
+                                _vm.password = $$v
+                              },
+                              expression: "password"
+                            }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.show
+                        ? _c("v-btn", { on: { click: _vm.instaLogin } }, [
+                            _vm._v("Login")
+                          ])
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showInstaLink
+                    ? _c("v-btn", { attrs: { href: "https://instacart.ca" } }, [
+                        _vm._v("Go to Instacart")
                       ])
                     : _vm._e()
                 ],
@@ -766,11 +812,7 @@ var render = function() {
             ],
             1
           )
-        : _vm._e(),
-      _vm._v(" "),
-      _c("v-btn", { on: { click: _vm.searchInsta } }, [_vm._v("Search")]),
-      _vm._v(" "),
-      _c("v-btn", { on: { click: _vm.getUserCart } }, [_vm._v("cartID")])
+        : _vm._e()
     ],
     1
   )
@@ -1333,8 +1375,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
-/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
 /* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
@@ -1362,7 +1404,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_6__["VForm"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCardSubtitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardSubtitle"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_7__["VForm"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__["VTextField"]})
 
 
 /* hot reload */

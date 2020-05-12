@@ -9,7 +9,11 @@
         <the-meal-plan ></the-meal-plan>
       </v-col>
     </v-row>
-    <the-instacart></the-instacart>
+    <v-row justify="center">
+      <v-col md="10">
+        <the-instacart></the-instacart>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
