@@ -17,11 +17,11 @@ class cartController extends Controller
                 $cart = new \App\Cart();
                 $cart->user_id = $request->user()->id;
                 $cart->ingredient_name = $item['name'];
-                $cart->quantity = $item['quant'];
+                $cart->quantity = $item['amount'];
                 $cart->unit = $item['unit'];
                 $cart->save();
             }
-            return response()->json(['req' => $items], 200);
+            return response()->json(['msg' => 'it probably, maybe worked... who knows, right? check the DB'], 200);
         } else {
             return response()->json(['msg' => 'please login'], 200);
         }

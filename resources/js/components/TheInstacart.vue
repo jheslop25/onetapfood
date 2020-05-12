@@ -17,7 +17,7 @@
 
 <script>
 import elasticlunr from "elasticlunr";
-import convertUnits from 'convert-units';
+import convertUnits from "convert-units";
 
 var search = elasticlunr();
 search.addField("id");
@@ -103,14 +103,10 @@ export default {
             // console.log(q);
             // console.log( 'amount: ' + amount);
             // console.log('unit: ' + unit);
-            
-            
-            
+
             let itemsOne = set.container.modules[2].data.items;
             let itemsTwo = set.container.modules[3].data.items;
-            
-            
-            
+
             if (itemsOne != null) {
               //console.log(itemsOne[0].unit);
               //console.log(itemsOne[0].size);
@@ -147,7 +143,7 @@ export default {
             }
           }
           console.log(this.$store.state.order);
-          //this.addToCart();
+          this.addToCart();
         })
         .catch(err => {
           console.log(err);
@@ -171,7 +167,7 @@ export default {
         )
         .then(result => {
           console.log(result.data);
-          localStorage.setItem('card-id' ,result.data.user[0][1]);
+          localStorage.setItem("card-id", result.data.user[0][1]);
           console.log(this.cartID);
         })
         .catch(err => {
@@ -191,7 +187,7 @@ export default {
             input: {
               items: this.$store.state.order,
               cookie: localStorage["_instacart_session"],
-              cartID: localStorage['card-id'],
+              cartID: localStorage["card-id"]
             }
           },
           config
@@ -226,8 +222,22 @@ export default {
           console.log(err);
         });
     },
-    parseIngred() {
-      this.$store.dispatch("parseIngred");
+    savePantry() {
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user-token")
+        }
+      };
+      axios
+        .post("api/v1/cart/add", {
+          input: this.$store.state.ingredients
+        }, config)
+        .then(result => {
+          console.log(result.data.msg);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   data() {
