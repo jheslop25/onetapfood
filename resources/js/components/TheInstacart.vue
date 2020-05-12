@@ -269,7 +269,9 @@ export default {
     } else {
       this.Authenticated = false;
     }
+    this.$root.$on('updateStatus', this.updateMP);
   }
+  
 };
 </script>
 
