@@ -328,6 +328,8 @@ var convert = convert_units__WEBPACK_IMPORTED_MODULE_1___default()();
       }, config).then(function (result) {
         console.log(result.data.msg);
         _this5.$store.state.showExisting = true;
+
+        _this5.savePantry();
       })["catch"](function (err) {
         console.log(err);
       });

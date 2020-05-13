@@ -225,6 +225,7 @@ export default {
         .then(result => {
           console.log(result.data.msg);
           this.$store.state.showExisting = true;
+          this.savePantry();
         })
         .catch(err => {
           console.log(err);

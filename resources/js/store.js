@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import elasticlunr from 'elasticlunr';
-elasticlunr.addStopWords(['cooked', 'chopped', 'diced', 'red', 'blue', 'green','fresh','dried', 'yellow', 'black', 'white', 'fillet']);
+elasticlunr.addStopWords(['cooked', 'chopped', 'diced', 'red', 'blue', 'green', 'fresh', 'dried', 'yellow', 'black', 'white', 'fillet']);
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
