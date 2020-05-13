@@ -2,7 +2,7 @@
   <div>
     <TheNav class="m-3" />
     <v-row justify="center">
-      <v-btn @click="updateStatus">status</v-btn>
+
       <v-col v-if="showExisting" md="10">
         <the-existing class="m-3 p-3" ></the-existing>
       </v-col>

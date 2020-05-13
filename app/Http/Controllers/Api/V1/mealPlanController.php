@@ -74,13 +74,13 @@ class mealPlanController extends Controller
     public function updateStatus(Request $request){
         //a function to update the status of a meal plan
         $meals = $request->meals; // an array of spoon_ids
-        //foreach($meals as $item){
-            $meal = Meal::where('user_id', $request->user()->id)->where('spoon_id', $meals[0])->get();
+        foreach($meals as $item){
+            $meal = Meal::where('user_id', $request->user()->id)->where('spoon_id', $item)->first();
             $meal->status = $request->status;
-            $meal->save();
-       // }
+            $meal->update();
+       }
 
-        return response()->json(['msg' => $meal], 200);
+        return response()->json(['msg' => 'everything worked!'], 200);
     }
 
     public function updateMealPlan(Request $request)

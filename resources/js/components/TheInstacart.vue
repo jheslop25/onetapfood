@@ -224,6 +224,7 @@ export default {
         )
         .then(result => {
           console.log(result.data.msg);
+          this.$store.state.showExisting = true;
         })
         .catch(err => {
           console.log(err);
